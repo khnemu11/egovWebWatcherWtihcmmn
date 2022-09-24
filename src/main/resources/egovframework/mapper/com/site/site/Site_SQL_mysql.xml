@@ -116,6 +116,33 @@
 			</if>
 				ORDER BY SEQ
 				limit #{recordCountPerPage} offset #{firstIndex}	
+	</select>
+	<select id="selectSiteListBySeq" parameterType="int" resultType="egovMap">
+			SELECT
+								SEQ
+								, USER_SEQ
+								, URL
+								, VERSION
+								, FILE_NAME
+								, FILE_PATH
+								, CTIME
+								, CDATE
+								, UTIME
+								, UDATE
+								, DTIME
+								, DDATE
+					FROM SITE
+			WHERE 1=1 AND USER_SEQ = #{userSeq}
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					SEQ = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					USER_SEQ LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>
+				ORDER BY SEQ
+				limit #{recordCountPerPage} offset #{firstIndex}	
 	</select>	
 	<select id="selectSiteListTotCnt" parameterType="egovframework.com.site.service.SiteVO" resultType="int">
 			SELECT COUNT(*) totcnt
@@ -130,5 +157,17 @@
 				</if>
 			</if>			
 	</select>
-
+	<select id="selectSiteListBySeqTotCnt" parameterType="egovframework.com.site.service.SiteVO" resultType="int">
+			SELECT COUNT(*) totcnt
+			FROM SITE
+			WHERE 1=1 AND USER_SEQ = #{userSeq}
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 0">AND
+					seq = #{searchKeyword}
+				</if>
+				<if test="searchCondition == 1">AND
+					user_seq LIKE CONCAT('%',#{searchKeyword},'%')
+				</if>
+			</if>			
+	</select>
 </mapper>

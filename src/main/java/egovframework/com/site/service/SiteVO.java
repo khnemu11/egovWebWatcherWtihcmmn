@@ -19,7 +19,7 @@ public class SiteVO extends SiteDefaultVO{
     private int seq;
     
     /** user_seq */
-    private java.lang.String userSeq;
+    private int userSeq;
     
     /** url */
     private java.lang.String url;
@@ -59,12 +59,12 @@ public class SiteVO extends SiteDefaultVO{
         this.seq = seq;
     }
     
-    public java.lang.String getUserSeq() {
+    public int getUserSeq() {
         return this.userSeq;
     }
     
-    public void setUserSeq(java.lang.String userSeq) {
-        this.userSeq = userSeq;
+    public void setUserSeq(int userSeq2) {
+        this.userSeq = userSeq2;
     }
     
     public java.lang.String getUrl() {

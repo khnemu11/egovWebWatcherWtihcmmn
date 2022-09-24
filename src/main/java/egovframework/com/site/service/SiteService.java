@@ -56,8 +56,9 @@ public interface SiteService {
 	 * @return site 목록
 	 * @exception Exception
 	 */
-    List selectSiteList(SiteDefaultVO searchVO) throws Exception;
+    List<?> selectSiteList(SiteDefaultVO searchVO) throws Exception;
     
+    List<?> selectSiteListBySeq(SiteVO vo) throws Exception;
     /**
 	 * site 총 갯수를 조회한다.
 	 * @param searchVO - 조회할 정보가 담긴 VO
@@ -65,5 +66,7 @@ public interface SiteService {
 	 * @exception
 	 */
     int selectSiteListTotCnt(SiteDefaultVO searchVO);
+
+	int selectSiteListBySeqTotCnt(SiteDefaultVO searchVO);
     
 }

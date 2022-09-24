@@ -117,5 +117,16 @@ public class SiteServiceImpl extends EgovAbstractServiceImpl implements
     public int selectSiteListTotCnt(SiteDefaultVO searchVO) {
 		return siteDAO.selectSiteListTotCnt(searchVO);
 	}
+
+	@Override
+	public List<?> selectSiteListBySeq(SiteVO vo) throws Exception {
+		return siteDAO.selectSiteListBySeq(vo);
+	}
+
+	@Override
+	public int selectSiteListBySeqTotCnt(SiteDefaultVO searchVO) {
+		siteDAO.selectSiteListBySeqTotCnt(searchVO);
+		return 0;
+	}
     
 }

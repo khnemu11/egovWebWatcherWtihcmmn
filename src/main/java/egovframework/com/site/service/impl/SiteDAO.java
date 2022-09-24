@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
-import egovframework.com.site.service.SiteVO;
 import egovframework.com.cmm.service.impl.EgovComAbstractDAO;
 import egovframework.com.site.service.SiteDefaultVO;
+import egovframework.com.site.service.SiteVO;
 
 /**
  * @Class Name : SiteDAO.java
@@ -72,10 +71,11 @@ public class SiteDAO extends EgovComAbstractDAO {
 	 * @exception Exception
 	 */
 	public List<?> selectSiteList(SiteDefaultVO searchVO) throws Exception {
-		logger.info("sql start");
         return selectList("siteDAO.selectSiteList", searchVO);
     }
-
+	public List<?> selectSiteListBySeq(SiteVO vo) throws Exception {
+        return selectList("siteDAO.selectSiteListBySeq", vo);
+    }
     /**
 	 * site 총 갯수를 조회한다.
 	 * @param searchMap - 조회할 정보가 담긴 Map
@@ -85,5 +85,10 @@ public class SiteDAO extends EgovComAbstractDAO {
     public int selectSiteListTotCnt(SiteDefaultVO searchVO) {
         return (Integer)selectOne("siteDAO.selectSiteListTotCnt", searchVO);
     }
+
+	public List<?> selectSiteListBySeqTotCnt(SiteDefaultVO searchVO) {
+		  return selectList("siteDAO.selectSiteListBySeqTotCnt", searchVO); 
+		
+	}
 
 }
