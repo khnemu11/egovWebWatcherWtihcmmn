@@ -16,6 +16,14 @@
 		<typeAlias alias="FileVO"			type="egovframework.com.cmm.service.FileVO" />
 		<typeAlias alias="ComDefaultCodeVO" type="egovframework.com.cmm.ComDefaultCodeVO" />
 		<typeAlias alias="comDefaultVO"		type="egovframework.com.cmm.ComDefaultVO" />
+		<typeAlias alias="loginVO"
+			type="egovframework.com.login.service.LoginVO" />
+		<typeAlias alias="managerLoginVO"
+			type="egovframework.com.login.service.ManagerLoginVO" />
+		<typeAlias alias="signupVO"
+			type="egovframework.com.signup.service.SignupVO" />
+		<typeAlias alias="userVO"
+			type="egovframework.com.user.service.UserVO" />
 	</typeAliases>
     
 </configuration>
