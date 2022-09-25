@@ -23,27 +23,24 @@
 					</div>
 					<div class="mdl-card__supporting-text mdl-grid">
 
-						<form method="POST" action="loginOk.do">
+						<form:form action="loginOk.do" method="POST" commandName="loginVO">
 							<input type="hidden" name="action" value="login" />
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_login_id">ID</label> <input
-									class="mdl-textfield__input" type="text"
-									id="textfield_new_login_id" name="loginId" autofocus /> <span
-									class="mdl-textfield__error">3-15 characters with only
-									lowercase letters, digits, underscore, and hyphen</span>
+									for="textfield_new_login_id">ID</label> <form:input
+									class="mdl-textfield__input" path="loginId" type="text"
+									id="textfield_new_login_id" name="loginId" />
+									<form:errors path="loginId"/>
 							</div>
 
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_password">Password</label> <input
+									for="textfield_new_password">Password</label> <form:input
 									class="mdl-textfield__input" type="password"
-									id="textfield_new_password" name="password" />
-								<span class="mdl-textfield__error"> 6-20 characters with
-									at least a digit, lowercase and uppercase letters, and special
-									symbol in @#$% </span>
+									id="textfield_new_password" name="password" path="password"/>
+									<form:errors path="password" />
 							</div>
 
 							<div class="mdl-cell mdl-cell--12-col send-button" align="center">
@@ -60,7 +57,7 @@
 							<div class="mdl-cell mdl-cell--12-col" align="center">
 								<a href="#">Forgot Password?</a>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
