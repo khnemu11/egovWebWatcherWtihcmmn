@@ -1,6 +1,9 @@
 package egovframework.com.site.web;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,12 +12,14 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +34,14 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
+import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.site.service.SiteDefaultVO;
 import egovframework.com.site.service.SiteService;
 import egovframework.com.site.service.SiteVO;
 import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import oracle.net.aso.d;
 
 /**
  * @Class Name : SiteController.java
@@ -53,13 +60,13 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 @SessionAttributes({ "userSeq" })
 public class SiteController {
 	Logger logger = LogManager.getRootLogger();
-	
-	@Resource(name="EgovFileMngService")
-	private EgovFileMngService fileMngService;	
-	 
-	@Resource(name="EgovFileMngUtil")
+
+	@Resource(name = "EgovFileMngService")
+	private EgovFileMngService fileMngService;
+
+	@Resource(name = "EgovFileMngUtil")
 	private EgovFileMngUtil fileUtil;
-	
+
 	@Resource(name = "siteService")
 	private SiteService siteService;
 
@@ -145,8 +152,8 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/addSiteView.do")
-	public String addSiteView(@ModelAttribute("searchVO") SiteDefaultVO searchVO, Model model, @SessionAttribute("userSeq") int userSeq)
-			throws Exception {
+	public String addSiteView(@ModelAttribute("searchVO") SiteDefaultVO searchVO, Model model,
+			@SessionAttribute("userSeq") int userSeq) throws Exception {
 		logger.info("addSiteView Start");
 		model.addAttribute("siteVO", new SiteVO());
 		logger.info("siteVO : " + (new SiteVO()).toString());
@@ -155,8 +162,9 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/addSite.do")
-	public String addSite(HttpServletRequest request,MultipartHttpServletRequest multiRequest, @ModelAttribute("siteVO") SiteVO siteVO, SessionStatus status,
-			@SessionAttribute("userSeq") int userSeq, BindingResult bindingResult, Model model) throws Exception {
+	public String addSite(HttpServletRequest request, MultipartHttpServletRequest multiRequest,
+			@ModelAttribute("siteVO") SiteVO siteVO, SessionStatus status, @SessionAttribute("userSeq") int userSeq,
+			BindingResult bindingResult, Model model) throws Exception {
 		logger.info("addSite Start");
 		siteVO.setFileName(
 				siteVO.getFile().getOriginalFilename().length() == 0 ? null : siteVO.getFile().getOriginalFilename());
@@ -178,23 +186,23 @@ public class SiteController {
 
 		logger.info(absolutePath);
 		logger.info("directory is exist " + Files.exists(paths));
-		
+
 		if (!Files.exists(paths)) {
 			directory.mkdir();
 			logger.info("make folder");
 		}
-		
+
 		siteVO.setUserSeq(userSeq);
 		List<FileVO> _result = null;
 		String _atchFileId = "";
 		final Map<String, MultipartFile> files = multiRequest.getFileMap();
-		if(!files.isEmpty()){
-		 _result = fileUtil.parseFileInf(files, "SCENARIO_", 0, "", ""); 
-		 _atchFileId = fileMngService.insertFileInfs(_result);  //파일이 생성되고나면 생성된 첨부파일 ID를 리턴한다.
+		if (!files.isEmpty()) {
+			_result = fileUtil.parseFileInf(files, "SCENARIO_", 0, "", "");
+			_atchFileId = fileMngService.insertFileInfs(_result); // 파일이 생성되고나면 생성된 첨부파일 ID를 리턴한다.
 		}
-		logger.info("file id : "+_atchFileId);
+		logger.info("file id : " + _atchFileId);
 		siteVO.setFileId(_atchFileId);
-		logger.info("insert : "+siteVO.toString());
+		logger.info("insert : " + siteVO.toString());
 		siteService.insertSite(siteVO);
 //		status.setComplete();
 
@@ -234,4 +242,45 @@ public class SiteController {
 		return "forward:/site/SiteList.do";
 	}
 
+	@RequestMapping(value = "/site/downloadFile.do")
+	public void downloadFile(
+			@RequestParam(value = "requestedFile") String requestedFile,
+			HttpServletResponse response) throws Exception {
+ 
+		String uploadPath = EgovProperties.getProperty("Globals.fileStorePath");
+ 
+		File uFile = new File(uploadPath, requestedFile);
+		int fSize = (int) uFile.length();
+ 
+		if (fSize > 0) {
+			BufferedInputStream in = new BufferedInputStream(
+					new FileInputStream(uFile));
+			// String mimetype = servletContext.getMimeType(requestedFile);
+			String mimetype = "text/html";
+ 
+			response.setBufferSize(fSize);
+			response.setContentType(mimetype);
+			response.setHeader("Content-Disposition", "attachment; filename=\""
+					+ requestedFile + "\"");
+			response.setContentLength(fSize);
+ 
+			FileCopyUtils.copy(in, response.getOutputStream());
+			in.close();
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+		} else {
+			//setContentType을 프로젝트 환경에 맞추어 변경
+			response.setContentType("application/x-msdownload");
+			PrintWriter printwriter = response.getWriter();
+			printwriter.println("<html>");
+			printwriter.println("<br><br><br><h2>Could not get file name:<br>"
+					+ requestedFile + "</h2>");
+			printwriter
+					.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
+			printwriter.println("<br><br><br>&copy; webAccess");
+			printwriter.println("</html>");
+			printwriter.flush();
+			printwriter.close();
+		}
+	}
 }
