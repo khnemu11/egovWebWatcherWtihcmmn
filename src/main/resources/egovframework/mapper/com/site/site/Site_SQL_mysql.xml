@@ -20,30 +20,23 @@
 	<insert id="insertSite">
 		<![CDATA[
 			INSERT INTO site 
-				( seq
-				  , user_seq
+				( 
+				   user_seq
 				  , url
 				  , version
 				  , file_name
 				  , file_path
 				  , ctime
 				  , cdate
-				  , utime
-				  , udate
-				  , dtime
-				  , ddate )
-			VALUES ( #{seq}
-				  , #{userSeq}
+				 )
+			VALUES (#{userSeq}
 				  , #{url}
 				  , #{version}
 				  , #{fileName}
 				  , #{filePath}
 				  , #{ctime}
 				  , #{cdate}
-				  , #{utime}
-				  , #{udate}
-				  , #{dtime}
-				  , #{ddate} )
+				   )
 		]]>
 	</insert>
 	
