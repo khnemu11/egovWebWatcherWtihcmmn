@@ -80,8 +80,7 @@ function fn_egov_save() {
 			<col width=""/>
 		</colgroup>
 			
-		<c:if test="${registerFlag == '수정'}">
-		</c:if>
+
 		<c:if test="${registerFlag == '등록'}">
 		</c:if>		
 		<tr>
@@ -95,7 +94,11 @@ function fn_egov_save() {
 			<th>file</th>
 			<td>
 				<form:input path="file" cssClass="file" type="file"/>
-				&nbsp;<form:errors path="fileName " />
+				&nbsp;<form:errors path="fileName" />
+				<c:if test="${registerFlag == '수정'}">
+					<p>${siteVO.fileName}</p>
+					<form:input type="hidden" id="seq" path="seq" value="${siteVO.seq}"/>
+				</c:if>
 			</td>
 		</tr>	
 	</table>

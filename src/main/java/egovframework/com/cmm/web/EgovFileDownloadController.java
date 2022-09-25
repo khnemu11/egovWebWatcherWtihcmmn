@@ -19,12 +19,15 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dsjdf.jdf.Logger;
+
 import egovframework.com.cmm.EgovBrowserUtil;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovBasicLogger;
 import egovframework.com.cmm.util.EgovResourceCloseHelper;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import sun.util.logging.resources.logging;
 
 /**
  * 파일 다운로드를 위한 컨트롤러 클래스
@@ -80,13 +83,13 @@ public class EgovFileDownloadController {
 	 */
 	@RequestMapping(value = "/cmm/fms/FileDown.do")
 	public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		System.out.println("cvplFileDownload start");
 		String atchFileId = (String) commandMap.get("atchFileId");
 		String fileSn = (String) commandMap.get("fileSn");
 		
-		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
+		//Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 
-		if (isAuthenticated) {
+		if (true) {
 
 			FileVO fileVO = new FileVO();
 			fileVO.setAtchFileId(atchFileId);
@@ -95,7 +98,7 @@ public class EgovFileDownloadController {
 
 			File uFile = new File(fvo.getFileStreCours(), fvo.getStreFileNm());
 			long fSize = uFile.length();
-
+			System.out.println("fSize : "+fSize);
 			if (fSize > 0) {
 				String mimetype = "application/x-msdownload";
 				
@@ -106,6 +109,7 @@ public class EgovFileDownloadController {
 				}
 
 				String contentDisposition = EgovBrowserUtil.getDisposition(fvo.getOrignlFileNm(),userAgent,"UTF-8");
+				System.out.println(contentDisposition);
 				//response.setBufferSize(fSize);	// OutOfMemeory 발생
 				response.setContentType(mimetype);
 				//response.setHeader("Content-Disposition", "attachment; filename=\"" + contentDisposition + "\"");

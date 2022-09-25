@@ -33,7 +33,7 @@ public class SiteVO extends SiteDefaultVO {
 	private java.lang.String fileName;
 
 	/** file_path */
-	private java.lang.String filePath;
+	private java.lang.String fileId;
 
 	/** ctime */
 	private int ctime;
@@ -103,12 +103,12 @@ public class SiteVO extends SiteDefaultVO {
 		this.fileName = fileName;
 	}
 
-	public java.lang.String getFilePath() {
-		return this.filePath;
+	public java.lang.String getFileId() {
+		return this.fileId;
 	}
 
-	public void setFilePath(java.lang.String filePath) {
-		this.filePath = filePath;
+	public void setFileId(java.lang.String filePath) {
+		this.fileId = filePath;
 	}
 
 	public int getCtime() {
@@ -162,7 +162,7 @@ public class SiteVO extends SiteDefaultVO {
 	@Override
 	public String toString() {
 		return "SiteVO [seq=" + seq + ", userSeq=" + userSeq + ", url=" + url + ", version=" + version + ", fileName="
-				+ fileName + ", filePath=" + filePath + ", ctime=" + ctime + ", cdate=" + cdate + ", utime=" + utime
+				+ fileName + ", fileID=" + fileId + ", ctime=" + ctime + ", cdate=" + cdate + ", utime=" + utime
 				+ ", udate=" + udate + ", dtime=" + dtime + ", ddate=" + ddate + ", file=" + file + "]";
 	}
 
