@@ -10,6 +10,14 @@
 
 <title>SignUp</title>
 </head>
+
+<script>
+	if(message !== "") {
+		alert(message);
+	}
+	console.log(message);
+</script>
+
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<%@ include
@@ -26,26 +34,24 @@
 					</div>
 					<div class="mdl-card__supporting-text mdl-grid">
 
-						<form method="POST" action="signupOk.do">
+						<form:form method="POST" action="signupOk.do" commandName="userVO">
 							<input type="hidden" name="action" value="register" />
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_Email">Email*</label> <input
-									class="mdl-textfield__input" type="email"
-									id="textfield_new_Email" name="email" autofocus/> <span
-									class="mdl-textfield__error">Please write in email format.</span>
+									for="textfield_new_Email">Email*</label> <form:input
+									class="mdl-textfield__input"
+									id="textfield_new_Email" name="email" path="email"/>
+									<form:errors path="email"/>
 							</div>
 
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_username">Username*</label> <input
+									for="textfield_new_username">Username*</label> <form:input
 									class="mdl-textfield__input" type="text"
-									id="textfield_new_username" name="name"
-									pattern="^[a-z0-9_-]{3,15}$" /> <span
-									class="mdl-textfield__error">3-15 characters with only
-									lowercase letters, digits, underscore, and hyphen</span>
+									id="textfield_new_username" name="name" path="name"/> 
+									<form:errors path="name"/>
 							</div>
 
 							<div
@@ -86,30 +92,28 @@
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_login_id">Login ID*</label> <input
+									for="textfield_new_login_id">Login ID*</label> <form:input
 									class="mdl-textfield__input" type="text"
-									id="textfield_new_login_id" name="loginId"
-									pattern="^[a-z0-9_-]{3,15}$" /> <span
-									class="mdl-textfield__error">3-15 characters with only
-									lowercase letters, digits, underscore, and hyphen</span>
+									id="textfield_new_login_id" name="loginId" path="loginId" />
+									<form:errors path="loginId"/>
 							</div>
 
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_password">Password*</label> <input
+									for="textfield_new_password">Password*</label> <form:input
 									class="mdl-textfield__input" type="password"
-									id="textfield_new_password" name="password" />
-								<span class="mdl-textfield__error"> 6-20 characters with
-									at least a digit, lowercase </span>
+									id="textfield_new_password" name="password" path="password" />
+									<form:errors path="password"/>
 							</div>
 
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_password_confirm">Password(Confirm)*</label> <input
+									for="textfield_password_confirm">Password(Confirm)*</label> <form:input
 									class="mdl-textfield__input" type="password"
-									id="textfield_password_confirm" name="passwordConfirm" />
+									id="textfield_password_confirm" name="passwordConfirm" path="passwordConfirm"/>
+									<form:errors path="passwordConfirm"/>
 							</div>
 
 							<div class="mdl-cell mdl-cell--12-col send-button" align="center">
@@ -117,7 +121,7 @@
 									class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
 									id="register">Register</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>

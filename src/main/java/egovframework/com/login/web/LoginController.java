@@ -47,13 +47,11 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "loginOk.do", method = RequestMethod.POST)
-	public String loginOk(@ModelAttribute("loginVO") LoginVO loginVO, BindingResult bindingResult, Model model, HttpSession session) throws Exception {
-
+	public String loginOk(@ModelAttribute("loginVO") LoginVO loginVO, BindingResult bindingResult, Model m, HttpSession session) throws Exception {
 		beanValidator.validate(loginVO, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "egovframework/com/login/login";
 		}
-		
 
 		
 		
