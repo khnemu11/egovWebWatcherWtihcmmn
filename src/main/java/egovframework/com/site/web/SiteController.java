@@ -1,8 +1,14 @@
 package egovframework.com.site.web;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,8 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
+import egovframework.com.cmm.service.EgovFileMngService;
+import egovframework.com.cmm.service.EgovFileMngUtil;
+import egovframework.com.cmm.service.FileVO;
 import egovframework.com.site.service.SiteDefaultVO;
 import egovframework.com.site.service.SiteService;
 import egovframework.com.site.service.SiteVO;
@@ -42,7 +53,13 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 @SessionAttributes({ "userSeq" })
 public class SiteController {
 	Logger logger = LogManager.getRootLogger();
-
+	
+	@Resource(name="EgovFileMngService")
+	private EgovFileMngService fileMngService;	
+	 
+	@Resource(name="EgovFileMngUtil")
+	private EgovFileMngUtil fileUtil;
+	
 	@Resource(name = "siteService")
 	private SiteService siteService;
 
@@ -138,7 +155,7 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/addSite.do")
-	public String addSite(@ModelAttribute("siteVO") SiteVO siteVO, SessionStatus status,
+	public String addSite(HttpServletRequest request,MultipartHttpServletRequest multiRequest, @ModelAttribute("siteVO") SiteVO siteVO, SessionStatus status,
 			@SessionAttribute("userSeq") int userSeq, BindingResult bindingResult, Model model) throws Exception {
 		logger.info("addSite Start");
 		siteVO.setFileName(
@@ -146,6 +163,7 @@ public class SiteController {
 		logger.info(siteVO.toString());
 
 		beanValidator.validate(siteVO, bindingResult);
+		logger.info(bindingResult.toString());
 		if (bindingResult.hasErrors()) {
 			logger.info("field error");
 
@@ -153,9 +171,31 @@ public class SiteController {
 
 			return "egovframework/com/site/SiteRegister";
 		}
+		String path = "./webapp/file";
+		String absolutePath = request.getServletContext().getRealPath(path);
+		Path paths = Paths.get(absolutePath);
+		File directory = new File(absolutePath);
 
+		logger.info(absolutePath);
+		logger.info("directory is exist " + Files.exists(paths));
+		
+		if (!Files.exists(paths)) {
+			directory.mkdir();
+			logger.info("make folder");
+		}
+		
 		siteVO.setUserSeq(userSeq);
-//		siteService.insertSite(siteVO);
+		List<FileVO> _result = null;
+		String _atchFileId = "";
+		final Map<String, MultipartFile> files = multiRequest.getFileMap();
+		if(!files.isEmpty()){
+		 _result = fileUtil.parseFileInf(files, "SCENARIO_", 0, "", ""); 
+		 _atchFileId = fileMngService.insertFileInfs(_result);  //파일이 생성되고나면 생성된 첨부파일 ID를 리턴한다.
+		}
+		logger.info("file id : "+_atchFileId);
+		siteVO.setFileId(_atchFileId);
+		logger.info("insert : "+siteVO.toString());
+		siteService.insertSite(siteVO);
 //		status.setComplete();
 
 		logger.info("addSite end");
