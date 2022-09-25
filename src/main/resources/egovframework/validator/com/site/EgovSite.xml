@@ -9,9 +9,9 @@
             <field property="url" depends="required">
                 <arg0 key="url" resource="true"/>
             </field>
-<!--             <field property="fileName" depends="required, fileIsExist">
-                <arg0 key="fileName" resource="true"/>
-            </field>     -->    
+             <field property="fileName" depends="required, fileIsExist">
+                <arg0 key="site.file" resource="true"/>
+            </field> 
         </form>
     </formset>
     

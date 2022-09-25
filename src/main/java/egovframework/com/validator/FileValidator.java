@@ -21,9 +21,9 @@ public class FileValidator implements Serializable {
 				return false;
 			}
 			// static 타입은 스프링 컨테이너에서 의존성 주입이 불가하므로 직접 커넥션 풀을 생성하여 디비 접속
-			Class.forName("com.mysql.cj.jdbc.Driver"); // db드라이버 설정
+			Class.forName("com.mysql.jdbc.Driver"); // db드라이버 설정
 			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://us-cdbr-east-06.cleardb.net/heroku_49e9d9e55a08975?reconnect=true", "bce999f4740880",
+					"jdbc:mysql://us-cdbr-east-06.cleardb.net/heroku_49e9d9e55a08975?reconnect=true&characterEncoding=utf8", "bce999f4740880",
 					"98c1ec79"); // 디비 설정
 			
 			
@@ -31,7 +31,7 @@ public class FileValidator implements Serializable {
 			String sql = "SELECT count(*) FROM SITE	WHERE DDATE =0 AND DTIME=0 AND FILE_NAME =?"; // 쿼리입력
 			PreparedStatement pstmt = con.prepareStatement(sql); // 동적쿼리 부분
 			
-			
+			log.info("sql : "+sql);
 			pstmt.setString(1, value);
 			ResultSet rs = pstmt.executeQuery(); // 쿼리 실행
 			

@@ -95,7 +95,7 @@ function fn_egov_save() {
 			<th>file</th>
 			<td>
 				<form:input path="file" cssClass="file" type="file"/>
-				&nbsp;<form:errors path="file" />
+				&nbsp;<form:errors path="fileName " />
 			</td>
 		</tr>	
 	</table>
