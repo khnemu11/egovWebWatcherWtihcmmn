@@ -42,44 +42,43 @@
 	
 	<update id="updateSite">
 		<![CDATA[
-			UPDATE site
-			SET seq=#{seq}
-				, user_seq=#{userSeq}
-				, url=#{url}
-				, version=#{version}
-				, file_name=#{fileName}
-				, file_id=#{fileId}
-				, ctime=#{ctime}
-				, cdate=#{cdate}
-				, utime=#{utime}
-				, udate=#{udate}
-				, dtime=#{dtime}
-				, ddate=#{ddate}
+			UPDATE SITE
+			SET 
+				URL=#{url}
+				, VERSION=#{version}
+				, FILE_NAME=#{fileName}
+				, FILE_ID=#{fileId}
+				, UTIME=#{utime}
+				, UDATE=#{udate}
+			WHERE 
+				DTIME = 0 AND DDATE = 0 AND SEQ=#{seq}
+	
 			]]>
 	</update>
 	
 	<delete id="deleteSite">
 		<![CDATA[
-			DELETE FROM site 
+			DELETE FROM SITE 
 			]]>
 	</delete>
 	
 	<select id="selectSite" resultMap="site">
 		<![CDATA[
 			SELECT
-				seq
-				, user_seq
-				, url
-				, version
-				, file_name
-				, file_id
-				, ctime
-				, cdate
-				, utime
-				, udate
-				, dtime
-				, ddate
-			FROM site
+				SEQ
+				, USER_SEQ
+				, URL
+				, VERSION
+				, FILE_NAME
+				, FILE_ID
+				, CTIME
+				, CDATE
+				, UTIME
+				, UDATE
+				, DTIME
+				, DDATE
+			FROM SITE
+			WHERE SEQ = #{seq}
 			]]>
 	</select>
 

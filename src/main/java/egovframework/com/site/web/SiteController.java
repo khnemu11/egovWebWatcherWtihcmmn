@@ -216,7 +216,8 @@ public class SiteController {
 		SiteVO siteVO = new SiteVO();
 		siteVO.setSeq(seq);
 		// 변수명은 CoC 에 따라 siteVO
-		model.addAttribute(selectSite(siteVO, searchVO));
+
+		model.addAttribute("siteVO", selectSite(siteVO, searchVO));
 		return "egovframework/com/site/SiteRegister";
 	}
 
@@ -227,10 +228,49 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/updateSite.do")
-	public String updateSite(SiteVO siteVO, @ModelAttribute("searchVO") SiteDefaultVO searchVO, SessionStatus status)
-			throws Exception {
+	public String updateSite(@ModelAttribute("siteVO") SiteVO siteVO, Model model, SessionStatus status,
+			BindingResult bindingResult,MultipartHttpServletRequest multiRequest) throws Exception {
+		logger.info("updateSite Start");
+		siteVO.setFileName(
+				siteVO.getFile().getOriginalFilename().length() == 0 ? null : siteVO.getFile().getOriginalFilename());
+		logger.info(siteVO.toString());
+
+		beanValidator.validate(siteVO, bindingResult);
+		logger.info(bindingResult.toString());
+
+		if (bindingResult.hasErrors()) {
+			logger.info("field error");
+			SiteVO originalVO = siteService.selectSite(siteVO);
+			
+			siteVO.setUrl(originalVO.getUrl());
+			siteVO.setFileName(originalVO.getFileName());
+			model.addAttribute("siteVO", siteVO);
+
+			return "egovframework/com/site/SiteRegister";
+		}
+		
+		
+		String _atchFileId = siteVO.getFileId();// 해당 업무기능에 따라서 수정되는 기능의 파일 ID를 불러온다.
+		logger.info("file id : "+_atchFileId);
+		final Map<String, MultipartFile> files = multiRequest.getFileMap();
+		if(!files.isEmpty()){
+			if(_atchFileId == null || _atchFileId.isEmpty()){
+				logger.info("insert file");
+				List<FileVO> _result = fileUtil.parseFileInf(files, "SCENARIO_", 0, "", "");	
+				_atchFileId = fileMngService.insertFileInfs(_result); // 기존에 첨부파일 ID가 없다.
+				siteVO.setFileId(_atchFileId); // 관련 비즈니스 규칙에 따라서 생성된 첨부파일 ID 정보를 세팅한다.
+			}else{
+				logger.info("update file");
+				FileVO fvo = new FileVO();
+				fvo.setAtchFileId(_atchFileId); // 최종 파일 순번을 획득하기 위하여 VO에 현재 첨부파일 ID를 세팅한다.
+				int _cnt = fileMngService.getMaxFileSN(fvo); // 해당 첨부파일 ID에 속하는 최종 파일 순번을 획득한다.
+				List<FileVO> _result = fileUtil.parseFileInf(files, "SCENARIO_", _cnt, _atchFileId, "");	
+				fileMngService.updateFileInfs(_result);
+			}
+		}	
+		
 		siteService.updateSite(siteVO);
-		status.setComplete();
+//		status.setComplete();
 		return "forward:/site/SiteList.do";
 	}
 
@@ -243,40 +283,35 @@ public class SiteController {
 	}
 
 	@RequestMapping(value = "/site/downloadFile.do")
-	public void downloadFile(
-			@RequestParam(value = "requestedFile") String requestedFile,
-			HttpServletResponse response) throws Exception {
- 
+	public void downloadFile(@RequestParam(value = "requestedFile") String requestedFile, HttpServletResponse response)
+			throws Exception {
+
 		String uploadPath = EgovProperties.getProperty("Globals.fileStorePath");
- 
+
 		File uFile = new File(uploadPath, requestedFile);
 		int fSize = (int) uFile.length();
- 
+
 		if (fSize > 0) {
-			BufferedInputStream in = new BufferedInputStream(
-					new FileInputStream(uFile));
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(uFile));
 			// String mimetype = servletContext.getMimeType(requestedFile);
 			String mimetype = "text/html";
- 
+
 			response.setBufferSize(fSize);
 			response.setContentType(mimetype);
-			response.setHeader("Content-Disposition", "attachment; filename=\""
-					+ requestedFile + "\"");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + requestedFile + "\"");
 			response.setContentLength(fSize);
- 
+
 			FileCopyUtils.copy(in, response.getOutputStream());
 			in.close();
 			response.getOutputStream().flush();
 			response.getOutputStream().close();
 		} else {
-			//setContentType을 프로젝트 환경에 맞추어 변경
+			// setContentType을 프로젝트 환경에 맞추어 변경
 			response.setContentType("application/x-msdownload");
 			PrintWriter printwriter = response.getWriter();
 			printwriter.println("<html>");
-			printwriter.println("<br><br><br><h2>Could not get file name:<br>"
-					+ requestedFile + "</h2>");
-			printwriter
-					.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
+			printwriter.println("<br><br><br><h2>Could not get file name:<br>" + requestedFile + "</h2>");
+			printwriter.println("<br><br><br><center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
 			printwriter.println("<br><br><br>&copy; webAccess");
 			printwriter.println("</html>");
 			printwriter.flush();
