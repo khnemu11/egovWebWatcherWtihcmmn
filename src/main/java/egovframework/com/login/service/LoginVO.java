@@ -108,4 +108,12 @@ public class LoginVO extends CommonVO  {
     public void setPassword(String password) {
         this.password = password;
     }
+	@Override
+	public String toString() {
+		return "LoginVO [loginId=" + loginId + ", password=" + password + ", dispname=" + dispname + ", blockdate="
+				+ blockdate + ", ip=" + ip + ", failcount=" + failcount + ", failcounttotal=" + failcounttotal
+				+ ", failcountlimit=" + failcountlimit + ", lockflag=" + lockflag + ", failblocktime=" + failblocktime
+				+ ", loginipaddress=" + loginipaddress + ", latestlogindatetime=" + latestlogindatetime + ", language="
+				+ language + ", currentTime=" + currentTime + "]";
+	}
 }
