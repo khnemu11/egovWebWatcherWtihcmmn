@@ -1,7 +1,7 @@
 package egovframework.com.site.service;
 
 import java.util.List;
-import egovframework.com.site.service.SiteDefaultVO;
+import egovframework.com.site.service.DefaultVO;
 import egovframework.com.site.service.SiteVO;
 
 /**
@@ -56,7 +56,7 @@ public interface SiteService {
 	 * @return site 목록
 	 * @exception Exception
 	 */
-    List<?> selectSiteList(SiteDefaultVO searchVO) throws Exception;
+    List<?> selectSiteList(DefaultVO searchVO) throws Exception;
     
     List<?> selectSiteListBySeq(SiteVO vo) throws Exception;
     /**
@@ -65,8 +65,8 @@ public interface SiteService {
 	 * @return site 총 갯수
 	 * @exception
 	 */
-    int selectSiteListTotCnt(SiteDefaultVO searchVO);
+    int selectSiteListTotCnt(DefaultVO searchVO);
 
-	int selectSiteListBySeqTotCnt(SiteDefaultVO searchVO);
+	int selectSiteListBySeqTotCnt(DefaultVO searchVO);
     
 }

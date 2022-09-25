@@ -3,7 +3,7 @@ package egovframework.com.site.service.impl;
 import java.util.List;
 
 import egovframework.com.site.service.SiteVO;
-import egovframework.com.site.service.SiteDefaultVO;
+import egovframework.com.site.service.DefaultVO;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
@@ -61,7 +61,7 @@ public interface SiteMapper {
 	 * @return site 목록
 	 * @exception Exception
 	 */
-    public List<?> selectSiteList(SiteDefaultVO searchVO) throws Exception;
+    public List<?> selectSiteList(DefaultVO searchVO) throws Exception;
 
     /**
 	 * site 총 갯수를 조회한다.
@@ -69,6 +69,6 @@ public interface SiteMapper {
 	 * @return site 총 갯수
 	 * @exception
 	 */
-    public int selectSiteListTotCnt(SiteDefaultVO searchVO);
+    public int selectSiteListTotCnt(DefaultVO searchVO);
 
 }

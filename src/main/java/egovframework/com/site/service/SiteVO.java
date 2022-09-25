@@ -2,6 +2,8 @@ package egovframework.com.site.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import egovframework.com.cmm.CommonVO;
+
 /**
  * @Class Name : SiteVO.java
  * @Description : Site VO class
@@ -14,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  * 
  *      Copyright (C) All right reserved.
  */
-public class SiteVO extends SiteDefaultVO {
+public class SiteVO extends CommonVO {
 	private static final long serialVersionUID = 1L;
 
 	/** seq */
@@ -27,7 +29,7 @@ public class SiteVO extends SiteDefaultVO {
 	private java.lang.String url;
 
 	/** version */
-	private java.lang.String version;
+	private int version;
 
 	/** file_name */
 	private java.lang.String fileName;
@@ -87,11 +89,11 @@ public class SiteVO extends SiteDefaultVO {
 		this.url = url;
 	}
 
-	public java.lang.String getVersion() {
+	public int getVersion() {
 		return this.version;
 	}
 
-	public void setVersion(java.lang.String version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 

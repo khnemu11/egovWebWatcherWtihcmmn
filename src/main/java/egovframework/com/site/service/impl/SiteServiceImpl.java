@@ -4,18 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
-import egovframework.rte.fdl.idgnr.EgovIdGnrService;
+import egovframework.com.cmm.CommonServiceImpl;
+import egovframework.com.site.service.DefaultVO;
 import egovframework.com.site.service.SiteService;
-import egovframework.com.site.service.SiteDefaultVO;
 import egovframework.com.site.service.SiteVO;
-import egovframework.com.site.service.impl.SiteDAO;
-import egovframework.com.site.service.impl.SiteMapper;
 /**
  * @Class Name : SiteServiceImpl.java
  * @Description : Site Business Implement class
@@ -30,7 +26,7 @@ import egovframework.com.site.service.impl.SiteMapper;
  */
 
 @Service("siteService")
-public class SiteServiceImpl extends EgovAbstractServiceImpl implements
+public class SiteServiceImpl extends CommonServiceImpl implements
         SiteService {
         
     private static final Logger LOGGER = LoggerFactory.getLogger(SiteServiceImpl.class);
@@ -59,7 +55,7 @@ public class SiteServiceImpl extends EgovAbstractServiceImpl implements
     	//String id = egovIdGnrService.getNextStringId();
     	//vo.setId(id);
     	LOGGER.debug(vo.toString());
-    	
+    	setInsert(vo);
     	siteDAO.insertSite(vo);
     	//TODO 해당 테이블 정보에 맞게 수정    	
     }
@@ -71,6 +67,7 @@ public class SiteServiceImpl extends EgovAbstractServiceImpl implements
 	 * @exception Exception
 	 */
     public void updateSite(SiteVO vo) throws Exception {
+    	setUpdate(vo);
         siteDAO.updateSite(vo);
     }
 
@@ -81,6 +78,7 @@ public class SiteServiceImpl extends EgovAbstractServiceImpl implements
 	 * @exception Exception
 	 */
     public void deleteSite(SiteVO vo) throws Exception {
+    	setDelete(vo);
         siteDAO.deleteSite(vo);
     }
 
@@ -103,7 +101,7 @@ public class SiteServiceImpl extends EgovAbstractServiceImpl implements
 	 * @return site 목록
 	 * @exception Exception
 	 */
-    public List<?> selectSiteList(SiteDefaultVO searchVO) throws Exception {
+    public List<?> selectSiteList(DefaultVO searchVO) throws Exception {
     	LOGGER.info("dao start");
         return siteDAO.selectSiteList(searchVO);
     }
@@ -114,7 +112,7 @@ public class SiteServiceImpl extends EgovAbstractServiceImpl implements
 	 * @return site 총 갯수
 	 * @exception
 	 */
-    public int selectSiteListTotCnt(SiteDefaultVO searchVO) {
+    public int selectSiteListTotCnt(DefaultVO searchVO) {
 		return siteDAO.selectSiteListTotCnt(searchVO);
 	}
 
@@ -124,7 +122,7 @@ public class SiteServiceImpl extends EgovAbstractServiceImpl implements
 	}
 
 	@Override
-	public int selectSiteListBySeqTotCnt(SiteDefaultVO searchVO) {
+	public int selectSiteListBySeqTotCnt(DefaultVO searchVO) {
 		siteDAO.selectSiteListBySeqTotCnt(searchVO);
 		return 0;
 	}

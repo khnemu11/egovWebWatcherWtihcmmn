@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,7 @@ import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
-import egovframework.com.site.service.SiteDefaultVO;
+import egovframework.com.site.service.DefaultVO;
 import egovframework.com.site.service.SiteService;
 import egovframework.com.site.service.SiteVO;
 import egovframework.rte.fdl.property.EgovPropertyService;
@@ -58,7 +60,7 @@ import oracle.net.aso.d;
 
 @Controller
 @SessionAttributes({ "userSeq" })
-public class SiteController {
+public class SiteController{
 	Logger logger = LogManager.getRootLogger();
 
 	@Resource(name = "EgovFileMngService")
@@ -85,7 +87,7 @@ public class SiteController {
 	 * @exception Exception
 	 */
 	@RequestMapping(value = "/site/SiteList.do")
-	public String selectSiteList(@ModelAttribute("searchVO") SiteDefaultVO searchVO, ModelMap model) throws Exception {
+	public String selectSiteList(@ModelAttribute("searchVO") DefaultVO searchVO, ModelMap model) throws Exception {
 		logger.info("start select site list");
 		/** EgovPropertyService.sample */
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
@@ -116,7 +118,7 @@ public class SiteController {
 	}
 
 	@RequestMapping(value = "/site/SiteList/{userSeq}.do")
-	public String selectSiteListBySeq(@PathVariable int userSeq, @ModelAttribute("searchVO") SiteDefaultVO searchVO,
+	public String selectSiteListBySeq(@PathVariable int userSeq, @ModelAttribute("searchVO") DefaultVO searchVO,
 			ModelMap model) throws Exception {
 		logger.info("start select site list");
 		/** EgovPropertyService.sample */
@@ -136,7 +138,7 @@ public class SiteController {
 
 		SiteVO vo = new SiteVO();
 		vo.setUserSeq(userSeq);
-
+		logger.info("user seq : "+userSeq);
 		List<?> siteList = siteService.selectSiteListBySeq(vo);
 		logger.info("site size : " + siteList.size());
 		model.addAttribute("resultList", siteList);
@@ -152,7 +154,7 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/addSiteView.do")
-	public String addSiteView(@ModelAttribute("searchVO") SiteDefaultVO searchVO, Model model,
+	public String addSiteView(@ModelAttribute("searchVO") DefaultVO searchVO, Model model,
 			@SessionAttribute("userSeq") int userSeq) throws Exception {
 		logger.info("addSiteView Start");
 		model.addAttribute("siteVO", new SiteVO());
@@ -211,7 +213,7 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/updateSiteView.do")
-	public String updateSiteView(@RequestParam("seq") int seq, @ModelAttribute("searchVO") SiteDefaultVO searchVO,
+	public String updateSiteView(@RequestParam("seq") int seq, @ModelAttribute("searchVO") DefaultVO searchVO,
 			Model model) throws Exception {
 		SiteVO siteVO = new SiteVO();
 		siteVO.setSeq(seq);
@@ -223,7 +225,7 @@ public class SiteController {
 
 	@RequestMapping("/site/selectSite.do")
 	public @ModelAttribute("siteVO") SiteVO selectSite(SiteVO siteVO,
-			@ModelAttribute("searchVO") SiteDefaultVO searchVO) throws Exception {
+			@ModelAttribute("searchVO") DefaultVO searchVO) throws Exception {
 		return siteService.selectSite(siteVO);
 	}
 
@@ -271,15 +273,15 @@ public class SiteController {
 		
 		siteService.updateSite(siteVO);
 //		status.setComplete();
-		return "forward:/site/SiteList.do";
+		return "forward:/site/SiteList/"+siteVO.getUserSeq()+".do";
 	}
 
 	@RequestMapping("/site/deleteSite.do")
-	public String deleteSite(SiteVO siteVO, @ModelAttribute("searchVO") SiteDefaultVO searchVO, SessionStatus status)
+	public String deleteSite(SiteVO siteVO, @ModelAttribute("searchVO") DefaultVO searchVO, SessionStatus status)
 			throws Exception {
 		siteService.deleteSite(siteVO);
-		status.setComplete();
-		return "forward:/site/SiteList.do";
+//		status.setComplete();
+		return "forward:/site/SiteList/"+siteVO.getUserSeq()+".do";
 	}
 
 	@RequestMapping(value = "/site/downloadFile.do")
@@ -317,5 +319,31 @@ public class SiteController {
 			printwriter.flush();
 			printwriter.close();
 		}
+	}
+	
+
+	public void setInsert(SiteVO sample) {
+		LocalDateTime now = LocalDateTime.now(); 
+		DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyyMMdd");
+		DateTimeFormatter timeformat = DateTimeFormatter.ofPattern("HHmmss");
+		
+		sample.setCdate(Integer.valueOf(now.format(dateformat)));		
+		sample.setCtime(Integer.valueOf(now.format(timeformat)));
+	}
+	public void setUpdate(SiteVO sample) {
+		LocalDateTime now = LocalDateTime.now(); 
+		DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyyMMdd");
+		DateTimeFormatter timeformat = DateTimeFormatter.ofPattern("HHmmss");
+		
+		sample.setUdate(Integer.valueOf(now.format(dateformat)));		
+		sample.setUtime(Integer.valueOf(now.format(timeformat)));
+	}
+	public void setDelete(SiteVO sample) {
+		LocalDateTime now = LocalDateTime.now(); 
+		DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("yyyyMMdd");
+		DateTimeFormatter timeformat = DateTimeFormatter.ofPattern("HHmmss");
+		
+		sample.setDdate(Integer.valueOf(now.format(dateformat)));		
+		sample.setDtime(Integer.valueOf(now.format(timeformat)));
 	}
 }

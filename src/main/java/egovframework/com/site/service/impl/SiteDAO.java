@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import egovframework.com.cmm.service.impl.EgovComAbstractDAO;
-import egovframework.com.site.service.SiteDefaultVO;
+import egovframework.com.site.service.DefaultVO;
 import egovframework.com.site.service.SiteVO;
 
 /**
@@ -70,7 +70,7 @@ public class SiteDAO extends EgovComAbstractDAO {
 	 * @return site 목록
 	 * @exception Exception
 	 */
-	public List<?> selectSiteList(SiteDefaultVO searchVO) throws Exception {
+	public List<?> selectSiteList(DefaultVO searchVO) throws Exception {
         return selectList("siteDAO.selectSiteList", searchVO);
     }
 	public List<?> selectSiteListBySeq(SiteVO vo) throws Exception {
@@ -82,11 +82,11 @@ public class SiteDAO extends EgovComAbstractDAO {
 	 * @return site 총 갯수
 	 * @exception
 	 */
-    public int selectSiteListTotCnt(SiteDefaultVO searchVO) {
+    public int selectSiteListTotCnt(DefaultVO searchVO) {
         return (Integer)selectOne("siteDAO.selectSiteListTotCnt", searchVO);
     }
 
-	public List<?> selectSiteListBySeqTotCnt(SiteDefaultVO searchVO) {
+	public List<?> selectSiteListBySeqTotCnt(DefaultVO searchVO) {
 		  return selectList("siteDAO.selectSiteListBySeqTotCnt", searchVO); 
 		
 	}

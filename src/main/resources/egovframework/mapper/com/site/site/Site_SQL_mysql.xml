@@ -58,7 +58,12 @@
 	
 	<delete id="deleteSite">
 		<![CDATA[
-			DELETE FROM SITE 
+			UPDATE SITE
+			SET 
+				DDATE=#{ddate},
+				DTIME =#{dtime}			
+			WHERE 
+				SEQ=#{seq}
 			]]>
 	</delete>
 	

@@ -15,7 +15,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *  
  *  Copyright (C)  All right reserved.
  */
-public class SiteDefaultVO implements Serializable {
+public class DefaultVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
