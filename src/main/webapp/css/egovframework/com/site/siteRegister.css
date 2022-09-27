@@ -1,0 +1,56 @@
+#uploadBtn{
+  display:none;
+}
+.mdl-button--file {
+  input {
+    cursor: pointer;
+    height: 100%;
+    right: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 300px;
+    z-index: 4;
+  }
+}
+#uploadBtn{
+  display:none;
+}
+#detailForm{
+  display:flex;
+  flex-direction:column;
+  justify-content : center;
+  align-items:center;
+}
+.mdl-textfield--file{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.file-div{
+  display:flex;
+  align-items:center;
+}
+#blank{
+  width:30px;
+}
+.mdl-layout__drawer-button{
+  display:flex;
+  justify-content:center;
+  align-items : center;
+}
+#sysbtn{
+  display:flex;
+  justify-content:end;
+  margin-right:26px;
+  font-size:18px;
+  padding-bottom:50px;
+  text-align:center;
+}
+a{
+  text-decoration:none;
+  color:#3F51B5;
+}
+#sysbtn span{
+  padding-left:10px;
+}
