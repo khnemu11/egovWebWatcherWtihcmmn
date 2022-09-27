@@ -82,8 +82,8 @@
 				, UDATE
 				, DTIME
 				, DDATE
-			FROM SITE
-			WHERE SEQ = #{seq}
+			FROM SITE 
+			WHERE SEQ = #{seq} AND DTIME=0 AND DDATE=0
 			]]>
 	</select>
 
@@ -102,7 +102,7 @@
 								, DTIME
 								, DDATE
 					FROM SITE
-			WHERE 1=1
+			WHERE 1=1 AND DTIME=0 AND DDATE=0
 			<if test="searchKeyword != null and searchKeyword != ''">
 				<if test="searchCondition == 0">AND
 					SEQ = #{searchKeyword}
@@ -129,7 +129,7 @@
 								, DTIME
 								, DDATE
 					FROM SITE
-			WHERE 1=1 AND USER_SEQ = #{userSeq}
+			WHERE 1=1 AND USER_SEQ = #{userSeq} AND DTIME=0 AND DDATE=0
 			<if test="searchKeyword != null and searchKeyword != ''">
 				<if test="searchCondition == 0">AND
 					SEQ = #{searchKeyword}
@@ -157,6 +157,6 @@
 	<select id="selectSiteListBySeqTotCnt" parameterType="egovframework.com.site.service.SiteVO" resultType="int">
 			SELECT COUNT(*) totcnt
 			FROM SITE
-			WHERE 1=1 AND USER_SEQ = #{userSeq}		
+			WHERE 1=1 AND USER_SEQ = #{userSeq} AND DTIME=0 AND DDATE=0
 	</select>
 </mapper>
