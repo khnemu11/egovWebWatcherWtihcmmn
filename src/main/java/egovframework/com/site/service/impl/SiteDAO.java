@@ -86,8 +86,8 @@ public class SiteDAO extends EgovComAbstractDAO {
         return (Integer)selectOne("siteDAO.selectSiteListTotCnt", searchVO);
     }
 
-	public List<?> selectSiteListBySeqTotCnt(DefaultVO searchVO) {
-		  return selectList("siteDAO.selectSiteListBySeqTotCnt", searchVO); 
+	public int selectSiteListBySeqTotCnt(DefaultVO searchVO) {
+		  return selectOne("siteDAO.selectSiteListBySeqTotCnt", searchVO); 
 		
 	}
 

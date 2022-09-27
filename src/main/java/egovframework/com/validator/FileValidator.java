@@ -26,8 +26,6 @@ public class FileValidator implements Serializable {
 					"jdbc:mysql://us-cdbr-east-06.cleardb.net/heroku_49e9d9e55a08975?reconnect=true&characterEncoding=utf8", "bce999f4740880",
 					"98c1ec79"); // 디비 설정
 			
-			
-			
 			String sql = "SELECT count(*) FROM SITE	WHERE DDATE =0 AND DTIME=0 AND FILE_NAME =?"; // 쿼리입력
 			PreparedStatement pstmt = con.prepareStatement(sql); // 동적쿼리 부분
 			

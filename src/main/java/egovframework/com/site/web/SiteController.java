@@ -43,7 +43,6 @@ import egovframework.com.site.service.SiteService;
 import egovframework.com.site.service.SiteVO;
 import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-import oracle.net.aso.d;
 
 /**
  * @Class Name : SiteController.java
@@ -134,16 +133,17 @@ public class SiteController{
 		searchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-		searchVO.setSearchKeyword(String.valueOf(userSeq));
 
 		SiteVO vo = new SiteVO();
 		vo.setUserSeq(userSeq);
 		logger.info("user seq : "+userSeq);
 		List<?> siteList = siteService.selectSiteListBySeq(vo);
 		logger.info("site size : " + siteList.size());
+		
 		model.addAttribute("resultList", siteList);
 		model.addAttribute("userSeq", userSeq);
 		int totCnt = siteService.selectSiteListBySeqTotCnt(vo);
+		
 		logger.info("total count : " + totCnt);
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
@@ -279,7 +279,14 @@ public class SiteController{
 	@RequestMapping("/site/deleteSite.do")
 	public String deleteSite(SiteVO siteVO, @ModelAttribute("searchVO") DefaultVO searchVO, SessionStatus status)
 			throws Exception {
+		logger.info("site delete start");
 		siteService.deleteSite(siteVO);
+		logger.info("delete : "+siteVO.getFileId());
+		FileVO fileVO = new FileVO();
+		fileVO.setAtchFileId(siteVO.getFileId());
+		fileVO.setFileSn("0");
+		logger.info("delete : "+fileVO.getAtchFileId());
+		fileMngService.deleteFileInf(fileVO);
 //		status.setComplete();
 		return "forward:/site/SiteList/"+siteVO.getUserSeq()+".do";
 	}

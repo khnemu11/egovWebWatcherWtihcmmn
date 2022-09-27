@@ -98,6 +98,7 @@ function fn_egov_save() {
 				<c:if test="${registerFlag == '수정'}">
 					<p>${siteVO.fileName}</p>
 					<form:input type="hidden" id="seq" path="seq" value="${siteVO.seq}"/>
+					<form:input type="hidden" id="fileId" path="fileId" value="${siteVO.fileId}"/>
 				</c:if>
 			</td>
 		</tr>	

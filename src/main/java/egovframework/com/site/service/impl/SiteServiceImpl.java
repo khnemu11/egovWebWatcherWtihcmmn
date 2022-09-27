@@ -121,10 +121,9 @@ public class SiteServiceImpl extends CommonServiceImpl implements
 		return siteDAO.selectSiteListBySeq(vo);
 	}
 
-	@Override
+
 	public int selectSiteListBySeqTotCnt(DefaultVO searchVO) {
-		siteDAO.selectSiteListBySeqTotCnt(searchVO);
-		return 0;
+		return siteDAO.selectSiteListBySeqTotCnt(searchVO);
 	}
     
 }

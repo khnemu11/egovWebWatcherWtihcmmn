@@ -157,14 +157,6 @@
 	<select id="selectSiteListBySeqTotCnt" parameterType="egovframework.com.site.service.SiteVO" resultType="int">
 			SELECT COUNT(*) totcnt
 			FROM SITE
-			WHERE 1=1 AND USER_SEQ = #{userSeq}
-			<if test="searchKeyword != null and searchKeyword != ''">
-				<if test="searchCondition == 0">AND
-					seq = #{searchKeyword}
-				</if>
-				<if test="searchCondition == 1">AND
-					user_seq LIKE CONCAT('%',#{searchKeyword},'%')
-				</if>
-			</if>			
+			WHERE 1=1 AND USER_SEQ = #{userSeq}		
 	</select>
 </mapper>
