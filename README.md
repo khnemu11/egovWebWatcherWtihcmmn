@@ -108,6 +108,8 @@ https://www.figma.com/file/4QkriGQPACgyceDZFSxgGU/Watcher?node-id=0%3A1
   - site list CRUD 구현
  
  ### 2022-09-25
-  - 로그인 및 회원가입 CRUD 구현
+  - 로그인 및 회원가입 CRUD 기능 이전
   - 표준프레임워크 파일관리 컴포넌트 추가
   - 사이트 리스트 파일 업로드 및 수정 추가
+  - 사이트 패키지 validator 적용
+  - 로그인 requried validator 적용
