@@ -118,3 +118,4 @@ https://www.figma.com/file/4QkriGQPACgyceDZFSxgGU/Watcher?node-id=0%3A1
   - 파일 삭제 구현
   - searchword 오기로 인한 사이트 리스트 페이징 수정
   - site list 프론트 이전
+  - site 등록,
