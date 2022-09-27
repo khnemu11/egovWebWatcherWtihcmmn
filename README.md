@@ -103,3 +103,11 @@ https://www.figma.com/file/4QkriGQPACgyceDZFSxgGU/Watcher?node-id=0%3A1
  ### 2022-09-23
   - site list 등록 페이지 디자인 적용
   - 화면/롤/권한 관리 공통 컴포넌트 적용 및 프로젝트 이전
+  
+ ### 2022-09-24
+  - site list CRUD 구현
+ 
+ ### 2022-09-25
+  - 로그인 및 회원가입 CRUD 구현
+  - 표준프레임워크 파일관리 컴포넌트 추가
+  - 사이트 리스트 파일 업로드 및 수정 추가
