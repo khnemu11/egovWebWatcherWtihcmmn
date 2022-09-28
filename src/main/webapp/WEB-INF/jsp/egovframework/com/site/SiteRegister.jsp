@@ -39,7 +39,8 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<c:set var="registerFlag" value="${siteVO.seq == 0 ? 'register' : 'modify'}" />
+<c:set var="registerFlag"
+	value="${siteVO.seq == 0 ? 'register' : 'modify'}" />
 <script src="https://code.jquery.com/jquery-3.6.1.js"
 	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
 	crossorigin="anonymous"></script>
@@ -137,13 +138,12 @@ function delete_site(seq) {
 					value="${userSeq}" />
 				<div id="content_pop">
 					<!-- 타이틀 -->
-					<span class="mdl-layout-title title">
-					<c:if test="${registerFlag == 'register'}">
-								<spring:message code="site.add"/>
-					</c:if>
-					<c:if test="${registerFlag == 'modify'}">
-								<spring:message code="site.edit"/>
-					</c:if>
+					<span class="mdl-layout-title title"> <c:if
+							test="${registerFlag == 'register'}">
+							<spring:message code="site.add" />
+						</c:if> <c:if test="${registerFlag == 'modify'}">
+							<spring:message code="site.edit" />
+						</c:if>
 					</span>
 					<div class="file-div">
 						<div
@@ -209,22 +209,26 @@ function delete_site(seq) {
 						</table>
 					</div> --%>
 					<div id="sysbtn">
-						<span class="btn_blue_l"><a
-									href="javascript:fn_egov_selectList();"><span
-										class="material-symbols-outlined"> arrow_back </span></a></span>
+						<a href="javascript:fn_egov_selectList();"><span
+							class="material-symbols-outlined"> arrow_back </span></a>
 
-							<c:if test="${registerFlag == 'modify'}">
-								<span class="btn_blue_l"><a
-										href="javascript:delete_site(${siteVO.seq});"><span
-											class="material-symbols-outlined">delete</span></a></span>
-							</c:if>
-							<span class="btn_blue_l"><a
-								href="javascript:document.detailForm.reset();"><span
-										class="material-symbols-outlined"> refresh </span></a></span>
-							<span class="btn_blue_l"><a
-									href="javascript:fn_egov_save();"><c:out
-											value='${registerFlag}' /></a></span>
+						<c:if test="${registerFlag == 'modify'}">
+							<a href="javascript:delete_site(${siteVO.seq});"><span
+								class="material-symbols-outlined">delete</span></a>
+						</c:if>
 						
+						<a href="javascript:document.detailForm.reset();"><span
+							class="material-symbols-outlined"> refresh </span></a>
+						<button
+							class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+							id="register" onclick="javascript:fn_egov_save();">
+							<c:if test="${registerFlag == 'register'}">
+								<spring:message code="site.add" />
+							</c:if>
+							<c:if test="${registerFlag == 'modify'}">
+								<spring:message code="site.edit" />
+							</c:if>
+						</button>
 					</div>
 				</div>
 				<!-- 검색조건 유지 -->

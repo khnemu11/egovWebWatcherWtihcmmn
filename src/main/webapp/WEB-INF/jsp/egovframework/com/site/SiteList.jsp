@@ -25,8 +25,10 @@
 <c:set var="userSeq" value="${userSeq}" />
 <title>Web Watcher</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"></link>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+<link rel="stylesheet"
+	href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"></link>
 <script defer="defer" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/egovframework/com/site/site.css'/>" />
@@ -76,9 +78,8 @@ function fn_egov_link_page(pageNo){
 		<div class="mdl-layout__header-row">
 			<span class="mdl-layout-title"><spring:message code="title" /></span>
 			<div class="mdl-layout-spacer"></div>
-			<nav class="mdl-navigation "> <a
-				class="mdl-navigation__link" href="">Link</a> <a
-				class="mdl-navigation__link" href="">Link</a> <a
+			<nav class="mdl-navigation "> <a class="mdl-navigation__link"
+				href="">Link</a> <a class="mdl-navigation__link" href="">Link</a> <a
 				class="mdl-navigation__link" href="">Link</a> <a
 				class="mdl-navigation__link" href="./egovSampleList.do">sample</a> </nav>
 		</div>
@@ -90,7 +91,7 @@ function fn_egov_link_page(pageNo){
 				class="mdl-navigation__link" href="">Link</a> <a
 				class="mdl-navigation__link" href="">Link</a> </nav>
 		</div>
- 		<main class="mdl-layout__content">
+		<main class="mdl-layout__content">
 		<div class="page-content">
 
 			<div class="mdl-grid">
@@ -143,8 +144,7 @@ function fn_egov_link_page(pageNo){
 															value="${result.url}" /></span> </span> <span
 												class="mdl-list__item-secondary-content"> <span
 													class="mdl-list__item-secondary-info"></span> <a
-													class="mdl-list__item-secondary-action"
-													href="#"> <span
+													class="mdl-list__item-secondary-action" href="#"> <span
 														class="material-symbols-outlined"> monitoring </span>
 												</a>
 											</span><span class="mdl-list__item-secondary-content"> <span
@@ -186,11 +186,10 @@ function fn_egov_link_page(pageNo){
 										</a></td>
 
 										<td class="listtd"><c:out value="" /><a
-											href="javascript:void(0)"
-											onclick="delete_site(${result.siteSeq});"><span
-												class="material-symbols-outlined">delete</span></a> <a
 											href="javascript:fn_egov_select('<c:out value="${result.seq}"/>')"><span
-												class="material-symbols-outlined">edit</span></a></td>
+												class="material-symbols-outlined">edit</span></a><a
+											href="javascript:void(0)" onclick="delete_site(${result.siteSeq});"><span
+											class="material-symbols-outlined">delete</span></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -274,7 +273,7 @@ function fn_egov_link_page(pageNo){
 			</div>
 			</footer>
 		</div>
-		</main> 
+		</main>
 	</div>
 	<script defer src="https://code.getmdl.io/1.3.0/material.min.js" />
 </body>
