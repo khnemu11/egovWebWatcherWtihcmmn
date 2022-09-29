@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SignupDAO">	
+   	<select id="selectSignupEmail" resultType="long">
+	    select COUNT(*)
+    	FROM USER
+   		WHERE UPPER(email) like UPPER (#{email})
+	</select>
+	<select id="selectUserEmail" resultType="long">
+	    select COUNT(*)
+    	FROM USER
+   		WHERE UPPER(email) like UPPER (#{email})
+	</select>
+	<select id="selectUserLoginId" resultType="long" parameterType="loginVO">
+	    select COUNT(*)
+    	FROM LOGIN
+   		WHERE UPPER(login_Id) like UPPER (#{loginId})
+	</select>
+	<select id="selectUserSeq" resultType="long">
+		select
+			MAX(SEQ)
+		from
+			USER
+	</select>
+	<!--  -->
+	<insert id="insertTuser" parameterType="userVO">
+	 insert into USER
+				(
+				NAME
+			    ,COMPANY
+				,TEL
+				,EMAIL
+ 				,LANGUAGE
+				,CDATE
+				,CTIME
+				,UDATE
+				,UTIME
+				)
+				values
+				(
+				#{name}
+ 				,#{company}
+				,#{tel}
+				,#{email}
+				,#{language}
+				,#{cdate}
+				,#{ctime}
+				,#{udate}
+				,#{utime}
+				)
+	</insert>
+	<insert id="insertTarclogin" parameterType="userVO">
+		insert into LOGIN
+				(
+				LOGIN_ID
+				,PASSWORD
+				,DISPNAME
+				,USER_SEQ
+				,CDATE
+				,CTIME
+				,UDATE
+				,UTIME
+				)
+				values
+				(
+				#{loginId}
+				,#{password}
+				,#{dispName}
+				,#{seq}
+				,#{cdate}
+				,#{ctime}
+				,#{udate}
+				,#{utime}
+				)
+    </insert>
+</mapper>

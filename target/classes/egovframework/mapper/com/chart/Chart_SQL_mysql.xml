@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chartDAO">
+	<resultMap id="chart"
+		type="egovframework.com.chart.service.ChartVO">
+		<result property="seq" column="seq" />
+		<result property="siteSeq" column="site_seq" />
+		<result property="result" column="result" />
+		<result property="resultText" column="resulttext" />
+		<result property="resptime" column="resptime" />
+		<result property="version" column="version" />
+		<result property="cdate" column="cdate" />
+		<result property="ctime" column="ctime" />
+		<result property="utime" column="utime" />
+		<result property="udate" column="udate" />
+		<result property="dtime" column="dtime" />
+		<result property="ddate" column="ddate" />
+	</resultMap>
+	<select id="selectChartList"
+		parameterType="egovframework.com.chart.service.ChartVO"
+		resultType="egovframework.com.chart.service.ChartVO">
+		<![CDATA[
+		SELECT
+		SEQ
+		, SITE_SEQ
+		, RESULT
+		, RESPTIME
+		, RESULTTEXT
+		, VERSION
+		, CDATE
+		, CTIME
+		, UTIME
+		, UDATE
+		, DTIME
+		, DDATE
+		FROM TEST_RESULT
+		WHERE 1=1 AND DTIME=0 AND DDATE=0 AND CDATE >= ${from} and CDATE <= ${to} AND SITE_SEQ=${siteSeq}
+		ORDER BY CDATE,CTIME
+		]]>
+	</select>
+</mapper>
