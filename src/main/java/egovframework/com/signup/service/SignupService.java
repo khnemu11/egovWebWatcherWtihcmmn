@@ -11,7 +11,7 @@ public interface SignupService {
 	
 	public Long selectUserEmail (SignupVO vo) throws Exception;
 	
-	public Long selectUserLoginId (SignupVO vo) throws Exception;
+	public Long selectUserLoginId (UserVO vo) throws Exception;
 	
 	public Long selectUserSeq (SignupVO vo) throws Exception;
 }

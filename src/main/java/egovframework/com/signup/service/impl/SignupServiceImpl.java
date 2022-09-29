@@ -38,7 +38,7 @@ public class SignupServiceImpl extends CommonServiceImpl implements SignupServic
 	}
 
 	@Override
-	public Long selectUserLoginId(SignupVO vo) throws Exception {
+	public Long selectUserLoginId(UserVO vo) throws Exception {
 		return signupDAO.selectUserLoginId(vo);
 
 	}
