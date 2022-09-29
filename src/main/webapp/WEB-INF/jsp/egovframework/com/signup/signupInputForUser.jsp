@@ -11,13 +11,6 @@
 <title>SignUp</title>
 </head>
 
-<script>
-	if(message !== "") {
-		alert(message);
-	}
-	console.log(message);
-</script>
-
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<%@ include
@@ -89,21 +82,24 @@
 								</select> <label class="mdl-textfield__label mdl-color-text--grey"
 									for="language">Language</label>
 							</div>
+							
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_login_id">Login ID*</label> <form:input
-									class="mdl-textfield__input" type="text"
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+									<label class="mdl-textfield__label mdl-color-text--grey"
+										for="textfield_new_login_id">Login ID*</label> 
+									<form:input class="mdl-textfield__input" type="text"
 									id="textfield_new_login_id" name="loginId" path="loginId" />
-									<form:errors path="loginId"/>
+										<form:errors path="loginId"/>
+								</div>
+								<span><input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" onclick="fnCheckId(); " value="<spring:message code='button.inquire' />" /></span>
 							</div>
-
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
 									for="textfield_new_password">Password*</label> <form:input
 									class="mdl-textfield__input" type="password"
-									id="textfield_new_password" name="password" path="password" />
+									id="textfield_new_password" name="password" path="password"/>
 									<form:errors path="password"/>
 							</div>
 
@@ -112,8 +108,10 @@
 								<label class="mdl-textfield__label mdl-color-text--grey"
 									for="textfield_password_confirm">Password(Confirm)*</label> <form:input
 									class="mdl-textfield__input" type="password"
-									id="textfield_password_confirm" name="passwordConfirm" path="passwordConfirm"/>
-									<form:errors path="passwordConfirm"/>
+									id="textfield_password_confirm" name="passwordConfirm" path="passwordConfirm" oninput="passwordConfirmInput()" />
+									<span id="message"></span>
+			
+									<form:errors path="passwordConfirm" id="aa"/>
 							</div>
 
 							<div class="mdl-cell mdl-cell--12-col send-button" align="center">
@@ -132,5 +130,43 @@
 	</div>
 
 </body>
+<script>
+	<c:if test="${!empty error}">alert("<spring:message code="${error}" />");</c:if>
+
+	let password = $('#textfield_new_password');
+	let confirm_password = $('#textfield_password_confirm');
+	
+	function passwordConfirmInput() {
+	 	if(password.val() !== confirm_password.val()){
+		  	confirm_password[0].setCustomValidity("<spring:message code="signup.password.validate.different" />");
+	  	}
+	  	else {
+			confirm_password[0].setCustomValidity(''); 
+	  	}
+	}
+	
+
+	function fnCheckId(){
+		let url = "${pageContext.request.contextPath}/checkLoginIdDplctAjax.do";
+		console.log("ajax\n");
+	    $.ajax({
+	        type: "GET",
+	        url: url,
+	        data: {loginId: $('#textfield_new_login_id').val()},
+	        success: function(response){
+	        	let jsonData = JSON.parse(response);
+	          	if(jsonData['usedCnt'] >= 1){
+	          		alert("<spring:message code="login.id.duplicate" />");
+	          	}
+	          	else{
+	          		alert("<spring:message code="login.id.can.use" />");
+	          	}
+	        },
+	        error: function(xhr, status){
+	        	alert(xhr + " : " + status);
+	        }
+	    })
+	}
+</script>
 </html>
 
