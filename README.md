@@ -119,3 +119,7 @@ https://www.figma.com/file/4QkriGQPACgyceDZFSxgGU/Watcher?node-id=0%3A1
   - searchword 오기로 인한 사이트 리스트 페이징 수정
   - site list 프론트 이전
   - site 등록 파일 등록 및 url, 해더, 푸터 머테리얼 디자인 적용
+  
+ ### 2022-09-28
+  - site 등록 프론트 적용
+  - chart 패키지 생성
