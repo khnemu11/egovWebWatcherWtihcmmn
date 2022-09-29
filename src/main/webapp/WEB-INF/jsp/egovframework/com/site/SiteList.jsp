@@ -144,8 +144,10 @@ function fn_egov_link_page(pageNo){
 															value="${result.url}" /></span> </span> <span
 												class="mdl-list__item-secondary-content"> <span
 													class="mdl-list__item-secondary-info"></span> <a
-													class="mdl-list__item-secondary-action" href="#"> <span
-														class="material-symbols-outlined"> monitoring </span>
+													class="mdl-list__item-secondary-action"
+													href="<c:url value='/chart/chartDatePick/'/>${result.seq}.do">
+														<span class="material-symbols-outlined"> monitoring
+													</span>
 												</a>
 											</span><span class="mdl-list__item-secondary-content"> <span
 													class="mdl-list__item-secondary-info"></span> <a
@@ -181,15 +183,16 @@ function fn_egov_link_page(pageNo){
 												<span class="material-symbols-outlined">
 													file_download </span>
 										</a></td>
-										<td class="listtd"><a href="#"> <span
-												class="material-symbols-outlined"> monitoring </span>
+										<td class="listtd"><a href="<c:url value='/chart/chartDatePick/'/>${result.seq}.do">
+												<span class="material-symbols-outlined"> monitoring </span>
 										</a></td>
 
 										<td class="listtd"><c:out value="" /><a
 											href="javascript:fn_egov_select('<c:out value="${result.seq}"/>')"><span
 												class="material-symbols-outlined">edit</span></a><a
-											href="javascript:void(0)" onclick="delete_site(${result.siteSeq});"><span
-											class="material-symbols-outlined">delete</span></a></td>
+											href="javascript:void(0)"
+											onclick="delete_site(${result.siteSeq});"><span
+												class="material-symbols-outlined">delete</span></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
