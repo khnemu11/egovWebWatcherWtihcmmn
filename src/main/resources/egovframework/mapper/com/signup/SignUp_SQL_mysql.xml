@@ -4,17 +4,17 @@
    	<select id="selectSignupEmail" resultType="long">
 	    select COUNT(*)
     	FROM USER
-   		WHERE UPPER(email) like UPPER #{email}
+   		WHERE UPPER(email) like UPPER (#{email})
 	</select>
 	<select id="selectUserEmail" resultType="long">
 	    select COUNT(*)
     	FROM USER
-   		WHERE UPPER(email) like UPPER #{email}
+   		WHERE UPPER(email) like UPPER (#{email})
 	</select>
-	<select id="selectUserLoginId" resultType="long">
+	<select id="selectUserLoginId" resultType="long" parameterType="loginVO">
 	    select COUNT(*)
     	FROM LOGIN
-   		WHERE UPPER(login_Id) like UPPER #{loginId}
+   		WHERE UPPER(login_Id) like UPPER (#{loginId})
 	</select>
 	<select id="selectUserSeq" resultType="long">
 		select
