@@ -48,6 +48,10 @@ public class LoginController {
 
 	@RequestMapping(value = "loginOk.do", method = RequestMethod.POST)
 	public String loginOk(@ModelAttribute("loginVO") LoginVO loginVO, BindingResult bindingResult, Model m, HttpSession session) throws Exception {
+		if(session.getAttribute("userSeq") != null) {
+			session.removeAttribute("userSeq");
+		}
+		
 		beanValidator.validate(loginVO, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "egovframework/com/login/login";
@@ -58,9 +62,7 @@ public class LoginController {
 		String returnUrl = "";		
 		
 		
-		if(session.getAttribute("name") != null) {
-			session.removeAttribute("name");
-		}
+	
 		
 		
 		
@@ -81,5 +83,11 @@ public class LoginController {
 	public String managerLogin(Model m) {
 		
 		return "egovframework/com/login/managerlogin";
+	}
+	
+	@RequestMapping(value = "/logout.do")
+	public String logout(HttpSession session) {
+		session.removeAttribute("userSeq");
+		return "egovframework/com/login/login";
 	}
 }
