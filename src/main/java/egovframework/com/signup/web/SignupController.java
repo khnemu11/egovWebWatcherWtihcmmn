@@ -1,6 +1,9 @@
 package egovframework.com.signup.web;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,10 +13,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.login.service.LoginService;
-import egovframework.com.login.service.LoginVO;
 import egovframework.com.signup.service.SignupService;
 import egovframework.com.user.service.UserService;
 import egovframework.com.user.service.UserVO;
@@ -50,58 +54,65 @@ public class SignupController {
 	
 	
 	@RequestMapping(value = "/signupOk.do", method = RequestMethod.POST)
-	public String registerOk(@ModelAttribute("userVO") UserVO userVO, @ModelAttribute("loginVO") LoginVO loginVO, BindingResult bindingResult, Model m) throws Exception {
-		logger.info("start");
-		
+	public String registerOk(@ModelAttribute("userVO") UserVO userVO, BindingResult bindingResult, Model m, HttpSession session) throws Exception {
+		String returnUrl = "";
+				
 		beanValidator.validate(userVO, bindingResult);
 		if(bindingResult.hasErrors()) {
-
 			return "egovframework/com/signup/signupInputForUser";
 		}
-		logger.info("end");
+		
+		// login 아이디가 중복되지 않는지 확인
+		long usedCnt = signupService.selectUserLoginId(userVO);
+		if(usedCnt > 0) {
+			m.addAttribute("error", "signup.login.id.duplicate");
+			return "egovframework/com/signup/signupInputForUser";
+		}
 
-		// 1. 비밀번호 암호화 
+		// password와 passwordConfirm 비교
+		if(!userVO.getPassword().equals(userVO.getPasswordConfirm())) {
+			m.addAttribute("error", "signup.password.validate.different");
+			return "egovframework/com/signup/signupInputForUser";
+		}
+		
+		// 비밀번호 암호화 
 		String enPassword = EgovFileScrty.encryptPassword(userVO.getPassword(), userVO.getLoginId());
 		String enPasswordConfirm = EgovFileScrty.encryptPassword(userVO.getPasswordConfirm(), userVO.getLoginId());
+
 		userVO.setPassword(enPassword);
 		userVO.setPasswordConfirm(enPasswordConfirm);
-		
-		// 2. 아이디와 암호화된 비밀번호가 DB와 일치하는지 확인
-		long userCount = loginService.selectLoginCheck(loginVO);
-		if(userCount > 0) {
-			logger.info("second1");
 
-			m.addAttribute("message", "로그인 아이디가 이미 존재합니다.");
-			return "egovframework/com/signup/signupInputForUser";
-		}
-		
-		String password = userVO.getPassword();
-		String passwordConfirm = userVO.getPasswordConfirm();
-		if(!password.equals(passwordConfirm)) {
-			logger.info("second2");
-
-			m.addAttribute("message", "비밀번호와 비밀번호 확인이 같지 않습니다.");
-			return "egovframework/com/signup/signupInputForUser";
-		}
-		logger.info("end");
-
-		String returnUrl = "";
-		
 		// TODO: SQLException 처리
 		int insertTuser = signupService.insertTuser(userVO);
 		long userSeq = userService.selectUserSeq(userVO);
 		userVO.setSeq(userSeq);
 		int insertTarclogin = signupService.insertTarclogin(userVO);
-		
-		userVO.setPassword("");
-		userVO.setPasswordConfirm("");		
-				
+
 		if(insertTuser > 0 && insertTarclogin > 0) {
-			return "redirect:/login.do";
+			session.setAttribute("userSeq", userSeq);
+			return "redirect:/site/SiteList/"+userSeq+".do";
 		}else {
 			returnUrl = "signupfail";
 		}
 		
 		return returnUrl;
 	}
+	
+	@RequestMapping(value = "/checkLoginIdDplctAjax.do")
+	public ModelAndView checkLoginIdDplctAjax(@ModelAttribute("loginVO") UserVO userVO, @RequestParam Map<String, Object> commandMap) throws Exception {
+
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.setViewName("jsonView");
+
+		String loginId = (String) commandMap.get("loginId");
+		logger.info(loginId);
+		userVO.setLoginId(loginId);
+		//checkId = new String(checkId.getBytes("ISO-8859-1"), "UTF-8");
+
+		long usedCnt = signupService.selectUserLoginId(userVO);
+		modelAndView.addObject("usedCnt", usedCnt);
+
+		return modelAndView;
+	}
+
 }
