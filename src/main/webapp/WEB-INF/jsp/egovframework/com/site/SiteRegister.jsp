@@ -177,37 +177,6 @@ function delete_site(seq) {
 						</div>
 					</div>
 
-
-					<%-- <!-- // 타이틀 -->
-					<div id="table">
-						<table width="100%" border="1" cellpadding="0" cellspacing="0">
-							<colgroup>
-								<col width="150" />
-								<col width="" />
-							</colgroup>
-
-
-							<c:if test="${registerFlag == '등록'}">
-							</c:if>
-							<tr>
-								<th>url</th>
-								<td><form:input path="url" cssClass="txt" /> &nbsp; <form:errors
-										path="url" /></td>
-							</tr>
-							<tr>
-								<th>file</th>
-								<td><form:input path="file" cssClass="file" type="file" />
-									&nbsp; <form:errors path="fileName" /> <c:if
-										test="${registerFlag == '수정'}">
-										<p>${siteVO.fileName}</p>
-										<form:input type="hidden" id="seq" path="seq"
-											value="${siteVO.seq}" />
-										<form:input type="hidden" id="fileId" path="fileId"
-											value="${siteVO.fileId}" />
-									</c:if></td>
-							</tr>
-						</table>
-					</div> --%>
 					<div id="sysbtn">
 						<a href="javascript:fn_egov_selectList();"><span
 							class="material-symbols-outlined"> arrow_back </span></a>

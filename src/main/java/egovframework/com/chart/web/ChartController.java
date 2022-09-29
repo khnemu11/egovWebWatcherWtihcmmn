@@ -1,48 +1,28 @@
 package egovframework.com.chart.web;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
+import egovframework.com.chart.service.ChartService;
+import egovframework.com.chart.service.ChartVO;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
-import egovframework.com.cmm.service.EgovProperties;
-import egovframework.com.cmm.service.FileVO;
-import egovframework.com.site.service.DefaultVO;
-import egovframework.com.site.service.SiteService;
-import egovframework.com.site.service.SiteVO;
 import egovframework.rte.fdl.property.EgovPropertyService;
-import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 /**
  * @Class Name : SiteController.java
@@ -68,6 +48,8 @@ public class ChartController {
 	@Resource(name = "EgovFileMngUtil")
 	private EgovFileMngUtil fileUtil;
 
+	@Resource(name = "chartService")
+	private ChartService chartService;
 //	@Resource(name = "siteService")
 //	private SiteService siteService;
 
@@ -97,5 +79,41 @@ public class ChartController {
 		logger.info("end select site list");
 
 		return "egovframework/com/chart/ChartDatePick";
+	}
+
+	@RequestMapping(value = "/chart/chartLoad.do")
+	public ModelAndView selectChartLoad(@RequestParam(value = "from") String from,
+			@RequestParam(value = "to") String to, @SessionAttribute("siteSeq") int siteSeq, Model model)
+			throws Exception {
+		logger.info("start chartLoad ");
+		/** EgovPropertyService.sample */
+
+		ChartVO searchVO = new ChartVO();
+
+		searchVO.setFrom(from.replace("-", ""));
+		searchVO.setTo(to.replace("-", ""));
+		searchVO.setSiteSeq(siteSeq);
+		logger.info("from "+searchVO.getFrom()+" to "+searchVO.getTo());
+		
+		List<ChartVO> dataList = chartService.selectChartList(searchVO);
+		logger.info(dataList.toString());
+		for (int i = 0; i < dataList.size(); i++) {
+			String date = String.valueOf(dataList.get(i).getCdate());
+			String time = String.valueOf(dataList.get(i).getCtime());
+
+			LocalDateTime localdatetime = LocalDateTime.parse(date + time.substring(0, 6),
+					DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+			logger.info(localdatetime.toString());
+			dataList.get(i).setTime(localdatetime.toString());
+		}
+
+		logger.info(dataList.toString());
+		ModelAndView jsonView = new ModelAndView("jsonView");
+
+		jsonView.addObject("data", dataList);
+
+		logger.info("end chartLoad");
+
+		return jsonView;
 	}
 }

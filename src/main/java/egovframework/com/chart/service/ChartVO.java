@@ -19,153 +19,68 @@ import egovframework.com.cmm.CommonVO;
 public class ChartVO extends CommonVO {
 	private static final long serialVersionUID = 1L;
 
-	/** seq */
-	private int seq;
+	private long siteSeq;
+	private String result;
+	private long resptime;
+	private String resultText;
+	private String from;
+	private String to;
+	private String time;
 
-	/** user_seq */
-	private int userSeq;
-
-	/** url */
-	private java.lang.String url;
-
-	/** version */
-	private int version;
-
-	/** file_name */
-	private java.lang.String fileName;
-
-	/** file_path */
-	private java.lang.String fileId;
-
-	/** ctime */
-	private int ctime;
-
-	/** cdate */
-	private int cdate;
-
-	/** utime */
-	private int utime;
-
-	/** udate */
-	private int udate;
-
-	/** dtime */
-	private int dtime;
-
-	/** ddate */
-	private int ddate;
-
-	private MultipartFile file;
-
-	public MultipartFile getFile() {
-		return file;
+	public String getTime() {
+		return time;
 	}
 
-	public void setFile(MultipartFile file) {
-		this.file = file;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public int getSeq() {
-		return this.seq;
+	public String getFrom() {
+		return from;
 	}
 
-	public void setSeq(int seq) {
-		this.seq = seq;
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
-	public int getUserSeq() {
-		return this.userSeq;
+	public String getTo() {
+		return to;
 	}
 
-	public void setUserSeq(int userSeq2) {
-		this.userSeq = userSeq2;
+	public void setTo(String to) {
+		this.to = to;
 	}
 
-	public java.lang.String getUrl() {
-		return this.url;
+	public long getSiteSeq() {
+		return siteSeq;
 	}
 
-	public void setUrl(java.lang.String url) {
-		this.url = url;
+	public void setSiteSeq(long siteSeq) {
+		this.siteSeq = siteSeq;
 	}
 
-	public int getVersion() {
-		return this.version;
+	public String getResult() {
+		return result;
 	}
 
-	public void setVersion(int version) {
-		this.version = version;
+	public void setResult(String result) {
+		this.result = result;
 	}
 
-	public java.lang.String getFileName() {
-		return this.fileName;
+	public long getResptime() {
+		return resptime;
 	}
 
-	public void setFileName(java.lang.String fileName) {
-		this.fileName = fileName;
+	public void setResptime(long resptime) {
+		this.resptime = resptime;
 	}
 
-	public java.lang.String getFileId() {
-		return this.fileId;
+	public String getResultText() {
+		return resultText;
 	}
 
-	public void setFileId(java.lang.String filePath) {
-		this.fileId = filePath;
-	}
-
-	public int getCtime() {
-		return this.ctime;
-	}
-
-	public void setCtime(int ctime) {
-		this.ctime = ctime;
-	}
-
-	public int getCdate() {
-		return this.cdate;
-	}
-
-	public void setCdate(int cdate) {
-		this.cdate = cdate;
-	}
-
-	public int getUtime() {
-		return this.utime;
-	}
-
-	public void setUtime(int utime) {
-		this.utime = utime;
-	}
-
-	public int getUdate() {
-		return this.udate;
-	}
-
-	public void setUdate(int udate) {
-		this.udate = udate;
-	}
-
-	public int getDtime() {
-		return this.dtime;
-	}
-
-	public void setDtime(int dtime) {
-		this.dtime = dtime;
-	}
-
-	public int getDdate() {
-		return this.ddate;
-	}
-
-	public void setDdate(int ddate) {
-		this.ddate = ddate;
-	}
-
-	@Override
-	public String toString() {
-		return "SiteVO [seq=" + seq + ", userSeq=" + userSeq + ", url=" + url + ", version=" + version + ", fileName="
-				+ fileName + ", fileID=" + fileId + ", ctime=" + ctime + ", cdate=" + cdate + ", utime=" + utime
-				+ ", udate=" + udate + ", dtime=" + dtime + ", ddate=" + ddate + ", file=" + file + "]";
+	public void setResultText(String resultText) {
+		this.resultText = resultText;
 	}
 
 }
