@@ -29,7 +29,7 @@ public class SignupDAO extends EgovComAbstractDAO {
 		return result;
 	}
 	
-	public long selectUserLoginId (SignupVO vo) throws Exception{
+	public long selectUserLoginId (UserVO vo) throws Exception{
 		long result = selectOne("SignupDAO.selectUserLoginId", vo);
 		return result;
 	}

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserDAO">
+    <resultMap id="selectUserMap" type="egovframework.com.user.service.UserVO">
+	</resultMap>
+
+	<select id="selectUserEmail" resultType="long">
+	    select COUNT(*)
+    	FROM USER
+   		WHERE UPPER(email) like UPPER(#{email})
+	</select>
+	<select id="selectUserEmailUpdate" resultType="long">
+	    select COUNT(*)
+    	FROM USER
+   		WHERE
+   			UPPER(email) like UPPER(#{email})
+		and
+			SEQ not in ( #{seq} )
+	</select>
+	<select id="selectUserLoginId" resultType="long">
+	    select COUNT(*)
+    	FROM LOGIN
+   		WHERE UPPER(login_Id) like UPPER(#{loginId})
+	</select>
+	<select id="selectUserLoginIdUpdate" resultType="long">
+	    select COUNT(*)
+    	FROM LOGIN
+   		WHERE
+   			UPPER(login_Id) like UPPER(#{loginId})
+		and
+			USER_SEQ not in ( #{seq} )
+	</select>
+	<select id="selectUserSeq" resultType="long">
+		select
+			MAX(SEQ)
+		from
+			USER
+	</select>
+	<!--  -->
+	<insert id="insertTuser" parameterType="userVO">
+	 insert into USER
+				(
+				NAME
+				,COMPANY
+				,TEL
+				,EMAIL
+				,LANGUAGE
+				,CDATE
+				,CTIME
+				,UDATE
+				,UTIME
+				)
+				values
+				(
+				#{name}
+				,#{company}
+				,#{tel}
+				,#{email}
+				,#{language}
+				,#{cdate}
+				,#{ctime}
+				,#{udate}
+				,#{utime}
+				)
+	</insert>
+	<insert id="insertTarclogin" parameterType="loginVO">
+		insert into LOGIN
+				(
+				LOGIN_ID
+				,PASSWORD
+				,DISPNAME
+				,USER_SEQ
+				,CDATE
+				,CTIME
+				,UDATE
+				,UTIME
+				)
+				values
+				(
+				#{loginId}
+				,#{password}
+				,#{dispName}
+				,#{seq}
+				,#{cdate}
+				,#{ctime}
+				,#{udate}
+				,#{utime}
+				)
+
+    </insert>
+	<resultMap id="selectUserListMap" type="egovframework.com.user.service.UserVO">
+		<result column="SEQ" property="seq"/>
+		<result column="EMAIL" property="email"/>
+		<result column="NAME" property="name"/>
+		<result column="COMPANY" property="company"/>
+		<result column="TEL" property="tel"/>
+		<result column="LANGUAGE" property="language"/>
+		<result column="LOGIN_ID" property="loginId"/>
+		<result column="DISPNAME" property="dispName"/>
+		<!-- common columns -->
+		<result column="VERSION" property="version"/>
+		<result column="CDATE" property="cdate"/>
+		<result column="CTIME" property="ctime"/>
+		<result column="UDATE" property="udate"/>
+		<result column="UTIME" property="utime"/>
+		<result column="DDATE" property="ddate"/>
+		<result column="DTIME" property="dtime"/>
+	</resultMap>
+
+	<select id="selectUserListCount" resultType="long">
+		select
+			count(*)
+		from
+			USER join LOGIN on USER.SEQ = USER_SEQ
+		where
+			USER.DDATE = 0
+		<if test="keyword != ''">
+		    and (
+		    	UPPER(EMAIL) like UPPER(#{keyword})
+				or UPPER(NAME) like UPPER(#{keyword})
+				or UPPER(COMPANY) like UPPER(#{keyword})
+				or UPPER(TEL) like UPPER(#{keyword})
+				or UPPER(LOGIN_ID) like UPPER(#{keyword})
+				or UPPER(DISPNAME) like UPPER(#{keyword})
+				)
+		</if>
+		USER.SEQ in
+        <if test="seqList != null">
+			<foreach item="item" index="index" collection="seqList" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+        </if>
+	</select>
+	<select id="selectUserList" resultMap="selectUserListMap">
+		select
+			USER.SEQ
+			,EMAIL
+			,NAME
+			,COMPANY
+			,TEL
+			,LANGUAGE
+			,LOGIN_ID
+			,DISPNAME
+			,USER.VERSION
+			,USER.CDATE
+			,USER.CTIME
+			,USER.UDATE
+			,USER.UTIME
+			,USER.DDATE
+			,USER.DTIME
+		from
+			USER join LOGIN on USER.SEQ = USER_SEQ
+		where
+			USER.DDATE = 0
+		<if test="keyword != ''">
+		    and (
+		    	UPPER(EMAIL) like UPPER(#{keyword})
+				or UPPER(NAME) like UPPER(#{keyword})
+				or UPPER(COMPANY) like UPPER(#{keyword})
+				or UPPER(TEL) like UPPER(#{keyword})
+				or UPPER(LOGIN_ID) like UPPER(#{keyword})
+				or UPPER(DISPNAME) like UPPER(#{keyword})
+				)
+		</if>
+		and USER.SEQ in
+		<if test="seqList != null">
+			<foreach item="item" index="index" collection="seqList" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+        </if>
+        <if test="orderBy != ''">
+            order by $orderBy$
+        </if>
+        <if test="offset != ''">
+            offset
+              #offset# limit #limit#
+        </if>
+	</select>
+	<!--  -->
+	<update id="updateTuser" parameterType="userVO">
+		update
+			USER
+		set
+			NAME = #{name}
+			,COMPANY = #{company}
+			,TEL = #{tel}
+			,EMAIL = #{email}
+			,LANGUAGE = #{language}
+			,VERSION=VERSION+1
+			,UDATE = #{udate}
+			,UTIME = #{utime}
+		where
+			SEQ = #{seq}
+		and
+			VERSION = #{version}
+	</update>
+	<update id="updateTarclogin" parameterType="userVO">
+		update
+			LOGIN
+		set
+			LOGIN_ID = #{loginId}
+			,PASSWORD = #{password}
+			,DISPNAME = #{dispName}
+			,VERSION=VERSION+1
+			,UDATE = #{udate}
+			,UTIME = #{utime}
+		where
+			USER_SEQ = #{seq}
+		and
+			VERSION = #{version}
+	</update>
+	<!--  -->
+
+	<update id="deleteTuser" parameterType="userVO">
+		update
+			USER
+		set
+			,DDATE = #{ddate}
+			,DTIME = #{dtime}
+		where
+			SEQ = #{seq}
+			and VERSION = #{version}
+	</update>
+	<update id="deleteTarclogin" parameterType="userVO">
+		update
+			LOGIN
+		set
+			,DDATE = #{ddate}
+			,DTIME = #{dtime}
+		where
+			USER_SEQ = #{seq}
+			and VERSION = #{version}
+	</update>
+    
+</mapper>
