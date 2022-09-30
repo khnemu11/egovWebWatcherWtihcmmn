@@ -73,7 +73,7 @@ public class EgovWildcardReloadableResourceBundleMessageSource extends
                             }
                         }
                     } catch (IOException e) {
-                        logger.debug("No message source files found for basename " + basename + ".");
+//                        logger.debug("No message source files found for basename " + basename + ".");
                     }
                 }
      

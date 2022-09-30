@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.cmm.service.EgovFileMngService;
@@ -148,6 +149,7 @@ public class SiteController{
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 
+	
 		logger.info("end select site list");
 
 		return "egovframework/com/site/SiteList";

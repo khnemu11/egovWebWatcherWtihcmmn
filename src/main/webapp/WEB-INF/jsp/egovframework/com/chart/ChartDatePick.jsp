@@ -36,7 +36,7 @@
 		var data = new google.visualization.DataTable();
 
 		data.addColumn('string', 'Test Scenario');
-		data.addColumn('number', 'Response Time');
+		data.addColumn('number', '<spring:message code="chart.resptime" />');
 
 		$.each(dataList, function(index, chartVO) { // 데이터 =group
 			chartRowArray.push([ chartVO.time, chartVO.resptime ]);
@@ -49,17 +49,52 @@
 
 		var options = {
 			hAxis : {
-				title : 'Date'
+				title : '<spring:message code="chart.date" />'
 			},
 			vAxis : {
-				title : 'Response Time (ms)'
-			}
+				title : '<spring:message code="chart.resptime" /> (ms)'
+			},
 		};
 
 		var chart = new google.visualization.LineChart(document
 				.getElementById('chart_div'));
 
 		chart.draw(data, options);
+	}
+	function drawTable(dataList) {
+		var table = "";
+		table += "<table class=\"mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp\"><thead><tr>";
+		table += "<th><spring:message code="chart.result" /></th>";
+		table += "<th><spring:message code="chart.resptime" /></th>";
+		table += "<th><spring:message code="chart.time" /></th>";
+		table += "<th><spring:message code="chart.error" /></th>";
+		table += "</tr></thead>";
+		table += "<tbody>";
+
+		$.each(dataList, function(index, chartVO) { // 데이터 =group
+			table += "<tr>";
+			table = table + "<td>" + "<div id=\"circle\" style=\"background-color:"
+
+			if (chartVO.result == 'TRUE') {
+				table = table + "green;"
+			} else {
+				table = table + "red;"
+			}
+
+			table = table + "\"></div></td>";
+			table = table + "<td>" + chartVO.resptime + "</td>";
+			table = table + "<td>" + chartVO.time + "</td>";
+			table = table + "<td>" + chartVO.resultText + "</td>";
+			table += "</tr>"
+
+			var resultId = "circle" + chartVO.seq;
+			$("#" + resultId).attr("data-result", chartVO.result);
+
+		});
+		table += "</tbody></table>";
+
+		//Create the table.
+		$('#table_div').html(table);
 	}
 	$(function() {
 		$('#datePickerFrom').datepicker({
@@ -103,7 +138,6 @@
 						var url = "<c:url value="/chart/chartLoad.do"/>";
 						url = url + "?from=" + from;
 						url = url + "&to=" + to;
-						alert(url);
 						$.ajax({
 							url : url,
 							type : "GET",
@@ -111,9 +145,14 @@
 							dataType : "json",
 							success : function(result) {
 								console.log(result);
-
+								$('#search').attr('disabled', false);
+								$('html,body').css('cursor', 'default');
 								drawBasic(result.data);
-
+								drawTable(result.data);
+							},
+							beforeSend : function() {
+								$('#search').attr('disabled', true);
+								$('html,body').css('cursor', 'wait');
 							},
 							error : function(request, status, error) {
 								alert("code:" + request.status + "\n"
@@ -159,7 +198,7 @@
 					<div
 						class="mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-phone mdl-cell--6-col-tablet">
 						<h3>
-							<spring:message code="site.title" />
+							<spring:message code="chart.title" />
 						</h3>
 					</div>
 					<div
@@ -199,13 +238,12 @@
 									</div>
 								</div>
 							</form:form>
-
 						</div>
 						<div class="wd-100">
 							<button
 								class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
 								id="search">
-								<spring:message code="site.add" />
+								<spring:message code="chart.search" />
 							</button>
 						</div>
 
@@ -215,11 +253,32 @@
 					</div>
 				</div>
 
+				<div class="mdl-grid">
+					<div
+						class="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
 
+					<div
+						class="mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--4-phone subtitle">
+						<span> <spring:message code="chart.graph" />
+						</span>
+						<div id="chart_div"></div>
 
+					</div>
+					<div
+						class="mdl-cell mdl-cell--1-col-desktop mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
+					<div
+						class="mdl-cell mdl-cell--1-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+					<div
+						class="mdl-cell mdl-cell--10-col-desktop mdl-cell--8-col-tablet mdl-cell--4-phone subtitle subtitle2">
+						<span> <spring:message code="chart.table" />
+						</span>
+						<div id="table_div"></div>
+					</div>
+					<div
+						class="mdl-cell mdl-cell--1-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
 
+				</div>
 
-				<div id="chart_div"></div>
 
 
 
