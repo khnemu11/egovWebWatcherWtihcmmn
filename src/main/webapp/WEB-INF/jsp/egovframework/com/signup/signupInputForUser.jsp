@@ -6,8 +6,7 @@
 <head>
 <%@ include file="/WEB-INF/jsp/egovframework/com/common/head.jsp"%>
 <link type="text/css" rel="stylesheet"
-	href="<c:url value='/css/egovframework/signup/signup.css'/>" />
-
+	href="<c:url value='/css/egovframework/com/common/common.css'/>" />
 <title>SignUp</title>
 </head>
 
@@ -18,11 +17,11 @@
 
 		<main class="mdl-layout__content">
 			<div class="mdl-grid">
-				<div class="mdl-cell mdl-cell--4-col"></div>
+				<div class="mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
 
 				<div
 					class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--16dp util-center util-spacing-h--100px">
-					<div class="mdl-card__title mdl-color--teal-500">
+					<div class="mdl-card__title">
 						<h2 class="mdl-card__title-text mdl-color-text--white">SignUp</h2>
 					</div>
 					<div class="mdl-card__supporting-text mdl-grid">
@@ -84,7 +83,7 @@
 							</div>
 							
 							<div
-								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--9-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone">
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<label class="mdl-textfield__label mdl-color-text--grey"
 										for="textfield_new_login_id">Login ID*</label> 
@@ -92,7 +91,7 @@
 									id="textfield_new_login_id" name="loginId" path="loginId" />
 										<form:errors path="loginId"/>
 								</div>
-								<span><input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="button" onclick="fnCheckId(); " value="<spring:message code='button.inquire' />" /></span>
+								<span><input class="mdl-button mdl-js-button mdl-button--raised button-color" id="loginIdLookUpBtn" type="button" onclick="fnCheckId(); " value="<spring:message code='button.inquire' />" /></span>
 							</div>
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -116,23 +115,25 @@
 
 							<div class="mdl-cell mdl-cell--12-col send-button" align="center">
 								<button
-									class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+									class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised button-color"
 									id="register">Register</button>
 							</div>
 						</form:form>
 					</div>
 				</div>
 			</div>
+			<%@ include
+					file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
 		</main>
-
-		<%@ include
-			file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
 	</div>
 
 </body>
 <script>
+	// error가 있으면 alert 처리 
 	<c:if test="${!empty error}">alert("<spring:message code="${error}" />");</c:if>
 
+	
+	// 비밀번호와 비밀번호 확인이 같은지 처리 
 	let password = $('#textfield_new_password');
 	let confirm_password = $('#textfield_password_confirm');
 	
@@ -145,10 +146,14 @@
 	  	}
 	}
 	
-
+	
+	// 버튼 ajax 처리 
+	let button = $('#loginIdLookUpBtn');
 	function fnCheckId(){
 		let url = "${pageContext.request.contextPath}/checkLoginIdDplctAjax.do";
-		console.log("ajax\n");
+   		button[0].disabled = true;
+   		$('html, body').css('cursor', 'wait');
+
 	    $.ajax({
 	        type: "GET",
 	        url: url,
@@ -164,7 +169,11 @@
 	        },
 	        error: function(xhr, status){
 	        	alert(xhr + " : " + status);
-	        }
+	        },
+	       	complete: function(){
+	       		button[0].disabled = false;
+	       		$('html, body').css('cursor', 'default');
+	       	} 
 	    })
 	}
 </script>

@@ -16,6 +16,7 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
 import egovframework.com.login.service.LoginService;
 import egovframework.com.login.service.LoginVO;
 import egovframework.com.login.service.ManagerLoginService;
+import egovframework.com.utl.sim.service.EgovFileScrty;
 import egovframework.rte.fdl.property.EgovPropertyService;
 
 @Controller
@@ -38,7 +39,7 @@ public class LoginController {
 
 	
 	
-	@RequestMapping(value = "login.do")
+	@RequestMapping(value = "/login.do")
 	public String login(@ModelAttribute("loginVO") LoginVO loginVO, Model m) {
 		
 		
@@ -46,7 +47,7 @@ public class LoginController {
 		return "egovframework/com/login/login";
 	}
 
-	@RequestMapping(value = "loginOk.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginOk.do", method = RequestMethod.POST)
 	public String loginOk(@ModelAttribute("loginVO") LoginVO loginVO, BindingResult bindingResult, Model m, HttpSession session) throws Exception {
 		if(session.getAttribute("userSeq") != null) {
 			session.removeAttribute("userSeq");
@@ -58,18 +59,18 @@ public class LoginController {
 		}
 
 		
+		String returnUrl = "";
 		
-		String returnUrl = "";		
+		// 비밀번호 암호
+		String enPassword = EgovFileScrty.encryptPassword(loginVO.getPassword(), loginVO.getLoginId());
+		loginVO.setPassword(enPassword);
 		
-		
-	
-		
-		
-		
+		// 로그인 검사 
 		long count = loginService.selectLoginCheck(loginVO);
-
 		if(count > 0) {
-			returnUrl = "redirect:/";
+			long userSeq = loginService.selectLoginSeq(loginVO);
+			session.setAttribute("userSeq", userSeq);
+			returnUrl = "redirect:/site/SiteList/" + userSeq + ".do";
 		}else {
 			returnUrl = "logfail";
 		}
@@ -79,7 +80,7 @@ public class LoginController {
 	
 	
 	
-	@RequestMapping(value = "managerlogin.do")
+	@RequestMapping(value = "/managerlogin.do")
 	public String managerLogin(Model m) {
 		
 		return "egovframework/com/login/managerlogin";
