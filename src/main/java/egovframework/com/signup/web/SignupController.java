@@ -3,7 +3,6 @@ package egovframework.com.signup.web;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,7 +53,7 @@ public class SignupController {
 	
 	
 	@RequestMapping(value = "/signupOk.do", method = RequestMethod.POST)
-	public String registerOk(@ModelAttribute("userVO") UserVO userVO, BindingResult bindingResult, Model m, HttpSession session) throws Exception {
+	public String registerOk(@ModelAttribute("userVO") UserVO userVO, BindingResult bindingResult, Model m) throws Exception {
 		String returnUrl = "";
 				
 		beanValidator.validate(userVO, bindingResult);
@@ -68,7 +67,7 @@ public class SignupController {
 			m.addAttribute("error", "signup.login.id.duplicate");
 			return "egovframework/com/signup/signupInputForUser";
 		}
-
+		
 		// password와 passwordConfirm 비교
 		if(!userVO.getPassword().equals(userVO.getPasswordConfirm())) {
 			m.addAttribute("error", "signup.password.validate.different");
@@ -82,15 +81,15 @@ public class SignupController {
 		userVO.setPassword(enPassword);
 		userVO.setPasswordConfirm(enPasswordConfirm);
 
-		// TODO: SQLException 처리
+		// TODO: SQLException 처리, transaction 해야
 		int insertTuser = signupService.insertTuser(userVO);
+		
 		long userSeq = userService.selectUserSeq(userVO);
 		userVO.setSeq(userSeq);
 		int insertTarclogin = signupService.insertTarclogin(userVO);
 
 		if(insertTuser > 0 && insertTarclogin > 0) {
-			session.setAttribute("userSeq", userSeq);
-			return "redirect:/site/SiteList/"+userSeq+".do";
+			return "redirect:/login.do";
 		}else {
 			returnUrl = "signupfail";
 		}
