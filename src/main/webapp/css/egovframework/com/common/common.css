@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.mdl-card__title{
+	background-color: #3d5aa4;
+}
+.button-color{
+	background-color: #3d5aa4;
+	color: #ffffff;
+}
+.button-color:hover{
+	color: #000000;
+}
