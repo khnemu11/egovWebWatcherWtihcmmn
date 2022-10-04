@@ -35,6 +35,14 @@ https://egov-web-watcher.herokuapp.com/
 ## 디자인
 https://www.figma.com/file/4QkriGQPACgyceDZFSxgGU/Watcher?node-id=0%3A1
 
+
+## 연관 프로젝트
+
+### 테스트 시나리오 배치 실행을 위한 프로젝트
+
+https://github.com/khnemu11/WebWatcherBatch/tree/main
+
+
 ## 로그
 
 ### 2022-09-01 
@@ -141,3 +149,8 @@ https://www.figma.com/file/4QkriGQPACgyceDZFSxgGU/Watcher?node-id=0%3A1
     * ajax결과가 나올때 까지의 대기 애니메이션 적용
     * 기타 디자인 적용
   - 로그인-> 유저별 사이트 리스트 연결
+  
+### 2022-10-04
+ - 테스트 시나리오 배치 실행을 위한 프로젝트 생성
+ - sellinium + batch를 활용해 미리 입력받은 테스트 케이스 실행 및 결과 출력 성공
+
