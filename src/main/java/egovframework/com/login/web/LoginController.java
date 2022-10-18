@@ -1,6 +1,10 @@
 package egovframework.com.login.web;
 
+import java.util.Locale;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import egovframework.com.login.service.LoginService;
@@ -36,8 +41,6 @@ public class LoginController {
 	protected DefaultBeanValidator beanValidator;
 	
 	Logger logger = LogManager.getRootLogger();
-
-	
 	
 	@RequestMapping(value = "/login.do")
 	public String login(@ModelAttribute("loginVO") LoginVO loginVO, Model m) {
@@ -48,7 +51,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/loginOk.do", method = RequestMethod.POST)
-	public String loginOk(@ModelAttribute("loginVO") LoginVO loginVO, BindingResult bindingResult, Model m, HttpSession session) throws Exception {
+	public String loginOk(@ModelAttribute("loginVO") LoginVO loginVO, BindingResult bindingResult, Model m, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(session.getAttribute("userSeq") != null) {
 			session.removeAttribute("userSeq");
 		}
@@ -58,7 +61,6 @@ public class LoginController {
 			return "egovframework/com/login/login";
 		}
 
-		
 		String returnUrl = "";
 		
 		// 비밀번호 암호
@@ -68,9 +70,16 @@ public class LoginController {
 		// 로그인 검사 
 		long count = loginService.selectLoginCheck(loginVO);
 		if(count > 0) {
-			long userSeq = loginService.selectLoginSeq(loginVO);
-			session.setAttribute("userSeq", userSeq);
-			returnUrl = "redirect:/site/SiteList/" + userSeq + ".do";
+			LoginVO loginInfo = loginService.selectLogin(loginVO);
+			logger.info(loginInfo);
+			session.setAttribute("loginInfo", loginInfo);
+			
+			Locale locale = new Locale(loginInfo.getLocale());
+			logger.info(locale);
+
+			session.setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
+			
+			returnUrl = "redirect:/site/SiteList/" + loginInfo.getUserSeq() + ".do";
 		}else {
 			returnUrl = "logfail";
 		}
@@ -88,7 +97,7 @@ public class LoginController {
 	
 	@RequestMapping(value = "/logout.do")
 	public String logout(HttpSession session) {
-		session.removeAttribute("userSeq");
+		session.invalidate();
 		return "egovframework/com/login/login";
 	}
 }
