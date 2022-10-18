@@ -12,8 +12,10 @@ public class LoginVO extends CommonVO  {
 	private String loginId;
     private String password;
     private String dispname;
+    private long userSeq;
     private Timestamp blockdate;
     private String ip;
+    private String locale;
     private int failcount;
     private int failcounttotal;
     private int failcountlimit;
@@ -21,7 +23,6 @@ public class LoginVO extends CommonVO  {
     private int failblocktime;
     private String loginipaddress;
     private Timestamp latestlogindatetime;
-    private String language;
     private Timestamp currentTime;
 
     public Timestamp getCurrentTime() {
@@ -29,12 +30,6 @@ public class LoginVO extends CommonVO  {
     }
     public void setCurrentTime(Timestamp currentTime) {
         this.currentTime = currentTime;
-    }
-    public String getLanguage() {
-        return language;
-    }
-    public void setLanguage(String language) {
-        this.language = language;
     }
     public String getIp() {
         return ip;
@@ -112,8 +107,19 @@ public class LoginVO extends CommonVO  {
 	public String toString() {
 		return "LoginVO [loginId=" + loginId + ", password=" + password + ", dispname=" + dispname + ", blockdate="
 				+ blockdate + ", ip=" + ip + ", failcount=" + failcount + ", failcounttotal=" + failcounttotal
-				+ ", failcountlimit=" + failcountlimit + ", lockflag=" + lockflag + ", failblocktime=" + failblocktime
-				+ ", loginipaddress=" + loginipaddress + ", latestlogindatetime=" + latestlogindatetime + ", language="
-				+ language + ", currentTime=" + currentTime + "]";
+				+ ", failcountlimit=" + failcountlimit + ", lockflag=" + lockflag + ", failblocktime=" + failblocktime + ", locale=" + locale
+				+ ", loginipaddress=" + loginipaddress + ", latestlogindatetime=" + latestlogindatetime + ", currentTime=" + currentTime + "]";
+	}
+	public long getUserSeq() {
+		return userSeq;
+	}
+	public void setUserSeq(long userSeq) {
+		this.userSeq = userSeq;
+	}
+	public String getLocale() {
+		return locale;
+	}
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 }

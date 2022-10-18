@@ -30,7 +30,7 @@
 			    ,COMPANY
 				,TEL
 				,EMAIL
- 				,LANGUAGE
+ 				,LOCALE
 				,CDATE
 				,CTIME
 				,UDATE
@@ -42,7 +42,7 @@
  				,#{company}
 				,#{tel}
 				,#{email}
-				,#{language}
+				,#{locale}
 				,#{cdate}
 				,#{ctime}
 				,#{udate}
@@ -56,6 +56,7 @@
 				,PASSWORD
 				,DISPNAME
 				,USER_SEQ
+				,LOCALE
 				,CDATE
 				,CTIME
 				,UDATE
@@ -67,6 +68,7 @@
 				,#{password}
 				,#{dispName}
 				,#{seq}
+				,#{locale}
 				,#{cdate}
 				,#{ctime}
 				,#{udate}

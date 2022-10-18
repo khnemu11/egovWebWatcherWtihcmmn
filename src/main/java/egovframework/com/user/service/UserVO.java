@@ -13,7 +13,7 @@ public class UserVO extends CommonVO {
     private String dispName;
     private String company;
     private String tel;
-    private String language;
+    private String locale;
     private String loginId;
     private String password;
     private String passwordConfirm;
@@ -61,12 +61,6 @@ public class UserVO extends CommonVO {
     public void setTel(String tel) {
         this.tel = tel;
     }
-    public String getLanguage() {
-        return language;
-    }
-    public void setLanguage(String language) {
-        this.language = language;
-    }
     public String getLoginId() {
         return loginId;
     }
@@ -85,4 +79,10 @@ public class UserVO extends CommonVO {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+	public String getLocale() {
+		return locale;
+	}
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
 }

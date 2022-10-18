@@ -1,7 +1,5 @@
 package egovframework.com.login.service.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import egovframework.com.cmm.service.impl.EgovComAbstractDAO;
@@ -13,7 +11,7 @@ public class LoginDAO extends EgovComAbstractDAO {
 		return selectOne("UserLoginDAO.selectLoginSeq", vo);
 	}
 	
-	public List<LoginVO> selectLogin(LoginVO vo) {
+	public LoginVO selectLogin(LoginVO vo) {
 		return selectOne("UserLoginDAO.selectLogin", vo);
 	}
 	

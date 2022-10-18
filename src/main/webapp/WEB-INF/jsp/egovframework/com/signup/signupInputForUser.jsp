@@ -73,11 +73,11 @@
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 								<select
 									class="mdl-textfield__input mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col"
-									id="octane" name="language">
+									id="octane" name="locale">
 									<option></option>
-									<option value="english" selected>English</option>
-									<option value="korean">Korean</option>
-									<option value="japanese">Japanese</option>
+									<option value="en" selected>English</option>
+									<option value="kr">Korean</option>
+									<option value="ja">Japanese</option>
 								</select> <label class="mdl-textfield__label mdl-color-text--grey"
 									for="language">Language</label>
 							</div>

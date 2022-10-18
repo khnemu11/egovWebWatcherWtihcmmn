@@ -1,7 +1,5 @@
 package egovframework.com.login.service.impl;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +19,7 @@ public class LoginServiceImpl extends CommonServiceImpl implements LoginService 
 	}
 
 	@Override
-	public List<LoginVO> selectLogin(LoginVO vo) throws Exception {
+	public LoginVO selectLogin(LoginVO vo) throws Exception {
 		return loginDAO.selectLogin(vo);
 	}
 

@@ -3,7 +3,7 @@
 <mapper namespace="UserLoginDAO">
     <resultMap id="selectLoginMap" type="egovframework.com.login.service.LoginVO">
 		<result column="LOGIN_ID" property="loginId"/>
-		<result column="LANGUAGE" property="language"/>
+		<result column="LOCALE" property="locale"/>
 		<result column="DISPNAME" property="dispname"/>
 		<result column="FAILCOUNT" property="failcount"/>
 		<result column="FAILCOUNTLIMIT" property="failcountlimit"/>
@@ -23,14 +23,12 @@
 			AND DDATE = 0
 	</select>
 
-	<select id="selectLogin" resultMap="selectLoginMap">
-		select LOGIN.LOGIN_ID, LANGUAGE, DISPNAME,FAILCOUNT, FAILCOUNTTOTAL,FAILCOUNTLIMIT,FAILBLOCKTIME,LOCKFLAG,LOGINIPADDRESS,LATESTLOGINDATETIME,BLOCKDATE 
-			from LOGIN, USER
+	<select id="selectLogin" resultType="LoginVO">
+		select *
+			from LOGIN
 		where
-		    LOGIN.USER_SEQ = USER.SEQ
-			AND LOGIN.LOGIN_ID = #{loginId}
+			LOGIN.LOGIN_ID = #{loginId}
 			AND LOGIN.DDATE = 0
-			AND USER.DDATE = 0
 	</select>
 
 	<select id="selectLoginCheck" resultType="long">
