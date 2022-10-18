@@ -75,6 +75,12 @@ function fn_egov_save() {
 
 }
 // -->
+
+function egov_save(){
+	frm = document.getElementById("detailForm");
+	frm.action = "<c:url value="${registerFlag == 'register' ? '/site/addSite.do' : '/site/updateSite.do'}"/>";
+    frm.submit();
+}
 function delete_site(seq) {
 	if(confirm("정말로 삭제하시겠습니까?")){
 		var url = "./deleteSite/";
@@ -83,13 +89,6 @@ function delete_site(seq) {
 		location.href = url;
 	}
 }
-        $(document).ready(function(){
-        		var text = '${error == 'error' ? "error" :"none"}';
-        		console.log(text);
-        		if(text == "error"){
-        			alert("중복된 파일 이름이 존재합니다.");
-        		}
-        });
         $(function(){
         	 $('#mdl-button--file').click(function(){
          		$('#uploadBtn').click();
@@ -109,173 +108,90 @@ function delete_site(seq) {
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<header class="mdl-layout__header">
-		<div class="mdl-layout__header-row">
-			<span class="mdl-layout-title"><spring:message code="title" /></span>
-			<div class="mdl-layout-spacer"></div>
-			<nav class="mdl-navigation mdl-layout--large-screen-only"> <a
-				class="mdl-navigation__link" href="">Link</a> <a
-				class="mdl-navigation__link" href="">Link</a> <a
-				class="mdl-navigation__link" href="">Link</a> <a
-				class="mdl-navigation__link" href="./egovSampleList.do">sample</a> </nav>
-		</div>
-		</header>
-		<div class="mdl-layout__drawer">
-			<span class="mdl-layout-title"><spring:message code="title" /></span>
-			<nav class="mdl-navigation"> <a class="mdl-navigation__link"
-				href="">Link</a> <a class="mdl-navigation__link" href="">Link</a> <a
-				class="mdl-navigation__link" href="">Link</a> <a
-				class="mdl-navigation__link" href="">Link</a> </nav>
-		</div>
-		<main class="mdl-layout__content">
-		<div class="page-content">
+		<%@ include file="/WEB-INF/jsp/egovframework/com/common/header.jsp"%>
 
+		<main class="mdl-layout__content"> <form:form
+			commandName="siteVO" name="detailForm" id="detailForm"
+			enctype="multipart/form-data">
+			<form:input type="hidden" id="userSeq" path="userSeq"
+				value="${userSeq}" />
+			<div id="content_pop">
+				<!-- 타이틀 -->
+				<span class="mdl-layout-title title"> <c:if
+						test="${registerFlag == 'register'}">
+						<spring:message code="site.add" />
+					</c:if> <c:if test="${registerFlag == 'modify'}">
+						<spring:message code="site.edit" />
+					</c:if>
+				</span>
+				<div class="url-div">
+					<div
+						class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<label class="mdl-textfield__label" for="url"><spring:message
+								code="site.url" /></label>
+						<form:input path="url" value="${siteVO.url}"
+							cssClass="mdl-textfield__input" id="url" />
 
+					</div>
+					<div class="error-field">
+						<form:errors path="url" />
+					</div>
+					<span id="blank"></span>
+				</div>
+				<div class="file-div">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
+						<form:input cssClass="mdl-textfield__input" placeholder="File"
+							type="text" path="" id="uploadFile" readonly="true" />
 
-			<form:form commandName="siteVO" name="detailForm" id="detailForm"
-				enctype="multipart/form-data">
-				<form:input type="hidden" id="userSeq" path="userSeq"
-					value="${userSeq}" />
-				<div id="content_pop">
-					<!-- 타이틀 -->
-					<span class="mdl-layout-title title"> <c:if
-							test="${registerFlag == 'register'}">
+						<form:input type="file" path="file" id="uploadBtn" />
+						<c:if test="${registerFlag == 'modify'}">
+							<spring:message code="site.currFile"
+								arguments="${siteVO.fileName}" />
+							<form:input type="hidden" id="seq" path="seq"
+								value="${siteVO.seq}" />
+							<form:input type="hidden" id="fileId" path="fileId"
+								value="${siteVO.fileId}" />
+						</c:if>
+						<div class="error-field">
+							<form:errors path="fileName" />
+						</div>
+					</div>
+					<div class="mdl-button mdl-button--primary mdl-button--icon"
+						id="mdl-button--file">
+						<i class="material-icons">attach_file</i>
+					</div>
+				</div>
+				<div id="sysbtn">
+					<a href="javascript:fn_egov_selectList();"><span
+						class="material-symbols-outlined"> arrow_back </span></a>
+
+					<c:if test="${registerFlag == 'modify'}">
+						<a href="javascript:delete_site(${siteVO.seq});"><span
+							class="material-symbols-outlined">delete</span></a>
+					</c:if>
+
+					<a href="javascript:document.detailForm.reset();"><span
+						class="material-symbols-outlined"> refresh </span></a>
+					<button
+						class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+						id="register" onclick="javascript:egov_save();">
+						<c:if test="${registerFlag == 'register'}">
 							<spring:message code="site.add" />
-						</c:if> <c:if test="${registerFlag == 'modify'}">
+						</c:if>
+						<c:if test="${registerFlag == 'modify'}">
 							<spring:message code="site.edit" />
 						</c:if>
-					</span>
-					<div class="file-div">
-						<div
-							class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-							<label class="mdl-textfield__label" for="url"><spring:message
-									code="site.url" /></label>
-							<form:input path="url" value="${siteVO.url}" maxlength="30"
-								cssClass="mdl-textfield__input" id="url" />
-							<form:errors path="url" />
-						</div>
-						<span id="blank"></span>
-					</div>
-					<div class="file-div">
-						<div class="mdl-textfield mdl-js-textfield mdl-textfield--file">
-							<form:input cssClass="mdl-textfield__input" placeholder="File"
-								type="text" path="" id="uploadFile" readonly="true" />
-
-							<form:input type="file" path="file" id="uploadBtn" />
-							<c:if test="${registerFlag == 'modify'}">
-								<spring:message code="site.currFile"
-									arguments="${siteVO.fileName}" />
-								<form:input type="hidden" id="seq" path="seq"
-									value="${siteVO.seq}" />
-								<form:input type="hidden" id="fileId" path="fileId"
-									value="${siteVO.fileId}" />
-							</c:if>
-						</div>
-						<div class="mdl-button mdl-button--primary mdl-button--icon"
-							id="mdl-button--file">
-							<i class="material-icons">attach_file</i>
-						</div>
-					</div>
-
-					<div id="sysbtn">
-						<a href="javascript:fn_egov_selectList();"><span
-							class="material-symbols-outlined"> arrow_back </span></a>
-
-						<c:if test="${registerFlag == 'modify'}">
-							<a href="javascript:delete_site(${siteVO.seq});"><span
-								class="material-symbols-outlined">delete</span></a>
-						</c:if>
-						
-						<a href="javascript:document.detailForm.reset();"><span
-							class="material-symbols-outlined"> refresh </span></a>
-						<button
-							class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
-							id="register" onclick="javascript:fn_egov_save();">
-							<c:if test="${registerFlag == 'register'}">
-								<spring:message code="site.add" />
-							</c:if>
-							<c:if test="${registerFlag == 'modify'}">
-								<spring:message code="site.edit" />
-							</c:if>
-						</button>
-					</div>
+					</button>
 				</div>
-				<!-- 검색조건 유지 -->
-				<input type="hidden" name="searchCondition"
-					value="<c:out value='${searchVO.searchCondition}'/>" />
-				<input type="hidden" name="searchKeyword"
-					value="<c:out value='${searchVO.searchKeyword}'/>" />
-				<input type="hidden" name="pageIndex"
-					value="<c:out value='${searchVO.pageIndex}'/>" />
-			</form:form>
-
-
-
-
-
-
-
-			<footer class="mdl-mega-footer">
-			<div class="mdl-mega-footer__middle-section">
-
-				<div class="mdl-mega-footer__drop-down-section">
-					<input class="mdl-mega-footer__heading-checkbox" type="checkbox"
-						checked />
-					<h1 class="mdl-mega-footer__heading">Features</h1>
-					<ul class="mdl-mega-footer__link-list">
-						<li><a href="#">About</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Partners</a></li>
-						<li><a href="#">Updates</a></li>
-					</ul>
-				</div>
-
-				<div class="mdl-mega-footer__drop-down-section">
-					<input class="mdl-mega-footer__heading-checkbox" type="checkbox"
-						checked />
-					<h1 class="mdl-mega-footer__heading">Details</h1>
-					<ul class="mdl-mega-footer__link-list">
-						<li><a href="#">Specs</a></li>
-						<li><a href="#">Tools</a></li>
-						<li><a href="#">Resources</a></li>
-					</ul>
-				</div>
-
-				<div class="mdl-mega-footer__drop-down-section">
-					<input class="mdl-mega-footer__heading-checkbox" type="checkbox"
-						checked />
-					<h1 class="mdl-mega-footer__heading">Technology</h1>
-					<ul class="mdl-mega-footer__link-list">
-						<li><a href="#">How it works</a></li>
-						<li><a href="#">Patterns</a></li>
-						<li><a href="#">Usage</a></li>
-						<li><a href="#">Products</a></li>
-						<li><a href="#">Contracts</a></li>
-					</ul>
-				</div>
-
-				<div class="mdl-mega-footer__drop-down-section">
-					<input class="mdl-mega-footer__heading-checkbox" type="checkbox"
-						checked />
-					<h1 class="mdl-mega-footer__heading">FAQ</h1>
-					<ul class="mdl-mega-footer__link-list">
-						<li><a href="#">Questions</a></li>
-						<li><a href="#">Answers</a></li>
-						<li><a href="#">Contact us</a></li>
-					</ul>
-				</div>
-
 			</div>
-
-			<div class="mdl-mega-footer__bottom-section">
-				<div class="mdl-logo">Title</div>
-				<ul class="mdl-mega-footer__link-list">
-					<li><a href="#">Help</a></li>
-					<li><a href="#">Privacy & Terms</a></li>
-				</ul>
-			</div>
-			</footer>
-		</div>
+			<!-- 검색조건 유지 -->
+			<input type="hidden" name="searchCondition"
+				value="<c:out value='${searchVO.searchCondition}'/>" />
+			<input type="hidden" name="searchKeyword"
+				value="<c:out value='${searchVO.searchKeyword}'/>" />
+			<input type="hidden" name="pageIndex"
+				value="<c:out value='${searchVO.pageIndex}'/>" />
+		</form:form> <%@ include file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
 		</main>
 	</div>
 </body>

@@ -16,15 +16,8 @@
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script defer src="../common/inc/cookie.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Bootstrap-Select -->
-<script type="text/javascript" src="../resources/vendor/bootstrap-select/js/bootstrap-select.js"></script>
-<!-- Date Picker -->
-<script type="text/javascript" src="../resources/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<!-- JavaScript for this project -->
-<script type="text/javascript" src="../resources/arc/js/arc.js"></script>
 <!-- Material Design Lite -->
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
@@ -39,8 +32,4 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css?after">
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
-<!-- Style Sheet for this project -->
-<link rel="stylesheet" href="../common/inc/cookie.css">
-<link rel="stylesheet" href="../common/inc/footer.css">
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->

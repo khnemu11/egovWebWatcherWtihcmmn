@@ -80,7 +80,7 @@ public class EgovWildcardReloadableResourceBundleMessageSource extends
                
             }
             
-            logger.debug("EgovWildcardReloadableResourceBundleMessageSource>>basenames>["+baseNames+"}");
+          //  logger.debug("EgovWildcardReloadableResourceBundleMessageSource>>basenames>["+baseNames+"}");
             setBasenames(baseNames.toArray(new String[baseNames.size()]));
         }
     }

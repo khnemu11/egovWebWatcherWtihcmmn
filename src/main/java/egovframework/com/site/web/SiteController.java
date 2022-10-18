@@ -178,7 +178,7 @@ public class SiteController{
 		logger.info(bindingResult.toString());
 		if (bindingResult.hasErrors()) {
 			logger.info("field error");
-
+			System.out.println(bindingResult.toString());
 			model.addAttribute("searchVO", siteVO);
 
 			return "egovframework/com/site/SiteRegister";
@@ -244,6 +244,7 @@ public class SiteController{
 
 		if (bindingResult.hasErrors()) {
 			logger.info("field error");
+			System.out.println(bindingResult.toString());
 			SiteVO originalVO = siteService.selectSite(siteVO);
 			
 			siteVO.setUrl(originalVO.getUrl());

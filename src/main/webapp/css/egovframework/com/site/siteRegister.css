@@ -42,8 +42,10 @@
   font-size:18px;
   padding-bottom:100px;
   text-align:center;
+  padding-top:30px;
 }
 #sysbtn a {
+
   padding-left:10px;
 }
 a{
@@ -60,4 +62,12 @@ a{
   align-content:center;
   justify-content:center;
   font-size:26px;
+}
+.error-field{
+  font-size:15px;
+}
+
+.mdl-textfield{
+  padding-top:40px;
+  padding-bottom:0px;
 }

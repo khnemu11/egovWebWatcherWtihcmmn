@@ -74,7 +74,7 @@ public class EgovComIndexController implements ApplicationContextAware, Initiali
 	
 	@RequestMapping("/index.do")
 	public String index(ModelMap model) {
-		return "egovframework/com/cmm/EgovUnitMain";
+		return "index";
 	}
 
 	@RequestMapping("/EgovTop.do")
@@ -161,12 +161,12 @@ public class EgovComIndexController implements ApplicationContextAware, Initiali
 
 		/*@Controller Annotation 처리된 클래스를 모두 찾는다.*/
 		Map<String, Object> myZoos = applicationContext.getBeansWithAnnotation(Controller.class);
-		LOGGER.debug("How many Controllers : ", myZoos.size());
+	//	LOGGER.debug("How many Controllers : ", myZoos.size());
 		for (final Object myZoo : myZoos.values()) {
 			Class<? extends Object> zooClass = myZoo.getClass();
 
 			Method[] methods = zooClass.getMethods();
-			LOGGER.debug("Controller Detected {}", zooClass);
+			//LOGGER.debug("Controller Detected {}", zooClass);
 			for (int i = 0; i < methods.length; i++) {
 				annotation = methods[i].getAnnotation(IncludedInfo.class);
 
@@ -193,7 +193,7 @@ public class EgovComIndexController implements ApplicationContextAware, Initiali
 
 		model.addAttribute("resultList", map.values());
 		
-		LOGGER.debug("EgovComIndexController index is called ");
+//		LOGGER.debug("EgovComIndexController index is called ");
 
 		return "egovframework/com/cmm/EgovUnitLeft";
 	}
