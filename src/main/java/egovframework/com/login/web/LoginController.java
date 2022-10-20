@@ -55,7 +55,6 @@ public class LoginController {
 		if(session.getAttribute("userSeq") != null) {
 			session.removeAttribute("userSeq");
 		}
-		
 		beanValidator.validate(loginVO, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "egovframework/com/login/login";
@@ -97,7 +96,9 @@ public class LoginController {
 	
 	@RequestMapping(value = "/logout.do")
 	public String logout(HttpSession session) {
+		logger.info("logout start");
 		session.invalidate();
-		return "egovframework/com/login/login";
+		logger.info("logout out");
+		return "redirect:/login.do";
 	}
 }
