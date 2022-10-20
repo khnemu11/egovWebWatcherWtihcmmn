@@ -214,12 +214,11 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/updateSiteView.do")
-	public String updateSiteView(@RequestParam("seq") int seq, @ModelAttribute("searchVO") DefaultVO searchVO,
-			Model model) throws Exception {
+	public String updateSiteView(@RequestParam("seq") int seq, Model model) throws Exception {
 		SiteVO siteVO = new SiteVO();
 		siteVO.setSeq(seq);
 
-		model.addAttribute("siteVO", selectSite(siteVO, searchVO));
+		model.addAttribute("siteVO", siteService.selectSite(siteVO));
 		return "egovframework/com/site/SiteRegister";
 	}
 
@@ -230,17 +229,21 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/updateSite.do")
-	public String updateSite(@ModelAttribute("siteVO") SiteVO siteVO, Model model, SessionStatus status,
-			BindingResult bindingResult, MultipartHttpServletRequest multiRequest) throws Exception {
+	public String updateSite(@ModelAttribute("siteVO") SiteVO siteVO, Model model, SessionStatus status, BindingResult bindingResult,
+			MultipartHttpServletRequest multiRequest) throws Exception {
 		logger.info("updateSite Start");
-		siteVO.setFileName(siteVO.getFile() == null ? null : siteVO.getFile().getOriginalFilename());
 		logger.info(siteVO.toString());
-
+		siteVO.setFileName(
+				siteVO.getFile().getOriginalFilename().length() == 0 ? null : siteVO.getFile().getOriginalFilename());
+		logger.info(siteVO.toString());
+		
 		beanValidator.validate(siteVO, bindingResult);
+		
+		
 		logger.info(bindingResult.toString());
 
 		if (bindingResult.hasErrors()) {
-			if (bindingResult.getErrorCount() == 1 && siteVO.getFile() == null) {
+			if (bindingResult.getErrorCount() == 1 && siteVO.getFileName() == null) {
 			} else {
 				logger.info("field error");
 				System.out.println(bindingResult.toString());
@@ -250,6 +253,8 @@ public class SiteController {
 				siteVO.setFileName(originalVO.getFileName());
 				model.addAttribute("siteVO", siteVO);
 
+				logger.info("site update input fail");
+
 				return "egovframework/com/site/SiteRegister";
 			}
 		}
@@ -257,38 +262,57 @@ public class SiteController {
 		String _atchFileId = siteVO.getFileId();// 해당 업무기능에 따라서 수정되는 기능의 파일 ID를 불러온다.
 		logger.info("file id : " + _atchFileId);
 		final Map<String, MultipartFile> files = multiRequest.getFileMap();
-		if (!files.isEmpty()) {
-			if (_atchFileId == null || _atchFileId.isEmpty()) {
+		logger.info("input file: " + files.toString());
+		logger.info("input file name : " + files.get("file").getOriginalFilename());
+		try {
+			SiteVO originalVO = siteService.selectSite(siteVO);
+			logger.info("original site vo : " + originalVO.toString());
+
+			if (files.get("file").getOriginalFilename().isEmpty()
+					|| files.get("file").getOriginalFilename().equals("")) {
+				logger.info("no change file");
+				siteVO.setFileName(originalVO.getFileName());
+				siteVO.setFileId(originalVO.getFileId());
+			} else {
 				logger.info("insert file");
+				FileVO fileVO = new FileVO();
+				fileVO.setAtchFileId(originalVO.getFileId());
+				fileVO.setFileSn("0");
+				fileMngService.deleteFileInf(fileVO);
+
 				List<FileVO> _result = fileUtil.parseFileInf(files, "SCENARIO_", 0, "", "");
 				_atchFileId = fileMngService.insertFileInfs(_result); // 기존에 첨부파일 ID가 없다.
 				siteVO.setFileId(_atchFileId); // 관련 비즈니스 규칙에 따라서 생성된 첨부파일 ID 정보를 세팅한다.
-			} else {
-				logger.info("update file");
-				FileVO fvo = new FileVO();
-				fvo.setAtchFileId(_atchFileId); // 최종 파일 순번을 획득하기 위하여 VO에 현재 첨부파일 ID를 세팅한다.
-				int _cnt = fileMngService.getMaxFileSN(fvo); // 해당 첨부파일 ID에 속하는 최종 파일 순번을 획득한다.
-				List<FileVO> _result = fileUtil.parseFileInf(files, "SCENARIO_", _cnt, _atchFileId, "");
-				fileMngService.updateFileInfs(_result);
+				siteVO.setFileName(files.get("file").getOriginalFilename());
 			}
+		} catch (Exception e) {
+			logger.info("file update fail");
+			e.getStackTrace();
+		}
+		logger.info(siteVO.toString());
+		try {
+			siteService.updateSite(siteVO);
+		} catch (Exception e) {
+			logger.info("site update fail");
+			e.getStackTrace();
 		}
 
-		siteService.updateSite(siteVO);
 //		status.setComplete();
+		logger.info("site update end");
 		return "forward:/site/SiteList/" + siteVO.getUserSeq() + ".do";
 	}
 
 	@RequestMapping("/site/deleteSite/{siteSeq}.do")
-	public String deleteSite(@PathVariable int siteSeq, @ModelAttribute("searchVO") DefaultVO searchVO, SessionStatus status)
-			throws Exception {
+	public String deleteSite(@PathVariable int siteSeq, @ModelAttribute("searchVO") DefaultVO searchVO,
+			SessionStatus status) throws Exception {
 		logger.info("site delete start");
 		SiteVO search = new SiteVO();
 		search.setSeq(siteSeq);
-		
+
 		SiteVO siteVO = siteService.selectSite(search);
-		
+
 		siteService.deleteSite(siteVO);
-		
+
 		logger.info("delete : " + siteVO.getFileId());
 		FileVO fileVO = new FileVO();
 		fileVO.setAtchFileId(siteVO.getFileId());
