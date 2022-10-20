@@ -13,7 +13,6 @@
 	    document.selectOne.action = "<c:url value='/sym/mnu/mpm/EgovMainMenuIndex.do'/>";
 	    document.selectOne.submit();
 	}
-
 	function actionLogout()
 	{
 		document.selectOne.action = "<c:url value='/uat/uia/actionLogout.do'/>";

@@ -29,8 +29,6 @@
 <link rel="stylesheet"
 	href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"></link>
 <script defer="defer" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/egovframework/com/site/site.css'/>" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet"

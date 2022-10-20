@@ -22,7 +22,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=100%,initial-scale=1" />
-<c:set var="userSeq" value="${userSeq}" />
+<c:set var="userSeq" value="${userSeq}"/>
 <title>Web Watcher</title>
 
 <link rel="stylesheet"
