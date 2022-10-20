@@ -24,11 +24,16 @@ h3 {
 	font-size:15px;
 }
 
-td {
+td,th {
 	overflow: hidden;
+	max-width:150px;
 	text-overflow: ellipsis;
 }
-
+#url{
+	overflow: hidden;
+	 white-space: nowrap; 
+	text-overflow: ellipsis;	 	
+}
 .mdl-mega-footer__middle-section {
 	display: flex;
 	justify-content: center;
@@ -62,6 +67,11 @@ a{
 		display:none;
 	}
 }
+@media screen and (max-width:699px){
+	tr{
+		display:none;
+	}
+}
 .mdl-layout__drawer-button{
 	display:flex;
 	justify-content:center;
@@ -72,4 +82,32 @@ a{
 }
 li{
 	list-style:none;
+}
+.current a{
+	color:black;
+}
+td span{
+	color:black;
+}
+#sysbtn span{
+	color:black;
+}
+
+th, td{
+	text-align:center !important;
+}
+.mdl-list__item--two-line .mdl-list__item-primary-content {
+    display: flex !important;
+}
+.mdl-list__item-secondary-content .material-symbols-outlined {
+	color:black !important;
+}
+.listile-subtitle{
+	width:100%;
+	font-weight:600;
+	padding-left:15px;
+	font-size:15px;
+}
+li{
+	padding-top:10px;
 }

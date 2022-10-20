@@ -23,7 +23,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=100%,initial-scale=1" />
-<c:set var="userSeq" value="${userSeq}" />
+<c:set var="userSeq" value="${loginInfo.userSeq}" />
 <title>Web Watcher</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -51,31 +51,11 @@
 <!-- validator:javascript formName="siteVO" staticJavascript="false" xhtml="true" cdata="false"/ -->
 
 <script type="text/javaScript" language="javascript" defer="defer">
-<!--
-/* 글 목록 화면 function */
-function fn_egov_selectList() {
-   	document.getElementById("detailForm").action = "<c:url value='/site/SiteList.do'/>";
-   	document.getElementById("detailForm").submit();		
-}
-
-/* 글 삭제 function */
-function fn_egov_delete() {
-   	document.getElementById("detailForm").action = "<c:url value='/site/deleteSite.do'/>";
-   	document.getElementById("detailForm").submit();		
-}
-
-/* 글 등록 function */
-function fn_egov_save() {	
-	frm = document.getElementById("detailForm");
-
-	/* TODO Validation기능 보완 */
-	
-  	frm.action = "<c:url value="${registerFlag == '등록' ? '/site/addSite.do' : '/site/updateSite.do'}"/>";
-    frm.submit();
-
-}
 // -->
-
+function egov_selectList(){
+	var url = "<c:url value="/WebWatcher/site/SiteList/${userSeq}.do"/>";
+	location.fref=url;
+}
 function egov_save(){
 	frm = document.getElementById("detailForm");
 	frm.action = "<c:url value="${registerFlag == 'register' ? '/site/addSite.do' : '/site/updateSite.do'}"/>";
@@ -152,9 +132,11 @@ function delete_site(seq) {
 							<form:input type="hidden" id="fileId" path="fileId"
 								value="${siteVO.fileId}" />
 						</c:if>
-						<div class="error-field">
-							<form:errors path="fileName" />
-						</div>
+						<c:if test="${registerFlag == 'register'}">
+							<div class="error-field">
+								<form:errors path="fileName" />
+							</div>
+						</c:if>
 					</div>
 					<div class="mdl-button mdl-button--primary mdl-button--icon"
 						id="mdl-button--file">
@@ -162,7 +144,7 @@ function delete_site(seq) {
 					</div>
 				</div>
 				<div id="sysbtn">
-					<a href="javascript:fn_egov_selectList();"><span
+					<a href="<c:url value="/site/SiteList/${userSeq}.do"/>"><span
 						class="material-symbols-outlined"> arrow_back </span></a>
 
 					<c:if test="${registerFlag == 'modify'}">

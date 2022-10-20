@@ -9,7 +9,7 @@
             <field property="url" depends="required">
                 <arg0 key="url" resource="true"/>
             </field>
-             <field property="fileName" depends="required, fileIsExist">
+             <field property="fileName" depends="required">
                 <arg0 key="site.file" resource="true"/>
             </field> 
         </form>

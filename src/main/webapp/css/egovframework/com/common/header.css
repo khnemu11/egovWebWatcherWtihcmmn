@@ -5,6 +5,9 @@
 }
 .mdl-navigation__link{
 	display:flex !important;
-	justify-content:center !important;
 	align-items:center !important;
+}
+.title-link{
+	color:white;
+	text-decoration:none;
 }

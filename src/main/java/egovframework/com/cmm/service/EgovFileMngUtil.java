@@ -81,9 +81,9 @@ public class EgovFileMngUtil {
 		}
 
 		if ("".equals(atchFileId) || atchFileId == null) {
-			atchFileIdString = idgenService.getNextStringId() + ".json";
+			atchFileIdString = idgenService.getNextStringId();
 		} else {
-			atchFileIdString = atchFileId + ".json";
+			atchFileIdString = atchFileId;
 		}
 
 		File saveFolder = new File(EgovWebUtil.filePathBlackList(storePathString));
@@ -252,7 +252,7 @@ public class EgovFileMngUtil {
 				}
 			}
 
-			bos = new FileOutputStream(stordFilePath + File.separator + newName+".json");
+			bos = new FileOutputStream(stordFilePath + File.separator + newName);
 
 			int bytesRead = 0;
 			byte[] buffer = new byte[BUFF_SIZE];
@@ -384,7 +384,7 @@ public class EgovFileMngUtil {
 				}
 			}
 
-			bos = new FileOutputStream(EgovWebUtil.filePathBlackList(stordFilePath + File.separator + newName+".json"));
+			bos = new FileOutputStream(EgovWebUtil.filePathBlackList(stordFilePath + File.separator + newName));
 
 			int bytesRead = 0;
 			byte[] buffer = new byte[BUFF_SIZE];

@@ -22,7 +22,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=100%,initial-scale=1" />
-<c:set var="userSeq" value="${userSeq}"/>
+<c:set var="userSeq" value="${loginInfo.userSeq}" />
 <title>Web Watcher</title>
 
 <link rel="stylesheet"
@@ -40,7 +40,7 @@
 <script>
 function delete_site(seq) {
 	if(confirm("정말로 삭제하시겠습니까?")){
-		var url = "./deleteSite/";
+		var url = "../deleteSite/";
 		url= url+ seq;
 		url=url+".do";
 		location.href = url;
@@ -115,7 +115,7 @@ function fn_egov_link_page(pageNo){
 								<th><spring:message code="site.url" /></th>
 								<th><spring:message code="site.file.name" /></th>
 								<th><spring:message code="site.download" /></th>
-								<th>Result</th>
+								<th><spring:message code="site.result" /></th>
 								<th><spring:message code="site.action" /></th>
 							</tr>
 						</thead>
@@ -123,6 +123,8 @@ function fn_egov_link_page(pageNo){
 							<c:forEach var="result" items="${resultList}" varStatus="status">
 								<div class="listTile">
 									<ul class='demo-list-two mdl-list'>
+										<li><span class="listile-subtitle"><spring:message
+													code="site.url" /></span></li>
 										<li class="mdl-list__item mdl-list__item--two-line"><span
 											class="mdl-list__item-primary-content"><span id="url"><c:out
 														value="${result.url}" /></span> </span> <span
@@ -143,6 +145,9 @@ function fn_egov_link_page(pageNo){
 												onclick="delete_site(${result.siteSeq});"><span
 													class="material-symbols-outlined">delete</span></a>
 										</span></li>
+
+										<li><span class="listile-subtitle"><spring:message
+												code="site.fileName" /></span>
 										<li class="mdl-list__item mdl-list__item--two-line"><span
 											class="mdl-list__item-primary-content"><c:out
 													value="${result.fileName}" /></span> <span
