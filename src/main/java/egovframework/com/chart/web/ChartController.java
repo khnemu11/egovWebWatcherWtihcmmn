@@ -22,6 +22,7 @@ import egovframework.com.chart.service.ChartService;
 import egovframework.com.chart.service.ChartVO;
 import egovframework.com.cmm.service.EgovFileMngService;
 import egovframework.com.cmm.service.EgovFileMngUtil;
+import egovframework.com.login.service.LoginVO;
 import egovframework.rte.fdl.property.EgovPropertyService;
 
 /**
@@ -38,7 +39,7 @@ import egovframework.rte.fdl.property.EgovPropertyService;
  */
 
 @Controller
-@SessionAttributes({ "userSeq", "siteSeq" })
+@SessionAttributes({"siteSeq" })
 public class ChartController {
 	Logger logger = LogManager.getRootLogger();
 
@@ -69,12 +70,12 @@ public class ChartController {
 	 */
 	@RequestMapping(value = "/chart/chartDatePick/{siteSeq}.do")
 	public String selectChartDatePick(@PathVariable("siteSeq") int siteSeq, Model model,
-			@SessionAttribute("userSeq") int userSeq) throws Exception {
+			@SessionAttribute("loginInfo") LoginVO loginInfo) throws Exception {
 		logger.info("start select site list");
 		/** EgovPropertyService.sample */
 
 		model.addAttribute("siteSeq", siteSeq);
-		logger.info("user seq : " + userSeq);
+		logger.info("user seq : " + loginInfo.getUserSeq());
 		logger.info("site seq : " + siteSeq);
 		logger.info("end select site list");
 
@@ -86,7 +87,6 @@ public class ChartController {
 			@RequestParam(value = "to") String to, @SessionAttribute("siteSeq") int siteSeq, Model model)
 			throws Exception {
 		logger.info("start chartLoad ");
-		/** EgovPropertyService.sample */
 
 		ChartVO searchVO = new ChartVO();
 

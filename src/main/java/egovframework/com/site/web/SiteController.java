@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +92,11 @@ public class SiteController {
 		/** EgovPropertyService.sample */
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
 		searchVO.setPageSize(propertiesService.getInt("pageSize"));
+		
+		String value = propertiesService.getString("email.title.en");
+		Collection<?> keys = propertiesService.getAllKeyValue();
 
+		logger.info(keys.toString());
 		/** pageing */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
@@ -229,17 +234,16 @@ public class SiteController {
 	}
 
 	@RequestMapping("/site/updateSite.do")
-	public String updateSite(@ModelAttribute("siteVO") SiteVO siteVO, Model model, SessionStatus status, BindingResult bindingResult,
-			MultipartHttpServletRequest multiRequest) throws Exception {
+	public String updateSite(@ModelAttribute("siteVO") SiteVO siteVO, Model model, SessionStatus status,
+			BindingResult bindingResult, MultipartHttpServletRequest multiRequest) throws Exception {
 		logger.info("updateSite Start");
 		logger.info(siteVO.toString());
 		siteVO.setFileName(
 				siteVO.getFile().getOriginalFilename().length() == 0 ? null : siteVO.getFile().getOriginalFilename());
 		logger.info(siteVO.toString());
-		
+
 		beanValidator.validate(siteVO, bindingResult);
-		
-		
+
 		logger.info(bindingResult.toString());
 
 		if (bindingResult.hasErrors()) {
