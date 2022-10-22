@@ -44,7 +44,11 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"
 	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
 	crossorigin="anonymous"></script>
-<title><c:out value="${registerFlag}" /></title>
+<title><c:if test="${registerFlag == 'register'}">
+		<spring:message code="site.add" />
+	</c:if> <c:if test="${registerFlag == 'modify'}">
+		<spring:message code="site.edit" />
+	</c:if></title>
 
 <!--For Commons Validator Client Side-->
 <!-- script type="text/javascript" src="<c:url value='/cmmn/validator.do'/>"></script -->

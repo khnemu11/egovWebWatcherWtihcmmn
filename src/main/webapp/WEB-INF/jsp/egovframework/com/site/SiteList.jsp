@@ -23,7 +23,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=100%,initial-scale=1" />
 <c:set var="userSeq" value="${loginInfo.userSeq}" />
-<title>Web Watcher</title>
+<title><spring:message code="site.list"/></title>
 
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>

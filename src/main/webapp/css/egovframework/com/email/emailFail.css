@@ -1,0 +1,12 @@
+#title{
+	font-size:30px;
+	display:flex;
+	justify-content:center;
+	padding-top:80px;
+	line-height:100%;
+}
+.context-grid{
+	padding-top:30px !important;
+	padding-bottom:80px !important;
+	font-size:18px;
+}
