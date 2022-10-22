@@ -49,10 +49,14 @@ public class SignupController {
 	@RequestMapping("/signup/{emailAuth}.do")
 	public String signupInput(@PathVariable int emailAuth, @ModelAttribute("userVO") UserVO userVO, Model m,
 			HttpSession session) {
-		if (!session.getAttribute("emailAuth").equals(emailAuth)) {
+		try {
+			if (session.getAttribute("emailAuth") == null || !session.getAttribute("emailAuth").equals(emailAuth)) {
+				return "egovframework/com/error/invalidAccess";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return "egovframework/com/error/invalidAccess";
 		}
-
 		return "egovframework/com/signup/signupInputForUser";
 	}
 

@@ -24,7 +24,7 @@
 <%@ include file="/WEB-INF/jsp/egovframework/com/common/head.jsp"%>
 <title><spring:message code="email.signIn"/> | <spring:message code="email.check"/></title>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/egovframework/com/error/invalidAccess.css'/>" />
+	href="<c:url value='/css/egovframework/com/email/emailSuccess.css'/>" />
 </head>
 
 <body>
@@ -36,7 +36,7 @@
 				class="mdl-cell mdl-cell--2-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
 			<div
 				class="mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-				<span id="title"><spring:message code="error.invalidAccess.title" /></span>
+				<span id="title"><spring:message code="email.fail.title" /></span>
 			</div>
 			<div
 				class="mdl-cell mdl-cell--2-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
@@ -47,7 +47,7 @@
 			<div
 				class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone">
 				<span id="context"><spring:message
-						code="error.invalidAccess.context" /></span>
+						code="email.fail.context" /></span>
 			</div>
 			<div
 				class="mdl-cell mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -75,16 +76,21 @@ public class EmailController {
 	}
 
 	@RequestMapping("/email/emailCheck.do")
-	public String userEmailCheck(@ModelAttribute("emailVO") EmailVO emailVO, Model model, HttpServletRequest request)
-			throws Exception {
+	public String userEmailCheck(@ModelAttribute("emailVO") EmailVO emailVO, Model model, HttpServletRequest request,
+			BindingResult bindingResult) throws Exception {
 		logger.info("userEmailCheck Start");
 		logger.info(emailVO.getEmail());
-		if (emailService.selectEmailTotCnt(emailVO) > 0) {
-			logger.info("already exist email");
-			return "redirect:/email/userRegisterView.do";
+		
+		beanValidator.validate(emailVO, bindingResult);
+		if (bindingResult.hasErrors() || emailService.selectEmailTotCnt(emailVO) > 0) {
+			logger.info("field error");
+			System.out.println(bindingResult.toString());
+			model.addAttribute("emailVO", emailVO);
+			return "egovframework/com/email/EmailRegister";
 		}
 
 		logger.info("userEmailCheck End");
+		
 		try {
 			HtmlEmail emailContext = new HtmlEmail();
 			emailContext.setCharset("euc-kr");
@@ -103,16 +109,16 @@ public class EmailController {
 			String lang = RequestContextUtils.getLocale(request).getLanguage();
 			logger.info("locale " + lang);
 
-			String title = uniToCountry(propertiesService.getString("email.title." + lang),lang);
-			
-			if(title == null || title.isEmpty()) {
+			String title = uniToCountry(propertiesService.getString("email.title." + lang), lang);
+
+			if (title == null || title.isEmpty()) {
 				lang = "en";
 				title = propertiesService.getString("email.title.en");
 			}
-				
+
 			logger.info("title " + title);
 			emailContext.setSubject(title); // 메일 제목
-			
+
 			logger.info("set context");
 
 			StringBuilder sb = new StringBuilder();
@@ -141,16 +147,16 @@ public class EmailController {
 		} catch (Exception e) {
 			logger.info("email fail");
 			e.printStackTrace();
+			return "egovframework/com/error/Emailfail";
 		}
 
-		return "egovframework/com/email/EmailRegister";
+		return "egovframework/com/email/EmailSuccess";
 	}
 
-	public String uniToCountry(String uni,String lang) {
-		if(lang.equals("ko")) {
+	public String uniToCountry(String uni, String lang) {
+		if (lang.equals("ko")) {
 			return uniToKor(uni);
-		}
-		else {
+		} else {
 			return uni;
 		}
 	}
