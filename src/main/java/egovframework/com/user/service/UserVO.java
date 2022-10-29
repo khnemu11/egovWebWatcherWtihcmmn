@@ -10,7 +10,7 @@ public class UserVO extends CommonVO {
     private String keyword;
     private String email;
     private String name;
-    private String dispName;
+    private String dispname;
     private String company;
     private String tel;
     private String locale;
@@ -43,11 +43,11 @@ public class UserVO extends CommonVO {
     public void setName(String name) {
         this.name = name;
     }
-    public String getDispName() {
-        return dispName;
+    public String getDispname() {
+        return dispname;
     }
-    public void setDispName(String dispName) {
-        this.dispName = dispName;
+    public void setDispname(String dispname) {
+        this.dispname = dispname;
     }
     public String getCompany() {
         return company;
