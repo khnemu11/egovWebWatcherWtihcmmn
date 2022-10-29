@@ -56,8 +56,16 @@
 			,PASSWORD = #{password}
 		</if>
 		<if
+			test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(passwordConfirm)">
+			,PASSWORD_CONFIRM = #{passwordConfirm}
+		</if>
+		<if
 			test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(name)">
 			,NAME = #{name}
+		</if>
+		<if
+			test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(email)">
+			,EMAIL = #{email}
 		</if>
 		<if
 			test="@egovframework.com.cmm.util.EgovMybaitsUtil@isNotEmpty(dispname)">
