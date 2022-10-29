@@ -22,6 +22,7 @@ import egovframework.com.site.service.SiteService;
 import egovframework.com.user.service.UserService;
 import egovframework.com.usersite.service.UserSiteService;
 import egovframework.com.usersite.service.UserSiteVO;
+import egovframework.com.utl.sim.service.EgovFileScrty;
 import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -56,7 +57,6 @@ public class UserSiteController {
 //		if (!isAuthenticated) {
 //			return "index";
 //		}
-		logger.info(userSiteVO.getSearchCondition() + " " + userSiteVO.getSearchKeyword());
 		/** EgovPropertyService */
 		userSiteVO.setPageUnit(propertiesService.getInt("pageUnit"));
 		userSiteVO.setPageSize(propertiesService.getInt("pageSize"));
@@ -72,8 +72,6 @@ public class UserSiteController {
 		userSiteVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
 		List<?> userSiteList = userSiteService.selectUserSiteList(userSiteVO);
-		logger.info(userSiteService.selectUserSiteList(userSiteVO));
-		logger.info("hello " + userSiteList);
 		model.addAttribute("resultList", userSiteList);
 
 		int totCnt = userSiteService.selectSiteListTotCnt(userSiteVO);
@@ -92,7 +90,6 @@ public class UserSiteController {
 //		if (!isAuthenticated) {
 //			return "index";
 //		}
-		logger.info("delete");
 		userSiteService.deleteUser(checkedIdForDel, userSiteVO);
 		userSiteService.deleteLogin(checkedIdForDel, userSiteVO);
 		userSiteService.deleteSite(checkedIdForDel, userSiteVO);
@@ -111,7 +108,6 @@ public class UserSiteController {
 //		if (!isAuthenticated) {
 //			return "index";
 //		}
-		logger.info("hhh");
 		
 		userSiteVO.setSeq(Integer.parseInt(seq));
 		userSiteVO = userSiteService.selectUserUseSeq(userSiteVO);
@@ -135,17 +131,24 @@ public class UserSiteController {
 //		if (!isAuthenticated) {
 //			return "index";
 //		}
-		logger.info("bb");
 		beanValidator.validate(userSiteVO, bindingResult);
 		if (bindingResult.hasErrors()) {
-			logger.info("error");
 			return "egovframework/com/usersite/UserInfo";
 		} else {
-			logger.info("no error");
+			if(!userSiteVO.getPassword().isEmpty()) {
+				// 비밀번호 암호화
+				String enPassword = EgovFileScrty.encryptPassword(userSiteVO.getPassword(), userSiteVO.getLoginId());
+				String enPasswordConfirm = EgovFileScrty.encryptPassword(userSiteVO.getPassword(), userSiteVO.getLoginId());
+				
+				userSiteVO.setPassword(enPassword);
+				userSiteVO.setPasswordConfirm(enPasswordConfirm);
+			}
+			
 			userSiteService.updateUser(userSiteVO);
 			LoginVO loginVO = new LoginVO();
 			loginVO.setPassword(userSiteVO.getPassword());
 			loginVO.setDispname(userSiteVO.getDispname());
+			loginVO.setUserSeq(userSiteVO.getSeq());
 			userSiteService.updateLogin(loginVO);
 			
 			//Exception 없이 진행시 수정성공메시지
