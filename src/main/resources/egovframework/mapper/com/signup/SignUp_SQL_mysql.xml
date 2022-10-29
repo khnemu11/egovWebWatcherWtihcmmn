@@ -31,6 +31,8 @@
 				,TEL
 				,EMAIL
  				,LOCALE
+ 				,LOGIN_ID
+ 				,PASSWORD
 				,CDATE
 				,CTIME
 				,UDATE
@@ -43,6 +45,8 @@
 				,#{tel}
 				,#{email}
 				,#{locale}
+				,#{loginId}
+				,#{password}
 				,#{cdate}
 				,#{ctime}
 				,#{udate}
@@ -66,7 +70,7 @@
 				(
 				#{loginId}
 				,#{password}
-				,#{dispName}
+				,#{dispname}
 				,#{seq}
 				,#{locale}
 				,#{cdate}
