@@ -106,6 +106,7 @@ public class AuthFilter implements Filter {
 			if (count == 0) {
 				RequestDispatcher dispatcher = httpRequest.getRequestDispatcher(loginURL);
 				dispatcher.forward(httpRequest, httpResponse);
+				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
