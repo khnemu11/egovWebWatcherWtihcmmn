@@ -8,4 +8,6 @@ public interface LoginService {
 	public long selectLoginCheck(LoginVO vo) throws Exception;
 
 	public int updateLoginFail(LoginVO vo) throws Exception;
+	
+	public LoginVO selectLoginId(LoginVO vo) throws Exception;
 }

@@ -22,4 +22,8 @@ public class LoginDAO extends EgovComAbstractDAO {
 	public int updateLoginFail(LoginVO vo) {
 		return update("UserLoginDAO.updateLoginFail", vo);
 	}
+	
+	public LoginVO selectLoginId(LoginVO vo) {
+		return selectOne("UserLoginDAO.selectLoginId", vo);
+	}
 }

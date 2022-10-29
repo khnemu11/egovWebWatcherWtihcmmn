@@ -30,6 +30,14 @@
 			LOGIN.LOGIN_ID = #{loginId}
 			AND LOGIN.DDATE = 0
 	</select>
+	
+	<select id="selectLoginId" resultType="LoginVO">
+		select *
+			from LOGIN
+		where
+			USER_SEQ = #{userSeq}
+			AND LOGIN.DDATE = 0
+	</select>
 
 	<select id="selectLoginCheck" resultType="long">
 		select count(*)

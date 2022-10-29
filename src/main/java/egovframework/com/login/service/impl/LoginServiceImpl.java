@@ -34,5 +34,10 @@ public class LoginServiceImpl extends CommonServiceImpl implements LoginService 
 		return loginDAO.updateLoginFail(vo);
 	}
 
+	@Override
+	public LoginVO selectLoginId(LoginVO vo) throws Exception {
+		return loginDAO.selectLoginId(vo);
+	}
+
 
 }
