@@ -1,0 +1,32 @@
+.mdl-textfield__input{
+    display:flex !important;
+    justify-content:center  !important;
+    width:100% !important;
+    max-width:600px !important;
+        margin: 0 !important;
+}
+.mdl-textfield{
+    display:flex !important;
+    width:100% !important;
+    justify-content:center  !important;
+    margin: 0 !important;
+}
+form{
+    width:100%;
+}
+#textfield_new_login_id{
+    width:100% !important;
+}
+.loginid-div{
+    width:75% !important;
+}
+.id-confirm-button{
+  width:25% !important;
+  overflow: hidden !important;
+    display:flex;
+  justify-content:right;
+}
+.context{
+  padding-top:40px !important;
+  padding-bottom:80px !important;
+}

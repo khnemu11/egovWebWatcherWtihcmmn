@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="authDAO">
+	<select id="selectAnonymousRole"
+		parameterType="egovframework.com.filter.service.AuthVO"
+		resultType="long">
+		SELECT count(*)
+		FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE
+		b
+		WHERE a.ROLE_CODE = b.ROLE_CODE
+		AND a.ROLE_TY = 'url'
+		AND #{url} regexp
+		a.ROLE_PTTRN
+		AND b.AUTHOR_CODE = "ROLE_ANONYMOUS"
+	</select>
+	<select id="selectAuth"
+		parameterType="egovframework.com.filter.service.AuthVO"
+		resultType="string">
+		SELECT AUTHOR_CODE from comtnemplyrscrtyestbs where
+		SCRTY_DTRMN_TRGET_ID = #{seq}
+	</select>
+	<select id="selectAdminRole"
+		parameterType="egovframework.com.filter.service.AuthVO"
+		resultType="long">
+		SELECT count(*)
+		FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE b
+		WHERE
+		a.ROLE_CODE = b.ROLE_CODE
+		AND a.ROLE_TY = 'url'
+		AND #{url} regexp
+		a.ROLE_PTTRN
+		AND b.AUTHOR_CODE in (
+		"ROLE_ANONYMOUS","ROLE_USER","ROLE_ADMIN")
+	</select>
+
+	<select id="selectUserRole"
+		parameterType="egovframework.com.filter.service.AuthVO"
+		resultType="long">
+		SELECT count(*)
+		FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE b
+		WHERE
+		a.ROLE_CODE = b.ROLE_CODE
+		AND a.ROLE_TY = 'url'
+		AND #{url} regexp
+		a.ROLE_PTTRN
+		AND b.AUTHOR_CODE in ("ROLE_ANONYMOUS","ROLE_USER")
+	</select>
+	<select id="selectRole"
+		parameterType="egovframework.com.filter.service.AuthVO"
+		resultType="long">
+		SELECT count(*)
+		FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE
+		b
+		WHERE a.ROLE_CODE = b.ROLE_CODE
+		AND a.ROLE_TY = 'url'
+		AND #{url} regexp
+		a.ROLE_PTTRN
+		AND b.AUTHOR_CODE in (SELECT AUTHOR_CODE from
+		comtnemplyrscrtyestbs where
+		SCRTY_DTRMN_TRGET_ID = #{seq})
+	</select>
+</mapper>

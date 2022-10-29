@@ -445,7 +445,7 @@ if (typeof(opener.fn_egov_dn_info_setting) == 'undefined') {
 		<tr>
 			<th><label for="emplyrSttusCode">${title}</label> <span class="pilsu">*</span></th>
 			<td class="left">
-                    <form:select path="emplyrSttusCode" id="emplyrSttusCode" title="${title} ${inputSelect}">
+                    <form:select path="emplyrSttusCode" id="emplyrSttusCode" title="${title} ${inp+utSelect}">
                         <form:option value="" label="${inputSelect}"/>
                         <form:options items="${emplyrSttusCode_result}" itemValue="code" itemLabel="codeNm"/>
                     </form:select>

@@ -8,6 +8,8 @@
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/css/egovframework/com/common/common.css'/>" />
 <title>SignUp</title>
+
+<link type="text/css" rel="stylesheet" href="<c:url value="/css/egovframework/com/signup/signup.css"/>"/>
 </head>
 
 <body>
@@ -16,7 +18,7 @@
 			file="/WEB-INF/jsp/egovframework/com/common/header.jsp"%>
 
 		<main class="mdl-layout__content">
-			<div class="mdl-grid">
+			<div class="mdl-grid context">
 				<div class="mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
 
 				<div
@@ -83,15 +85,15 @@
 							</div>
 							
 							<div
-								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--9-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone">
-								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--9-col-desktop mdl-cell--7-col-tablet mdl-cell--3-col-phone id-div">
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label loginid-div">
 									<label class="mdl-textfield__label mdl-color-text--grey"
 										for="textfield_new_login_id">Login ID*</label> 
 									<form:input class="mdl-textfield__input" type="text"
 									id="textfield_new_login_id" name="loginId" path="loginId" />
 										<form:errors path="loginId"/>
 								</div>
-								<span><input class="mdl-button mdl-js-button mdl-button--raised button-color" id="loginIdLookUpBtn" type="button" onclick="fnCheckId(); " value="<spring:message code='button.inquire' />" /></span>
+								<span class="id-confirm-button"><input class="mdl-button mdl-js-button mdl-button--raised button-color" id="loginIdLookUpBtn" type="button" onclick="fnCheckId(); " value="<spring:message code='button.inquire' />" /></span>
 							</div>
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -150,7 +152,7 @@
 	// 버튼 ajax 처리 
 	let button = $('#loginIdLookUpBtn');
 	function fnCheckId(){
-		let url = "${pageContext.request.contextPath}/checkLoginIdDplctAjax.do";
+		let url = "${pageContext.request.contextPath}/signup/checkLoginIdDplctAjax.do";
    		button[0].disabled = true;
    		$('html, body').css('cursor', 'wait');
 

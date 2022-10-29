@@ -7,6 +7,8 @@
 <%@ include file="/WEB-INF/jsp/egovframework/com/common/head.jsp"%>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/css/egovframework/com/common/common.css'/>" />
+	<link type="text/css" rel="stylesheet"
+	href="<c:url value='/css/egovframework/com/login/login.css'/>" />
 <title>Login</title>
 </head>
 <body>
@@ -15,7 +17,8 @@
 			file="/WEB-INF/jsp/egovframework/com/common/header.jsp"%>
 
 		<main class="mdl-layout__content">
-			<div class="mdl-grid">
+			
+			<div class="mdl-grid login-context">
 				<div class="mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
 
 				<div
