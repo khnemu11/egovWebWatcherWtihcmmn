@@ -24,6 +24,8 @@
 			type="egovframework.com.signup.service.SignupVO" />
 		<typeAlias alias="userVO"
 			type="egovframework.com.user.service.UserVO" />
+		<typeAlias alias="userSiteVO"
+			type="egovframework.com.usersite.service.UserSiteVO" />
 	</typeAliases>
     
 </configuration>
