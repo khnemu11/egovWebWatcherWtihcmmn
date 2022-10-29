@@ -25,6 +25,7 @@ link:hover { color: #000000; text-decoration: none; }
 <c:set var="isDam" value="false"/>
 <c:set var="isCom" value="false"/>
 <c:set var="isExt" value="false"/>
+<c:set var="isUserSite" value="false"/>
 <ul class="lnb_title">
 	<c:forEach var="result" items="${resultList}" varStatus="status">
 	
@@ -101,6 +102,14 @@ link:hover { color: #000000; text-decoration: none; }
 		<li><a href="${pageContext.request.contextPath}<c:out value="${result.listUrl}"/>" target="_content" class="link"> <c:out value="${result.order}"/>. <spring:message code="${componentMsgKey}"/><!-- <c:out value="${result.name}"/> --></a></li>
 		</ul>
 	</c:forEach>
+	
+	<li>
+		<strong class="left_title_strong"><strong class="top_title_strong"><spring:message code="comCmm.uss.title"/></strong></strong> <!-- 사용자지 -->
+	</li>
+	<ul class="2depth">
+		<li><a href="${pageContext.request.contextPath}/user/userSite.do" target="_content" class="link"> 유저 리스트</a></li>
+	</ul>
+	
 </ul>
 
 </body>
