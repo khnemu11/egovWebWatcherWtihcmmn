@@ -134,9 +134,8 @@ function fn_egov_dn_info_setting(dn) {
 								<tr>
 									<th><label for="password">${title}</label> <span
 										class="pilsu">*</span></th>
-									<td class="left"><form:input path="password" type="password"
-											id="password" title="${title} ${inputTxt}"
-											cssClass="txaIpUmt" size="30" maxlength="50" />
+									<td class="left"><input type="password" name="password"
+											id="password" title="${title} ${inputTxt}" size="30" maxlength="50" />
 										<div>
 											<form:errors path="password" cssClass="error" />
 										</div></td>
