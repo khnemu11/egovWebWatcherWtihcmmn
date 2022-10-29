@@ -44,9 +44,6 @@ public class LoginController {
 	
 	@RequestMapping(value = "/login.do")
 	public String login(@ModelAttribute("loginVO") LoginVO loginVO, Model m) {
-		
-		
-		
 		return "egovframework/com/login/login";
 	}
 

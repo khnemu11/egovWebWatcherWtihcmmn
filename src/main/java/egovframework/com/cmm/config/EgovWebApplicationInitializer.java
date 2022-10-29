@@ -18,6 +18,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import egovframework.com.cmm.filter.HTMLTagFilter;
 import egovframework.com.cmm.filter.SessionTimeoutCookieFilter;
 import egovframework.com.cmm.service.EgovProperties;
+import egovframework.com.filter.AuthFilter;
 import egovframework.com.sec.security.filter.EgovSpringSecurityLoginFilter;
 import egovframework.com.sec.security.filter.EgovSpringSecurityLogoutFilter;
 import egovframework.com.uat.uap.filter.EgovLoginPolicyFilter;
@@ -127,8 +128,10 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 			//-------------------------------------------------------------
 			// EgovLoginPolicyFilter 설정
 			//-------------------------------------------------------------	
-			FilterRegistration.Dynamic egovLoginPolicyFilter = servletContext.addFilter("LoginPolicyFilter", new EgovLoginPolicyFilter());
-			egovLoginPolicyFilter.addMappingForUrlPatterns(null, false, "/uat/uia/actionLogin.do");
+//			FilterRegistration.Dynamic egovLoginPolicyFilter = servletContext.addFilter("LoginPolicyFilter", new EgovLoginPolicyFilter());
+			FilterRegistration.Dynamic egovLoginPolicyFilter = servletContext.addFilter("AuthFiler", new AuthFilter());
+			
+			egovLoginPolicyFilter.addMappingForUrlPatterns(null, false, "*.do");
 			
 		}
 

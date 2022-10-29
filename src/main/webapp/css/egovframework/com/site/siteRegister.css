@@ -1,74 +1,23 @@
-#uploadBtn{
-  display:none;
-}
-.mdl-button--file {
-  input {
-    cursor: pointer;
-    height: 100%;
-    right: 0;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    width: 300px;
-    z-index: 4;
-  }
-}
-#uploadBtn{
-  display:none;
-}
-#detailForm{
-  display:flex;
-  flex-direction:column;
-  justify-content : center;
-  align-items:center;
-}
-.file-div{
-  display:flex;
-  align-items:center;
-}
-#blank{
-  width:30px;
-}
 .mdl-layout__drawer-button{
-  display:flex;
-  justify-content:center;
-  align-items : center;
+	display:flex !important;
+	justify-content:center !important;
+	align-items:center !important;
 }
-#sysbtn{
-  display:flex;
-  justify-content:end;
-  align-items:center;
-  margin-right:26px;
-  font-size:18px;
-  padding-bottom:100px;
-  text-align:center;
-  padding-top:30px;
+.mdl-navigation__link{
+	display:flex !important;
+	align-items:center !important;
 }
-#sysbtn a {
-
-  padding-left:10px;
-}
-a{
-  text-decoration:none;
-  color:#3F51B5;
-}
-#sysbtn span{
-  padding-right:10px;
-  color:#3F51B5;
+.title-link{
+	color:white;
+	text-decoration:none;
 }
 .title{
-  padding-top:70px;
-  padding-bottom:30px;
-  display:flex;
-  align-content:center;
-  justify-content:center;
-  font-size:26px;
-}
-.error-field{
-  font-size:15px;
+	text-align:center;
+	font-weight:bold !important;
+	font-size:26px !important;
+	padding-bottom:60px;
 }
 
-.mdl-textfield{
-  padding-top:40px;
-  padding-bottom:0px;
+#sysbtn{
+	padding-top:40px;
 }

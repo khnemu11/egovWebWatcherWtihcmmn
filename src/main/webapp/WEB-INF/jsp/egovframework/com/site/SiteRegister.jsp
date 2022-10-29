@@ -67,7 +67,7 @@ function egov_save(){
 }
 function delete_site(seq) {
 	if(confirm("정말로 삭제하시겠습니까?")){
-		var url = "./deleteSite/";
+		var url = "<c:url value='/site/deleteSite/'/>";
 		url= url+ seq;
 		url=url+".do";
 		location.href = url;

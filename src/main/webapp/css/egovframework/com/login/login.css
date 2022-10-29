@@ -1,0 +1,11 @@
+.login-context{
+    padding-top:50px !important;
+    padding-bottom:100px !important;
+}
+form{
+    margin: 0 auto;
+}
+.mdl-card__supporting-text{
+    padding-bottom:40px !important;
+    padding-top:30px !important;
+}

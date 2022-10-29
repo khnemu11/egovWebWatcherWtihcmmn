@@ -22,6 +22,7 @@ import egovframework.com.login.service.LoginService;
 import egovframework.com.signup.service.SignupService;
 import egovframework.com.user.service.UserService;
 import egovframework.com.user.service.UserVO;
+import egovframework.com.uss.umt.service.EgovUserManageService;
 import egovframework.com.utl.sim.service.EgovFileScrty;
 import egovframework.rte.fdl.property.EgovPropertyService;
 
@@ -43,7 +44,10 @@ public class SignupController {
 	/** Validator */
 	@Resource(name = "beanValidator")
 	protected DefaultBeanValidator beanValidator;
-
+	
+	@Resource(name = "userManageService")
+	private EgovUserManageService userManageService;
+	
 	Logger logger = LogManager.getRootLogger();
 
 	@RequestMapping("/signup/{emailAuth}.do")
@@ -60,7 +64,7 @@ public class SignupController {
 		return "egovframework/com/signup/signupInputForUser";
 	}
 
-	@RequestMapping(value = "/signupOk.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/signup/signupOk.do", method = RequestMethod.POST)
 	public String registerOk(@ModelAttribute("userVO") UserVO userVO, BindingResult bindingResult, Model m,
 			HttpSession session) throws Exception {
 		String returnUrl = "";
@@ -110,7 +114,7 @@ public class SignupController {
 		return returnUrl;
 	}
 
-	@RequestMapping(value = "/checkLoginIdDplctAjax.do")
+	@RequestMapping(value = "/signup/checkLoginIdDplctAjax.do")
 	public ModelAndView checkLoginIdDplctAjax(@ModelAttribute("loginVO") UserVO userVO,
 			@RequestParam Map<String, Object> commandMap) throws Exception {
 
