@@ -22,6 +22,20 @@
 		from
 			USER
 	</select>
+	<insert id="insertTuserAuth" parameterType="long">
+	 insert into comtnemplyrscrtyestbs
+				(
+				SCRTY_DTRMN_TRGET_ID, 
+				MBER_TY_CODE, 
+				AUTHOR_CODE
+				)
+				values
+				(
+				#{seq}
+ 				,'USER01'
+ 				,'ROLE_USER'
+				)
+	</insert>
 	<!--  -->
 	<insert id="insertTuser" parameterType="userVO">
 	 insert into USER

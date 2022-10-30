@@ -13,6 +13,10 @@ public class SignupDAO extends EgovComAbstractDAO {
 		int result = insert("SignupDAO.insertTuser", vo);
 		return result;
 	}
+	public int insertTuserAuth (long seq) throws Exception {
+		int result = insert("SignupDAO.insertTuserAuth", seq);
+		return result;
+	}
 	
 	public int insertTarclogin (UserVO vo) throws Exception {
 		int result = insert("SignupDAO.insertTarclogin", vo);

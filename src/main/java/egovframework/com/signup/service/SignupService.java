@@ -7,6 +7,8 @@ public interface SignupService {
 	
 	public int insertTarclogin (UserVO vo) throws Exception;
 	
+	public int insertUserAuth (long seq) throws Exception;
+	
 	public Long selectSignupEmail (SignupVO vo) throws Exception;
 	
 	public Long selectUserEmail (SignupVO vo) throws Exception;

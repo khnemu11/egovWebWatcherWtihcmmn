@@ -33,6 +33,8 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/css/egovframework/com/top/top.css"/>" />
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -41,8 +43,45 @@
 		<main class="mdl-layout__content">
 
 
-		<div>main page</div>
 
+		<div class="top">
+			<div class="context top-context">
+				<h3 class="slogun">The Best Way of Web Site Management</h3>
+				<img class="logo"
+					src="<c:url value='/images/egovframework/com/main/logo_without_color.png'/>" />
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect start">
+					Get Started</button>
+			</div>
+			<div class="top-divider"></div>
+			<div class="context divider-bottom"></div>
+		</div>
+		<div class="mid">
+			<div class="mdl-grid mid-grid">
+				<div
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone context-img">
+					<img class="context-img"
+					src="<c:url value='/images/egovframework/com/main/programming.png'/>" />
+				</div>
+				<div
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet context-description">
+					<span class="mid-title">더이상 직접 테스트하지 마세요</span>
+					<span class="mid-sub">테스트 시나리오만 등록하면 정해진 시간마다 자동으로 테스팅을 실행합니다.</span>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="mdl-grid">
+			<div
+				class="mdl-cell mdl-cell--2-col-desktop mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
+			<div
+				class="mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-phone mdl-cell--6-col-tablet">
+
+			</div>
+			<div
+				class="mdl-cell mdl-cell--2-col-desktop mdl-cell--1-col-tablet mdl-cell--hide-phone">
+			</div>
+		</div>
 
 		<%@ include file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
 		</main>

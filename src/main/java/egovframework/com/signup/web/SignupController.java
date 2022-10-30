@@ -44,10 +44,10 @@ public class SignupController {
 	/** Validator */
 	@Resource(name = "beanValidator")
 	protected DefaultBeanValidator beanValidator;
-	
+
 	@Resource(name = "userManageService")
 	private EgovUserManageService userManageService;
-	
+
 	Logger logger = LogManager.getRootLogger();
 
 	@RequestMapping("/signup/{emailAuth}.do")
@@ -96,19 +96,27 @@ public class SignupController {
 
 		// TODO: SQLException 처리, transaction 해야
 		int insertTuser = signupService.insertTuser(userVO);
+		try {
+			long userSeq = userService.selectUserSeq(userVO);
+			userVO.setSeq(userSeq);
+			int insertTarclogin = signupService.insertTarclogin(userVO);
+			signupService.insertTarclogin(userVO);
+			
+			if (insertTuser > 0 && insertTarclogin > 0) {
+				return "redirect:/login.do";
+			} else {
+				returnUrl = "signupfail";
+			}
+			
+			signupService.insertUserAuth(userVO.getSeq());
+			
+			if (session.getAttribute("emailAuth") != null) {
+				session.removeAttribute("emailAuth");
+			}
 
-		long userSeq = userService.selectUserSeq(userVO);
-		userVO.setSeq(userSeq);
-		int insertTarclogin = signupService.insertTarclogin(userVO);
-
-		if (insertTuser > 0 && insertTarclogin > 0) {
-			return "redirect:/login.do";
-		} else {
-			returnUrl = "signupfail";
-		}
-
-		if (session.getAttribute("emailAuth") != null) {
-			session.removeAttribute("emailAuth");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "egovframework/com/error/invalidAccess";
 		}
 
 		return returnUrl;

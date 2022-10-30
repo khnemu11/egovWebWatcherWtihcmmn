@@ -49,6 +49,9 @@ public class SignupServiceImpl extends CommonServiceImpl implements SignupServic
 
 	}
 
-
+	@Override
+	public int insertUserAuth(long seq) throws Exception {
+		return signupDAO.insertTuserAuth(seq);
+	}
 
 }
