@@ -3,7 +3,7 @@
 <mapper namespace="ManagerLoginDAO">
     <resultMap id="selectManagerLoginMap" type="egovframework.com.login.service.ManagerLoginVO">
 		<result column="LOGIN_ID" property="loginId"/>
-		<result column="DISPNAME" property="dispName"/>
+		<result column="DISPNAME" property="dispname"/>
         <result column="STAFF_SEQ" property="staffSeq"/>
 	</resultMap>
 	

@@ -50,7 +50,7 @@
 
 							<div class="mdl-cell mdl-cell--12-col send-button" align="center">
 								<button
-									class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+									class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised button-color"
 									id="login">LOG IN</button>
 								<div class="modal"><!-- Place at bottom of page --></div>
 							</div>

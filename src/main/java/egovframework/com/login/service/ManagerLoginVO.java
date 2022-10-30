@@ -9,7 +9,7 @@ public class ManagerLoginVO extends CommonVO {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String loginId;
-    private String dispName;
+    private String dispname;
     private Long staffSeq;
     public String getLoginId() {
         return loginId;
@@ -17,11 +17,11 @@ public class ManagerLoginVO extends CommonVO {
     public void setLoginId(String loginId) {
         this.loginId = loginId;
     }
-    public String getDispName() {
-        return dispName;
+    public String getDispname() {
+        return dispname;
     }
-    public void setDispName(String dispName) {
-        this.dispName = dispName;
+    public void setDispname(String dispname) {
+        this.dispname = dispname;
     }
     public Long getStaffSeq() {
         return staffSeq;

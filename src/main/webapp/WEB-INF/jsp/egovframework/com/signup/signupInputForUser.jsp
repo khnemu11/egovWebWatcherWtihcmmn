@@ -53,7 +53,7 @@
 								<label class="mdl-textfield__label mdl-color-text--grey"
 									for="textfield_new_nickname">Nickname</label> <input
 									class="mdl-textfield__input" type="text"
-									id="textfield_new_nickname" name="nickname" />
+									id="textfield_new_nickname" name=dispname />
 							</div>
 
 							<div

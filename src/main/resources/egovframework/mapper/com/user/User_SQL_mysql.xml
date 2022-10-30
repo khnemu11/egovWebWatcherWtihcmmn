@@ -79,7 +79,7 @@
 				(
 				#{loginId}
 				,#{password}
-				,#{dispName}
+				,#{dispname}
 				,#{seq}
 				,#{cdate}
 				,#{ctime}
@@ -96,7 +96,7 @@
 		<result column="TEL" property="tel"/>
 		<result column="LOCALE" property="locale"/>
 		<result column="LOGIN_ID" property="loginId"/>
-		<result column="DISPNAME" property="dispName"/>
+		<result column="DISPNAME" property="dispname"/>
 		<!-- common columns -->
 		<result column="VERSION" property="version"/>
 		<result column="CDATE" property="cdate"/>
@@ -200,7 +200,7 @@
 		set
 			LOGIN_ID = #{loginId}
 			,PASSWORD = #{password}
-			,DISPNAME = #{dispName}
+			,DISPNAME = #{dispname}
 			,VERSION=VERSION+1
 			,UDATE = #{udate}
 			,UTIME = #{utime}
@@ -215,21 +215,19 @@
 		update
 			USER
 		set
-			,DDATE = #{ddate}
+			DDATE = #{ddate}
 			,DTIME = #{dtime}
 		where
 			SEQ = #{seq}
-			and VERSION = #{version}
 	</update>
 	<update id="deleteTarclogin" parameterType="userVO">
 		update
 			LOGIN
 		set
-			,DDATE = #{ddate}
+			DDATE = #{ddate}
 			,DTIME = #{dtime}
 		where
 			USER_SEQ = #{seq}
-			and VERSION = #{version}
 	</update>
     
 </mapper>
