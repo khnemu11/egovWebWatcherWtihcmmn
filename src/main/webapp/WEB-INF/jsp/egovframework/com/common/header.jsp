@@ -19,7 +19,7 @@
 		<c:choose>
 			<c:when test="${empty loginInfo}">
 				<!-- Title -->
-				<a class="title-link" href="/WebWatcher/index.do"><span
+				<a class="title-link" href="${pageContext.request.contextPath}/index.do"><span
 					class="mdl-layout-title">Web Watcher</span></a>
 				<!-- Add spacer, to align navigation to the right -->
 				<div class="mdl-layout-spacer"></div>
@@ -33,7 +33,7 @@
 			</c:when>
 			<c:otherwise>
 				<!-- Title -->
-				<a class="title-link" href="/WebWatcher/site/SiteList/${userSeq}.do"><span
+				<a class="title-link" href="${pageContext.request.contextPath}/site/SiteList/${userSeq}.do"><span
 					class="mdl-layout-title">Web Watcher</span></a>
 				<!-- Add spacer, to align navigation to the right -->
 				<div class="mdl-layout-spacer"></div>
