@@ -80,17 +80,27 @@ public class EmailController {
 			BindingResult bindingResult) throws Exception {
 		logger.info("userEmailCheck Start");
 		logger.info(emailVO.getEmail());
-		
 		beanValidator.validate(emailVO, bindingResult);
-		if (bindingResult.hasErrors() || emailService.selectEmailTotCnt(emailVO) > 0) {
+
+		if (bindingResult.hasErrors()) {
 			logger.info("field error");
 			System.out.println(bindingResult.toString());
 			model.addAttribute("emailVO", emailVO);
 			return "egovframework/com/email/EmailRegister";
 		}
 
+		int count = emailService.selectEmailTotCnt(emailVO);
+		if (count > 0) {
+			logger.info("duplicate email");
+			System.out.println(bindingResult.toString());
+			bindingResult.rejectValue("email", "email.duplicate","error!");
+			model.addAttribute("emailVO", emailVO);
+
+			return "egovframework/com/email/EmailRegister";
+		}
+
 		logger.info("userEmailCheck End");
-		
+
 		try {
 			HtmlEmail emailContext = new HtmlEmail();
 			emailContext.setCharset("euc-kr");
