@@ -7,19 +7,19 @@
 <%@ include file="/WEB-INF/jsp/egovframework/com/common/head.jsp"%>
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/css/egovframework/com/common/common.css'/>" />
-	<link type="text/css" rel="stylesheet"
+<link type="text/css" rel="stylesheet"
 	href="<c:url value='/css/egovframework/com/login/login.css'/>" />
 <title>Login</title>
 </head>
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<%@ include
-			file="/WEB-INF/jsp/egovframework/com/common/header.jsp"%>
+		<%@ include file="/WEB-INF/jsp/egovframework/com/common/header.jsp"%>
 
 		<main class="mdl-layout__content">
-			
+
 			<div class="mdl-grid login-context">
-				<div class="mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
+				<div
+					class="mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
 
 				<div
 					class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--16dp util-center util-spacing-h--100px">
@@ -33,42 +33,43 @@
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_login_id">ID</label> <form:input
-									class="mdl-textfield__input" path="loginId" type="text"
-									id="textfield_new_login_id" name="loginId" />
-									<form:errors path="loginId"/>
+									for="textfield_new_login_id">ID</label>
+								<form:input class="mdl-textfield__input" path="loginId"
+									type="text" id="textfield_new_login_id" name="loginId" />
+								<form:errors path="loginId" />
 							</div>
 
 							<div
 								class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
 								<label class="mdl-textfield__label mdl-color-text--grey"
-									for="textfield_new_password">Password</label> <form:input
-									class="mdl-textfield__input" type="password"
-									id="textfield_new_password" name="password" path="password"/>
-									<form:errors path="password" />
+									for="textfield_new_password">Password</label>
+								<form:input class="mdl-textfield__input" type="password"
+									id="textfield_new_password" name="password" path="password" />
+								<form:errors path="password" />
 							</div>
 
 							<div class="mdl-cell mdl-cell--12-col send-button" align="center">
 								<button
 									class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised button-color"
 									id="login">LOG IN</button>
-								<div class="modal"><!-- Place at bottom of page --></div>
-							</div>
-
-							<div class="mdl-cell mdl-cell--12-col send-button" align="center">
-								<button class="mdl-button mdl-js-button mdl-js-ripple-effect"
-									id="Register">SignUp</button>
-							</div>
-
-							<div class="mdl-cell mdl-cell--12-col" align="center">
-								<a href="#" class="mdl-color-text--red">Forgot Password?</a>
+								<div class="modal">
+									<!-- Place at bottom of page -->
+								</div>
 							</div>
 						</form:form>
+
+						<div class="mdl-cell mdl-cell--12-col send-button" align="center">
+							<button class="mdl-button mdl-js-button mdl-js-ripple-effect"
+								id="Register" onclick="location.href='email/emailCheck.do'">SignUp</button>
+						</div>
+
+						<div class="mdl-cell mdl-cell--12-col" align="center">
+							<a href="#" class="mdl-color-text--red">Forgot Password?</a>
+						</div>
 					</div>
 				</div>
 			</div>
-			<%@ include
-			file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
+			<%@ include file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
 		</main>
 	</div>
 
