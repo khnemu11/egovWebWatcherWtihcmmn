@@ -62,7 +62,6 @@ function fn_egov_dn_info_setting(dn) {
 
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-		<%@ include file="/WEB-INF/jsp/egovframework/com/common/header.jsp"%>
 
 		<main class="mdl-layout__content">
 			<div class="mdl-grid">
@@ -241,8 +240,6 @@ function fn_egov_dn_info_setting(dn) {
 			</div>
 
 
-
-			<%@ include file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
 		</main>
 	</div>
 </body>
