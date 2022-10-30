@@ -77,7 +77,7 @@ public class LoginController {
 			
 			returnUrl = "redirect:/site/SiteList/" + loginInfo.getUserSeq() + ".do";
 		}else {
-			returnUrl = "logfail";
+			returnUrl = "redirect:/login.do";
 		}
 		
 		return returnUrl;
