@@ -44,9 +44,11 @@
 			    ,COMPANY
 				,TEL
 				,EMAIL
+				,dispname
  				,LOCALE
  				,LOGIN_ID
  				,PASSWORD
+ 				,PASSWORD_CONFIRM
 				,CDATE
 				,CTIME
 				,UDATE
@@ -58,9 +60,11 @@
  				,#{company}
 				,#{tel}
 				,#{email}
+				,#{dispname}
 				,#{locale}
 				,#{loginId}
 				,#{password}
+				,#{passwordConfirm}
 				,#{cdate}
 				,#{ctime}
 				,#{udate}
