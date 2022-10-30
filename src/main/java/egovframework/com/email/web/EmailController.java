@@ -80,17 +80,19 @@ public class EmailController {
 			BindingResult bindingResult) throws Exception {
 		logger.info("userEmailCheck Start");
 		logger.info(emailVO.getEmail());
-		
 		beanValidator.validate(emailVO, bindingResult);
-		if (bindingResult.hasErrors() || emailService.selectEmailTotCnt(emailVO) > 0) {
+		int count = emailService.selectEmailTotCnt(emailVO);
+		if (bindingResult.hasErrors() || count > 0) {
+			logger.info("count : " + count);
 			logger.info("field error");
 			System.out.println(bindingResult.toString());
 			model.addAttribute("emailVO", emailVO);
+			model.addAttribute("errormsge", emailVO);
 			return "egovframework/com/email/EmailRegister";
 		}
 
 		logger.info("userEmailCheck End");
-		
+
 		try {
 			HtmlEmail emailContext = new HtmlEmail();
 			emailContext.setCharset("euc-kr");

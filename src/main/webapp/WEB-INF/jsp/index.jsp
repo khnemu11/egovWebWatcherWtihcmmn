@@ -41,16 +41,14 @@
 		<%@ include file="/WEB-INF/jsp/egovframework/com/common/header.jsp"%>
 
 		<main class="mdl-layout__content">
-
-
-
 		<div class="top">
 			<div class="context top-context">
-				<h3 class="slogun">The Best Way of Web Site Management</h3>
+				<h3 class="slogun"><spring:message code="top.title"/></h3>
 				<img class="logo"
 					src="<c:url value='/images/egovframework/com/main/logo_without_color.png'/>" />
-				<button class="mdl-button mdl-js-button mdl-js-ripple-effect start">
-					Get Started</button>
+				<button class="mdl-button mdl-js-button mdl-js-ripple-effect start"
+					onclick="location.href='<c:url value='/email/userRegisterView.do'/>'">
+					<spring:message code="top.start"/></button>
 			</div>
 			<div class="top-divider"></div>
 			<div class="context divider-bottom"></div>
@@ -58,31 +56,56 @@
 		<div class="mid">
 			<div class="mdl-grid mid-grid">
 				<div
-					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-cell--4-col-phone context-img">
-					<img class="context-img"
-					src="<c:url value='/images/egovframework/com/main/programming.png'/>" />
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone context-img">
+					<img
+						src="<c:url value='/images/egovframework/com/main/programming.png'/>" />
 				</div>
 				<div
-					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-phone mdl-cell--4-col-tablet context-description">
-					<span class="mid-title">더이상 직접 테스트하지 마세요</span>
-					<span class="mid-sub">테스트 시나리오만 등록하면 정해진 시간마다 자동으로 테스팅을 실행합니다.</span>
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone context-description">
+					<span class="mid-title"><spring:message code="top.context1.title"/></span> <span
+						class="mid-sub"><spring:message code="top.context1.description"/></span>
+
+				</div>
+			</div>
+			<div class="mdl-grid mid-grid">
+				<div
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone context-description">
+					<span class="mid-title"><spring:message code="top.context2.title"/></span> <span
+						class="mid-sub"><spring:message code="top.context2.description"/>
+						있습니다.</span>
+
+				</div>
+				<div
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone context-img">
+					<img
+						src="<c:url value='/images/egovframework/com/main/responsive.png'/>" />
+				</div>
+				<div
+					class="mdl-cell mdl-cell--hide-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone context-img second">
+					<img
+						src="<c:url value='/images/egovframework/com/main/responsive.png'/>" />
+				</div>
+				<div
+					class="mdl-cell mdl-cell--hide-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone context-description">
+					<span class="mid-title"><spring:message code="top.context2.title"/></span> <span
+						class="mid-sub"><spring:message code="top.context2.description"/></span>
+
+				</div>
+			</div>
+			<div class="mdl-grid mid-grid">
+				<div
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone context-img">
+					<img
+						src="<c:url value='/images/egovframework/com/main/graph.png'/>" />
+				</div>
+				<div
+					class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone context-description">
+					<span class="mid-title"><spring:message code="top.context3.title"/></span> <span
+						class="mid-sub"><spring:message code="top.context3.description"/></span>
+
 				</div>
 			</div>
 		</div>
-
-
-		<div class="mdl-grid">
-			<div
-				class="mdl-cell mdl-cell--2-col-desktop mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
-			<div
-				class="mdl-cell mdl-cell--8-col-desktop mdl-cell--4-col-phone mdl-cell--6-col-tablet">
-
-			</div>
-			<div
-				class="mdl-cell mdl-cell--2-col-desktop mdl-cell--1-col-tablet mdl-cell--hide-phone">
-			</div>
-		</div>
-
 		<%@ include file="/WEB-INF/jsp/egovframework/com/common/footer.jsp"%>
 		</main>
 	</div>
