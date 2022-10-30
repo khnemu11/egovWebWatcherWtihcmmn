@@ -94,13 +94,11 @@ public class SignupController {
 		userVO.setPassword(enPassword);
 		userVO.setPasswordConfirm(enPasswordConfirm);
 
-		// TODO: SQLException 처리, transaction 해야
 		int insertTuser = signupService.insertTuser(userVO);
 		try {
 			long userSeq = userService.selectUserSeq(userVO);
 			userVO.setSeq(userSeq);
 			int insertTarclogin = signupService.insertTarclogin(userVO);
-			signupService.insertTarclogin(userVO);
 			
 			if (insertTuser > 0 && insertTarclogin > 0) {
 				return "redirect:/login.do";
