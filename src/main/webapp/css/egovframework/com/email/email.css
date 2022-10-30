@@ -18,10 +18,15 @@
 }
 #input{
 	display:flex;
+	flex-direction:column;
 	justify-content:center;
+	align-items:center;
 	padding-top:60px;
 }
 .w-80{
 	display:flex;
 	justify-content:end;
+}
+.error-field{
+	width:80% !important;
 }
