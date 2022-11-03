@@ -80,7 +80,7 @@ header,.mdl-layout__header-row,.mdl-layout__header{
 	line-height:1;
 }
 .mid-sub{
-	padding-top:20px;
+	padding-top:50px;
 	font-size:20px;
 	padding-left:10px;
 	padding-right:10px;
@@ -92,7 +92,7 @@ header,.mdl-layout__header-row,.mdl-layout__header{
 		font-size:36px;
 	}
 	.mid-sub{
-		font-size:30px;
+		font-size:26px;
 		line-height:1;
 	}
 }
@@ -114,4 +114,4 @@ header,.mdl-layout__header-row,.mdl-layout__header{
 button {
 	padding-right:30px !important;
 	padding-left:30px !important;
-}
+}	

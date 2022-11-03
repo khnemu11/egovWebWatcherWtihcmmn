@@ -5,13 +5,10 @@
 
 <form-validation>
     <formset>
-        <form name="siteVO">
-            <field property="url" depends="required">
-                <arg0 key="url" resource="true"/>
+        <form name="emailVO">
+            <field property="email" depends="required, email">
+                <arg0 key="email.email" resource="true"/>
             </field>
-             <field property="fileName" depends="required, fileIsExist">
-                <arg0 key="site.file" resource="true"/>
-            </field> 
         </form>
     </formset>
     

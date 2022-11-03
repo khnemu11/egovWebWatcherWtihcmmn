@@ -32,7 +32,7 @@
 				values
 				(
 				#{seq}
- 				,'USER01'
+ 				,'USR01'
  				,'ROLE_USER'
 				)
 	</insert>

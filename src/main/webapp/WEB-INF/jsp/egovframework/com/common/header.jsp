@@ -13,13 +13,15 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+<link rel="shortcut icon" type="image/x-icon"
+	href="<c:url value='/images/egovframework/com/main/logo.ico'/>"/>
 <header class="mdl-layout__header">
 	<div class="mdl-layout__header-row">
 		<c:choose>
 			<c:when test="${empty loginInfo}">
 				<!-- Title -->
-				<a class="title-link" href="${pageContext.request.contextPath}/index.do"><span
+				<a class="title-link"
+					href="${pageContext.request.contextPath}/index.do"><span
 					class="mdl-layout-title">Web Watcher</span></a>
 				<!-- Add spacer, to align navigation to the right -->
 				<div class="mdl-layout-spacer"></div>
@@ -33,13 +35,13 @@
 			</c:when>
 			<c:otherwise>
 				<!-- Title -->
-				<a class="title-link" href="${pageContext.request.contextPath}/site/SiteList/${userSeq}.do"><span
+				<a class="title-link"
+					href="${pageContext.request.contextPath}/site/SiteList/${userSeq}.do"><span
 					class="mdl-layout-title">Web Watcher</span></a>
 				<!-- Add spacer, to align navigation to the right -->
 				<div class="mdl-layout-spacer"></div>
 				<nav class="mdl-navigation">
-					<span class="material-symbols-outlined"> person </span> <span
-						id="user-name">${loginInfo.dispname} </span> <a
+					<span id="user-name">${loginInfo.dispname} </span> <a
 						class="mdl-navigation__link" href="<c:url value='/logout.do'/>"><span
 						class="material-symbols"> logout </span></a>
 				</nav>

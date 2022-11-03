@@ -22,6 +22,20 @@
 		from
 			USER
 	</select>
+	<insert id="insertTuserAuth" parameterType="long">
+	 insert into comtnemplyrscrtyestbs
+				(
+				SCRTY_DTRMN_TRGET_ID, 
+				MBER_TY_CODE, 
+				AUTHOR_CODE
+				)
+				values
+				(
+				#{seq}
+ 				,'USR01'
+ 				,'ROLE_USER'
+				)
+	</insert>
 	<!--  -->
 	<insert id="insertTuser" parameterType="userVO">
 	 insert into USER
@@ -30,7 +44,11 @@
 			    ,COMPANY
 				,TEL
 				,EMAIL
- 				,LANGUAGE
+				,dispname
+ 				,LOCALE
+ 				,LOGIN_ID
+ 				,PASSWORD
+ 				,PASSWORD_CONFIRM
 				,CDATE
 				,CTIME
 				,UDATE
@@ -42,7 +60,11 @@
  				,#{company}
 				,#{tel}
 				,#{email}
-				,#{language}
+				,#{dispname}
+				,#{locale}
+				,#{loginId}
+				,#{password}
+				,#{passwordConfirm}
 				,#{cdate}
 				,#{ctime}
 				,#{udate}
@@ -56,6 +78,7 @@
 				,PASSWORD
 				,DISPNAME
 				,USER_SEQ
+				,LOCALE
 				,CDATE
 				,CTIME
 				,UDATE
@@ -65,8 +88,9 @@
 				(
 				#{loginId}
 				,#{password}
-				,#{dispName}
+				,#{dispname}
 				,#{seq}
+				,#{locale}
 				,#{cdate}
 				,#{ctime}
 				,#{udate}

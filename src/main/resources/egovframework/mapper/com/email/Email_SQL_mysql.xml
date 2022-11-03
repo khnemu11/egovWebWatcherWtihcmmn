@@ -6,6 +6,6 @@
 		parameterType="egovframework.com.email.service.EmailVO" resultType="int">
 		SELECT COUNT(*) totcnt
 		FROM USER
-		WHERE email = #{email}
+		WHERE email = #{email} AND DDATE=0 AND DTIME=0
 	</select>
 </mapper>

@@ -99,6 +99,7 @@ public class SignupController {
 			long userSeq = userService.selectUserSeq(userVO);
 			userVO.setSeq(userSeq);
 			int insertTarclogin = signupService.insertTarclogin(userVO);
+			signupService.insertUserAuth(userVO.getSeq());
 			
 			if (insertTuser > 0 && insertTarclogin > 0) {
 				return "redirect:/login.do";
@@ -106,7 +107,7 @@ public class SignupController {
 				returnUrl = "signupfail";
 			}
 			
-			signupService.insertUserAuth(userVO.getSeq());
+
 			
 			if (session.getAttribute("emailAuth") != null) {
 				session.removeAttribute("emailAuth");

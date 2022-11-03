@@ -65,7 +65,7 @@
 		var table = "";
 		table += "<table class=\"mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp\"><thead><tr>";
 		table += "<th><spring:message code="chart.result" /></th>";
-		table += "<th><spring:message code="chart.resptime" /></th>";
+		table += "<th><spring:message code="chart.resptime" />( ms )</th>";
 		table += "<th><spring:message code="chart.time" /></th>";
 		table += "<th><spring:message code="chart.error" /></th>";
 		table += "</tr></thead>";
@@ -85,7 +85,13 @@
 			table = table + "\"></div></td>";
 			table = table + "<td>" + chartVO.resptime + "</td>";
 			table = table + "<td>" + chartVO.time + "</td>";
-			table = table + "<td>" + chartVO.resultText + "</td>";
+			if(chartVO.resultText==null){
+				table = table + "<td></td>";
+			}
+			else{
+				table = table + "<td>" + chartVO.resultText + "</td>";
+			}
+			
 			table += "</tr>"
 
 			var resultId = "circle" + chartVO.seq;

@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="siteDAO">
-	<resultMap id="site" type="egovframework.com.site.service.SiteVO">
+	<resultMap id="site"
+		type="egovframework.com.site.service.SiteVO">
 		<result property="seq" column="seq" />
 		<result property="userSeq" column="user_seq" />
 		<result property="url" column="url" />
@@ -16,7 +17,7 @@
 		<result property="dtime" column="dtime" />
 		<result property="ddate" column="ddate" />
 	</resultMap>
-	
+
 	<insert id="insertSite">
 		<![CDATA[
 			INSERT INTO site 
@@ -39,23 +40,24 @@
 				   )
 		]]>
 	</insert>
-	
+
 	<update id="updateSite">
 		<![CDATA[
 			UPDATE SITE
 			SET 
 				URL=#{url}
-				, VERSION=#{version}
+				, VERSION=#{version}+1
 				, FILE_NAME=#{fileName}
 				, FILE_ID=#{fileId}
 				, UTIME=#{utime}
 				, UDATE=#{udate}
 			WHERE 
+			
 				DTIME = 0 AND DDATE = 0 AND SEQ=#{seq}
 	
 			]]>
 	</update>
-	
+
 	<delete id="deleteSite">
 		<![CDATA[
 			UPDATE SITE
@@ -66,7 +68,7 @@
 				SEQ=#{seq}
 			]]>
 	</delete>
-	
+
 	<select id="selectSite" resultMap="site">
 		<![CDATA[
 			SELECT
@@ -87,76 +89,85 @@
 			]]>
 	</select>
 
-	<select id="selectSiteList" parameterType="egovframework.com.site.service.SiteVO" resultType="egovMap">
-			SELECT
-								SEQ
-								, USER_SEQ
-								, URL
-								, VERSION
-								, FILE_NAME
-								, FILE_ID
-								, CTIME
-								, CDATE
-								, UTIME
-								, UDATE
-								, DTIME
-								, DDATE
-					FROM SITE
-			WHERE 1=1 AND DTIME=0 AND DDATE=0
-			<if test="searchKeyword != null and searchKeyword != ''">
-				<if test="searchCondition == 0">AND
-					SEQ = #{searchKeyword}
-				</if>
-				<if test="searchCondition == 1">AND
-					USER_SEQ LIKE CONCAT('%',#{searchKeyword},'%')
-				</if>
+	<select id="selectSiteList"
+		parameterType="egovframework.com.site.service.SiteVO"
+		resultType="egovMap">
+		SELECT
+		SEQ
+		, USER_SEQ
+		, URL
+		, VERSION
+		, FILE_NAME
+		, FILE_ID
+		, CTIME
+		, CDATE
+		,
+		UTIME
+		, UDATE
+		, DTIME
+		, DDATE
+		FROM SITE
+		WHERE 1=1 AND DTIME=0 AND DDATE=0
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<if test="searchCondition == 0">AND
+				SEQ = #{searchKeyword}
 			</if>
-				ORDER BY SEQ
-				limit #{recordCountPerPage} offset #{firstIndex}	
-	</select>
-	<select id="selectSiteListBySeq" parameterType="int" resultType="egovMap">
-			SELECT
-								SEQ
-								, USER_SEQ
-								, URL
-								, VERSION
-								, FILE_NAME
-								, FILE_ID
-								, CTIME
-								, CDATE
-								, UTIME
-								, UDATE
-								, DTIME
-								, DDATE
-					FROM SITE
-			WHERE 1=1 AND USER_SEQ = #{userSeq} AND DTIME=0 AND DDATE=0
-			<if test="searchKeyword != null and searchKeyword != ''">
-				<if test="searchCondition == 0">AND
-					SEQ = #{searchKeyword}
-				</if>
-				<if test="searchCondition == 1">AND
-					USER_SEQ LIKE CONCAT('%',#{searchKeyword},'%')
-				</if>
+			<if test="searchCondition == 1">AND
+				USER_SEQ LIKE CONCAT('%',#{searchKeyword},'%')
 			</if>
-				ORDER BY SEQ
-				limit #{recordCountPerPage} offset #{firstIndex}	
-	</select>	
-	<select id="selectSiteListTotCnt" parameterType="egovframework.com.site.service.SiteVO" resultType="int">
-			SELECT COUNT(*) totcnt
-			FROM SITE
-			WHERE 1=1
-			<if test="searchKeyword != null and searchKeyword != ''">
-				<if test="searchCondition == 0">AND
-					seq = #{searchKeyword}
-				</if>
-				<if test="searchCondition == 1">AND
-					user_seq LIKE CONCAT('%',#{searchKeyword},'%')
-				</if>
-			</if>			
+		</if>
+		ORDER BY SEQ
+		limit #{recordCountPerPage} offset #{firstIndex}
 	</select>
-	<select id="selectSiteListBySeqTotCnt" parameterType="egovframework.com.site.service.SiteVO" resultType="int">
-			SELECT COUNT(*) totcnt
-			FROM SITE
-			WHERE 1=1 AND USER_SEQ = #{userSeq} AND DTIME=0 AND DDATE=0
+	<select id="selectSiteListBySeq" parameterType="int"
+		resultType="egovMap">
+		SELECT
+		SEQ
+		, USER_SEQ
+		, URL
+		, VERSION
+		, FILE_NAME
+		, FILE_ID
+		, CTIME
+		, CDATE
+		,
+		UTIME
+		, UDATE
+		, DTIME
+		, DDATE
+		FROM SITE
+		WHERE 1=1 AND USER_SEQ = #{userSeq}
+		AND DTIME=0 AND DDATE=0
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<if test="searchCondition == 0">AND
+				SEQ = #{searchKeyword}
+			</if>
+			<if test="searchCondition == 1">AND
+				USER_SEQ LIKE CONCAT('%',#{searchKeyword},'%')
+			</if>
+		</if>
+		ORDER BY SEQ
+		limit #{recordCountPerPage} offset #{firstIndex}
+	</select>
+	<select id="selectSiteListTotCnt"
+		parameterType="egovframework.com.site.service.SiteVO" resultType="int">
+		SELECT COUNT(*) totcnt
+		FROM SITE
+		WHERE 1=1
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<if test="searchCondition == 0">AND
+				seq = #{searchKeyword}
+			</if>
+			<if test="searchCondition == 1">AND
+				user_seq LIKE CONCAT('%',#{searchKeyword},'%')
+			</if>
+		</if>
+	</select>
+	<select id="selectSiteListBySeqTotCnt"
+		parameterType="egovframework.com.site.service.SiteVO" resultType="int">
+		SELECT COUNT(*) totcnt
+		FROM SITE
+		WHERE 1=1 AND USER_SEQ = #{userSeq} AND
+		DTIME=0 AND DDATE=0
 	</select>
 </mapper>

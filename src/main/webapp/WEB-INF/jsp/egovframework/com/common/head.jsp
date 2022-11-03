@@ -24,7 +24,10 @@
 <!-- Material Design Lite -->
 <link rel="stylesheet"
 	href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-
+<link rel="shortcut icon" type="image/x-icon"
+	href="<c:url value='/images/egovframework/com/main/logo.ico'/>"/>
+<link rel="icon" type="image/x-icon"
+	href="<c:url value='/images/egovframework/com/main/logo.ico'/>"/>
 <!-- Icon -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 

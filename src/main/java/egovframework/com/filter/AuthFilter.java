@@ -61,7 +61,8 @@ public class AuthFilter implements Filter {
 
 		// 로그인 URL
 		String loginURL = "/login.do";
-
+		String accessDeniedURL = "";
+		
 		ApplicationContext act = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(config.getServletContext());
 
