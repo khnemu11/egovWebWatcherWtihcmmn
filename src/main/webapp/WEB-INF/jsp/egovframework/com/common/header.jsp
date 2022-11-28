@@ -36,7 +36,7 @@
 			<c:otherwise>
 				<!-- Title -->
 				<a class="title-link"
-					href="${pageContext.request.contextPath}/site/SiteList/${userSeq}.do"><span
+					href="${pageContext.request.contextPath}/site/SiteList/${loginInfo.userSeq}.do"><span
 					class="mdl-layout-title">Web Watcher</span></a>
 				<!-- Add spacer, to align navigation to the right -->
 				<div class="mdl-layout-spacer"></div>
@@ -61,7 +61,11 @@
 		</c:when>
 		<c:otherwise>
 			<nav class="mdl-navigation">
-				<span id="user-name">${loginInfo.dispname} </span> <a
+				<span id="user-name">${loginInfo.dispname} </span> 
+				<a
+					class="mdl-navigation__link" href="${pageContext.request.contextPath}/site/SiteList/${loginInfo.userSeq}.do">
+					Site List</a>
+					<a
 					class="mdl-navigation__link" href="<c:url value='/logout.do'/>">Log
 					Out</a>
 			</nav>
