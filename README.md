@@ -26,12 +26,6 @@
 ### CD/CI
 - Git
 
-### 배포
-
-- heroku
-
-https://egov-web-watcher.herokuapp.com/
-
 ## 디자인
 https://www.figma.com/file/4QkriGQPACgyceDZFSxgGU/Watcher?node-id=0%3A1
 
