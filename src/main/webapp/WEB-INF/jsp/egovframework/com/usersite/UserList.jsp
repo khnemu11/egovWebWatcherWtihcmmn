@@ -114,7 +114,7 @@ function fnViewCheck(){
 					class="mdl-cell--2-col-desktop mdl-cell--2-col-tablet mdl-cell--hide-phone"></div>
 
 				<form name="listForm"
-					action="<c:url value='user/userSite.do'/>" method="post">
+					action="<c:url value='./userSite.do'/>" method="post">
 					<div class="board">
 						<h1>${pageTitle}
 							<spring:message code="title.list" />
@@ -217,7 +217,7 @@ function fnViewCheck(){
 										<td><c:out value="${result.tel}" /></td>
 										<td><c:out value="${result.login_id}" /></td>
 
-										<td><a href="site/SiteList/${result.seq}.do"><span
+										<td><a href="../site/SiteList/${result.seq}.do"><span
 												class="material-icons">search</span></a></td>
 										<td><a href="userInfo.do?userSeq=${result.seq}"><span
 												class="material-icons">edit</span></a><a><span
