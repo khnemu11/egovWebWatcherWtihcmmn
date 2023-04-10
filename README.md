@@ -17,16 +17,17 @@
 - 표준프레임워크 : 3.10.0
 - 스프링 : 4.3.25
 - MySql : 8.0
+- Katalon Recorder
 
 ### 프론트 엔드
 - HTML5
 - CSS3
 - jQeury
 - Material Design Lite
+- Google Chart
 
 ### CD/CI
 - Git
-
 
 ## 연관 프로젝트
 
@@ -34,6 +35,11 @@
 
 https://github.com/khnemu11/WebWatcherBatch/tree/main
 
+## 결과
+
+[결과 보고서](https://github.com/khnemu11/egovWebWatcherWtihcmmn/blob/main/Web%20Watcher%20%EA%B2%B0%EA%B3%BC%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
+
+내부 내용이 깨져 보일 수 있으므로 다운로드 권장
 
 ## 로그
 
