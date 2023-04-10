@@ -18,6 +18,8 @@
 - 스프링 : 4.3.25
 - MySql : 8.0
 - Katalon Recorder
+- Spring Batch
+- Quartz
 
 ### 프론트 엔드
 - HTML5
